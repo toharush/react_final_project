@@ -1,12 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
-import home from '../../routes/home';
-
-function App() {
+function Home() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -23,4 +18,4 @@ function App() {
   );
 }
 
-export default home;
+export default Home;

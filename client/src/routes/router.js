@@ -1,15 +1,12 @@
 import {
     createBrowserRouter,
+    RouterProvider,
     createRoutesFromElements,
     Route,
-  } from "react-router-dom";
-import {
-    RouterProvider,
   } from "react-router-dom";
 import auth from "./auth";
 import home from "./home";
 import products from "./products";
-import product from "./product";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -17,7 +14,6 @@ const router = createBrowserRouter(
             {home}
             {auth}
             {products}
-            {product}
         </Route>
     )
 );

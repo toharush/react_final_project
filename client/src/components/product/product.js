@@ -1,7 +1,5 @@
-import { connect } from "react-redux";
-
 function Product({ product }) {
-    const { id, name, supplier, price, img } = product;
+    const { name, supplier, price, img } = product;
     return (
       <div>
         <h1>{name}</h1>

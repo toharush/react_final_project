@@ -14,8 +14,14 @@ app.get('/userinfo', (req, res) => {
   })
 })
 
-app.get('/items', (req, res) => {
+function sleep(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
+app.get('/items', async (req, res) => {
     console.log(new Date());
+    await sleep(1000);
     res.json(data);
 });
 

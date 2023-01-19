@@ -1,13 +1,12 @@
 import Router from './routes/router';
 import { Provider } from 'react-redux';
 import store from './store/store';
-import { fetchItems } from './store/actions/products';
-import Products from './store/reducers/products';
+import ColorSchemesExample from './components/navbar/navbar';
 
 function App() {
-  fetchItems();
   return (
       <Provider store={store}>
+        <ColorSchemesExample />
         <Router />
       </Provider>
   );

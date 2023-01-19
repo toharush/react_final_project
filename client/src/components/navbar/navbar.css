@@ -1,0 +1,15 @@
+.custoNavbar {
+    transition: 500ms ease;
+    background: transparent;
+    position: fixed;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.active {
+    background-color: black;
+}
+
+.brandName {
+    color: #D5CEA3
+}
