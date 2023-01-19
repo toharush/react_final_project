@@ -17,7 +17,8 @@ function ColorSchemesExample() {
 
     useEffect(() => {
         window.addEventListener("scroll", changeBackground)
-    })
+    });
+    
     return (
         <Navbar id="navbar" variant="dark" className={navbar ? "custoNavbar active" : "custoNavbar"}>
             <Navbar.Brand href="/" className='brandName'> Terminal</Navbar.Brand>
