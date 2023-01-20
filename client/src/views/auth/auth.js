@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./auth.css";
 import Card from 'react-bootstrap/Card';
 import { useDispatch, useSelector } from "react-redux";
@@ -19,14 +19,9 @@ function Auth() {
         dispatch(loginAndSignUp(isLogin, email, password));
     }
 
-    useEffect(() => {
-        if(loggedin) {
-            Navigate("/");
-        }
-    }, [loggedin])
-
     return (
         <div className="row">
+            {loggedin && <Navigate to={"/"} />}
             {isLoading ? <Loader /> :
                 <Card className="loginForm">
                         <LoginAndSignup setEmail={setEmail} setPassword={setPassword} handleLoginOrSignUp={handleLoginOrSignUp} />

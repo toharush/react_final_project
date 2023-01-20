@@ -15,7 +15,7 @@ function LoginAndSignup(props) {
                 <label className="form-label" htmlFor="form2Example2">Password</label>
             </div>
 
-            <button type="button" onClick={() => handleLoginOrSignUp(true)} className="btn btn-primary btn-block mb-4">Sign in</button>
+            <button type="button" onClick={() => handleLoginOrSignUp(true)} className="btn btn-primary btn-block mb-4 break">Sign in</button>
             <button type="button" onClick={() => handleLoginOrSignUp(false)} className="btn btn-primary btn-block mb-4">Sign up</button>
         </form>
     );
