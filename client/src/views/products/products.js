@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProducts } from '../../store/middlewares/middleware';
-import { selectProducts, isLoading } from '../../store/selectors/selectors';
+import { selectProducts, isLoading, getCurrentUser } from '../../store/selectors/selectors';
 import Product from '../../components/product/product';
 import Loader from '../../components/loader/loader';
 
@@ -16,12 +16,12 @@ function Products() {
   const products = useSelector(selectProducts);
 
   return (
-    <div>
-        {   
-             loading ? <Loader/> : products.map(product => <Product product={product} key={product.id} />)
-        }
-    </div>
+    <>
+      {
+        loading ? <Loader /> : products.map(product => <Product product={product} key={product.id} />)
+      }
+    </>
   );
 }
-  
+
 export default Products;

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { setProducts, setLoading } from "../../reducers/products/products";
+import { setProducts, setLoading, setError } from "../../reducers/products/products";
 
 export const fetchAllProducts = () => async dispatch => {
     let products = [];
@@ -7,6 +7,7 @@ export const fetchAllProducts = () => async dispatch => {
         dispatch(setLoading(true));
         products = await (await axios("http://localhost:8080/items")).data ?? [];
     } catch(err) {
+        dispatch(setError(err));
         console.log(err);
     } finally {
         dispatch(setProducts(products));

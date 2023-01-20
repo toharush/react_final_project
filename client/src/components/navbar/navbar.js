@@ -4,9 +4,14 @@ import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form'
 import Navbar from 'react-bootstrap/Navbar';
 import "./navbar.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUser } from '../../store/selectors/selectors';
+import { Logout } from '../../store/middlewares/auth/auth';
 
-function ColorSchemesExample() {
+function CustomNavbar() {
     const [navbar, setNavbar] = useState(false);
+    const user = useSelector(getCurrentUser);
+    const dispatch = useDispatch();
     const changeBackground = () => {
         if (window.scrollY >= 66) {
             setNavbar(true)
@@ -18,19 +23,27 @@ function ColorSchemesExample() {
     useEffect(() => {
         window.addEventListener("scroll", changeBackground)
     });
+
+    const handleLogout = () => {
+        console.log("Logout")
+        dispatch(Logout)
+    }
     
     return (
-        <Navbar id="navbar" variant="dark" className={navbar ? "custoNavbar active" : "custoNavbar"}>
+        <div className='navbar'>
+        <Navbar id="navbar" variant="dark" className={navbar ? "custoNavbar active" : "custoNavbar"} fixed='top'>
             <Navbar.Brand href="/" className='brandName'> Terminal</Navbar.Brand>
             <Container>
                 <Nav className="me-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="products">Products</Nav.Link>
-                    <Form.Control type="email" placeholder="Enter email" />
                 </Nav>
+                <span>{user?.email}</span>
+                {user?.email && <button onClick={() => handleLogout()}>Log out</button>}
             </Container>
         </Navbar>
+        </div>
     );
 }
 
-export default ColorSchemesExample;
+export default CustomNavbar;
