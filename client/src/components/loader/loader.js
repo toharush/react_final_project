@@ -1,4 +1,3 @@
-import Spinner from 'react-bootstrap/Spinner';
 import "./loader.css";
 
 function Loader() {

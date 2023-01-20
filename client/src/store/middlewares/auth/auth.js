@@ -3,7 +3,7 @@ import { auth } from "../../../config/auth";
 import { setLoading } from "../../reducers/auth/auth";
 import { setError } from "../../reducers/products/products";
 import Cookies from 'universal-cookie';
-import { Navigate } from "react-router-dom";
+import { navigate } from "../router/router";
 
 const cookies = new Cookies();
 
@@ -20,6 +20,7 @@ export const loginAndSignUp = (login, email, password) => async dispatch => {
             cookies.set("user",user.user, {
                 maxAge: 3600000 
             });
+            dispatch(navigate("home"))
         }
     } catch (err) {
         dispatch(setError(err));
@@ -28,9 +29,7 @@ export const loginAndSignUp = (login, email, password) => async dispatch => {
     }
 }
 
-export const Logout = () => {
-  if(cookies.get("user")){
+export const Logout = () => async dispatch => {
     cookies.remove("user");
-    Navigate("/");
-  }
+    dispatch(navigate("auth"))
 }

@@ -1,32 +1,30 @@
-import {
-    createBrowserRouter,
-    RouterProvider,
-    createRoutesFromElements,
-    Route,
-} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { navigate } from "../store/middlewares/router/router";
+import { getCurrentPage } from "../store/selectors/router/router";
+import { isLogin } from "../store/selectors/selectors";
 import Auth from "../views/auth/auth";
 import Home from "../views/home/home";
 import Products from "../views/products/products";
-import PrivateRoute from "./safeRoute";
-
-const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route>
-            <Route>
-                <Route path="/" element={<Home />} />
-                <Route path="auth" element={<Auth />} />
-            </Route>
-            <Route element={<PrivateRoute />}>
-                <Route path="/products" element={<Products />} />
-            </Route>
-        </Route>
-    )
-);
-
 
 function Router() {
+    const dispatch = useDispatch();
+    const currentPage = useSelector(getCurrentPage);
+    const auth = useSelector(isLogin);
+
+    const handleUnauthorized = () => {
+        dispatch(navigate("auth"))
+    }
+
     return (
-        <RouterProvider router={router} />
+        <>
+            {currentPage == "home" && <Home />}
+            {currentPage == "auth" && <Auth />}
+            {auth ?
+                <>
+                    {currentPage == "products" && <Products />}
+                </> : handleUnauthorized()}
+
+        </>
     );
 }
 

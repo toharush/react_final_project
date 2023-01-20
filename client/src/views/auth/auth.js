@@ -6,11 +6,9 @@ import Loader from "../../components/loader/loader";
 import LoginAndSignup from "../../components/loginAndSignup/loginAndSignup";
 import { loginAndSignUp } from "../../store/middlewares/auth/auth";
 import { isAuthLoading, isLogin } from "../../store/selectors/selectors";
-import { Navigate } from "react-router-dom";
 
 function Auth() {
     const isLoading = useSelector(isAuthLoading);
-    const loggedin = useSelector(isLogin);
     const dispatch = useDispatch();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -21,7 +19,6 @@ function Auth() {
 
     return (
         <div className="row">
-            {loggedin && <Navigate to={"/"} />}
             {isLoading ? <Loader /> :
                 <Card className="loginForm">
                         <LoginAndSignup setEmail={setEmail} setPassword={setPassword} handleLoginOrSignUp={handleLoginOrSignUp} />
