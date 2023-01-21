@@ -5,13 +5,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import "./navbar.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser } from '../../store/selectors/selectors';
-import { Logout } from '../../store/middlewares/auth/auth';
+import { getUserInfo, logout, Logout } from '../../store/middlewares/auth/auth';
 import { navigate } from '../../store/middlewares/router/router';
 
 function CustomNavbar() {
+    const dispatch = useDispatch();
     const [navbar, setNavbar] = useState(false);
     const user = useSelector(getCurrentUser);
-    const dispatch = useDispatch();
+
     const changeBackground = () => {
         if (window.scrollY >= 66) {
             setNavbar(true)
@@ -20,9 +21,13 @@ function CustomNavbar() {
         }
     }
 
+    const handleLogout = () => {
+        dispatch(logout());
+    }
+
     useEffect(() => {
-        window.addEventListener("scroll", changeBackground)
-    });
+        window.addEventListener("scroll", changeBackground);
+    }, []);
     
     return (
         <div className='navbar'>
@@ -34,7 +39,7 @@ function CustomNavbar() {
                     <Nav.Link onClick={() => dispatch(navigate("products"))}>Products</Nav.Link>
                 </Nav>
                 <span>{user?.email}</span>
-                {user?.email && <button onClick={() => dispatch(Logout())}>Log out</button>}
+                {user?.email && <button onClick={handleLogout}>Log out</button>}
             </Container>
         </Navbar>
         </div>

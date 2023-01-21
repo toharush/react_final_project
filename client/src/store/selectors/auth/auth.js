@@ -1,7 +1,8 @@
+import axios from 'axios';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-export const getCurrentUser = () => cookies.get("user")
-export const isLogin = () => Boolean(cookies.get("user"));
+export const getCurrentUser = state => state.authSlice.user
+export const isLogin = state => Boolean(state.authSlice.user);
 export const isAuthLoading = state => state.authSlice.loading;

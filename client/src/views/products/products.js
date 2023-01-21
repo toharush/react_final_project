@@ -8,12 +8,11 @@ import Loader from '../../components/loader/loader';
 function Products() {
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
+  const products = useSelector(selectProducts);
 
   useEffect(() => {
     dispatch(fetchAllProducts());
   }, []);
-
-  const products = useSelector(selectProducts);
 
   return (
     <>
