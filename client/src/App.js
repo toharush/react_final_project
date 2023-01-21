@@ -1,12 +1,12 @@
 import Router from './routes/router';
 import { Provider } from 'react-redux';
 import store from './store/store';
-import ColorSchemesExample from './components/navbar/navbar';
+import CustomNavbar from './components/navbar/navbar';
 
 function App() {
   return (
       <Provider store={store}>
-        <ColorSchemesExample />
+        <CustomNavbar />
         <Router />
       </Provider>
   );

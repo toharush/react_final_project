@@ -1,9 +1,10 @@
-import Spinner from 'react-bootstrap/Spinner';
 import "./loader.css";
 
 function Loader() {
   return (
-    <span class="center loader"></span>
+    <div className='center'>
+      <span className="loader"></span>
+    </div>
   );
 }
 
