@@ -49,7 +49,6 @@ export const getUserInfo = () => async dispatch => {
 }
 
 export const logout = () =>  async dispatch => {
-    console.log("logout")
     dispatch(setLoading(true));
     try {
         await axios.get("http://localhost:8080/api/v1/auth/logout", {withCredentials: true});

@@ -17,13 +17,8 @@ const sleep = (ms) => {
 }
 
 router.get('/', async (req, res) => {
-    console.log(new Date());
     await sleep(1000);
     res.json(data);
-});
-
-router.get('/items/:name', (req, res) => {
-    console.log(req.params.name);
 });
 
 module.exports = router;
