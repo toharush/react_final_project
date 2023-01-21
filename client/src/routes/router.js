@@ -3,10 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../store/middlewares/auth/auth";
 import { navigate } from "../store/middlewares/router/router";
 import { getCurrentPage } from "../store/selectors/router/router";
-import { getCurrentUser, isLogin } from "../store/selectors/selectors";
+import { getCurrentUser } from "../store/selectors/selectors";
 import Auth from "../views/auth/auth";
 import Home from "../views/home/home";
 import Products from "../views/products/products";
+
+export const routes = {
+    HOME: "home",
+    PRODUCTS: "products",
+    AUTH: "auth"
+}
 
 function Router() {
     const dispatch = useDispatch();
@@ -14,26 +20,26 @@ function Router() {
     const auth = useSelector(getCurrentUser);
 
     useEffect(() => {
-        if (currentPage == "auth") {
+        if (currentPage == routes.AUTH) {
             if (!Boolean(auth)) { dispatch(getUserInfo()); }
             else {
-                dispatch(navigate("home"));
+                dispatch(navigate(routes.HOME));
             }
         }
 
     }, [auth, currentPage])
 
     const handleUnauthorized = () => {
-        dispatch(navigate("auth"));
+        dispatch(navigate(routes.AUTH));
     }
 
     return (
         <>
-            {currentPage == "home" && <Home />}
-            {currentPage == "auth" && <Auth />}
+            {currentPage == routes.HOME && <Home />}
+            {currentPage == routes.AUTH && <Auth />}
             {auth ?
                 <>
-                    {currentPage == "products" && <Products />}
+                    {currentPage == routes.PRODUCTS && <Products />}
                 </> : handleUnauthorized()}
 
         </>

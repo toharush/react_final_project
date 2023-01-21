@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProducts } from '../../store/middlewares/middleware';
-import { selectProducts, isLoading, getCurrentUser } from '../../store/selectors/selectors';
+import { selectProducts, isLoading } from '../../store/selectors/selectors';
 import Product from '../../components/product/product';
 import Loader from '../../components/loader/loader';
 

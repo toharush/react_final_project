@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/loader/loader";
 import LoginAndSignup from "../../components/loginAndSignup/loginAndSignup";
 import { loginAndSignUp } from "../../store/middlewares/auth/auth";
-import { isAuthLoading, isLogin } from "../../store/selectors/selectors";
+import { isAuthLoading } from "../../store/selectors/selectors";
 
 function Auth() {
     const isLoading = useSelector(isAuthLoading);
