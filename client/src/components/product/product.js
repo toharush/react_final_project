@@ -1,14 +1,24 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/reducers/cart/cart";
 import SliderChoser from "../sliderChoser/sliderChoser";
 import "./product.css"
 
 function Product({ product }) {
-  const dispatch = useDispatch();
   const { name, supplier, price, img, size, color } = product;
 
+  const dispatch = useDispatch();
+  const [chosenSize, setChosenSize] = useState(size[0]);
+  const [chosenColor, setChosenColor] = useState(color[0]);
+  
+
+
   const handleAddToCart = () => {
-    dispatch(addToCart(product));
+    dispatch(addToCart({
+      ...product,
+      chosenSize: chosenSize,
+      chosenColor: chosenColor
+    }));
   }
 
   return (
@@ -20,9 +30,9 @@ function Product({ product }) {
             <span className="p-name">{name}</span>
             <span className="p-company">{supplier}</span>
           </div>
-          <SliderChoser content={{ title: "Available sizes", options: size, setChosen: {}, chosen: {} }} />
+          <SliderChoser content={{ title: "Available sizes", options: size, setChosen: setChosenSize, chosen: chosenSize, label:true }} />
           <div className="second">
-            <SliderChoser content={{ title: "Available color", options: color, setChosen: {}, chosen: {} }} />
+            <SliderChoser content={{ title: "Available color", options: color, setChosen: setChosenColor, chosen: chosenColor, label: false }} />
           </div>
 
         </div>
@@ -33,7 +43,7 @@ function Product({ product }) {
           <div className="h-bg-inner"></div>
         </div>
 
-        <a className="cart" href="#">
+        <a className="cart">
           <span className="price">${price}</span>
           <span className="add-to-cart">
             <span className="txt" onClick={handleAddToCart}>Add to cart</span>

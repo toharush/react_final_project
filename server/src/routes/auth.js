@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { verifyToken } = require('../middlewares/auth');
+const { verifyToken, isUserAdmin } = require('../controllers/auth');
 const router = Router();
 
 router.post("/", async(req, res) => {
@@ -11,6 +11,11 @@ router.post("/", async(req, res) => {
 router.get("/", async(req, res) => {
     res.json(req.cookies.user);
 });
+
+router.get("/isAdmin", async(req, res) => {
+    res.json(isUserAdmin(req.cookies?.user?.uid));
+});
+
 
 router.get("/logout", (req, res) => { 
     res.clearCookie("user");

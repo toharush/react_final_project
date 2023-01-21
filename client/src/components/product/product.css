@@ -1,5 +1,5 @@
 .el-wrapper {
-    max-width: 25%;
+    max-width: 320px;
     padding: 15px;
     margin: 15px auto;
     background-color: #fff;
@@ -145,6 +145,7 @@
 }
 
 .cart {
+    cursor: pointer;
     display: block;
     position: absolute;
     width: 100%;

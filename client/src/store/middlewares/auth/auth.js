@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../config/auth";
-import { setLoading, setError, setUser } from "../../reducers/auth/auth";
+import { setLoading, setError, setUser, setAdmin } from "../../reducers/auth/auth";
 import Cookies from 'universal-cookie';
 import { navigate } from "../router/router";
 import axios from "axios";
@@ -39,8 +39,9 @@ export const loginAndSignUp = (login, email, password) => async dispatch => {
 export const getUserInfo = () => async dispatch => {
     dispatch(setLoading(true));
     try {
-        const user = await (await axios.get("http://localhost:8080/api/v1/auth", {withCredentials: true})).data;
+        const user = await (await axios.get("http://localhost:8080/api/v1/auth", { withCredentials: true })).data;
         await dispatch(setUser(user));
+        dispatch(isUserAdmin())
         await dispatch(navigate(routes.HOME));
     } catch (err) {
         dispatch(setError(err));
@@ -49,12 +50,25 @@ export const getUserInfo = () => async dispatch => {
     }
 }
 
-export const logout = () =>  async dispatch => {
+export const logout = () => async dispatch => {
     dispatch(setLoading(true));
     try {
-        await axios.get("http://localhost:8080/api/v1/auth/logout", {withCredentials: true});
+        await axios.get("http://localhost:8080/api/v1/auth/logout", { withCredentials: true });
         await dispatch(setUser(null));
         await dispatch(navigate(routes.AUTH))
+    } catch (err) {
+        dispatch(setError(err));
+    } finally {
+        dispatch(setLoading(false));
+    }
+}
+
+export const isUserAdmin = () => async dispatch => {
+    dispatch(setLoading(true));
+    try {
+        const admin = await (await axios.get("http://localhost:8080/api/v1/auth/isAdmin", { withCredentials: true })).data;
+        await dispatch(setAdmin(admin ? admin : false));
+        if (admin) await dispatch(navigate(routes.ADMIN))
     } catch (err) {
         dispatch(setError(err));
     } finally {
