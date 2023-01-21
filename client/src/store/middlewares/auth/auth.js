@@ -4,6 +4,7 @@ import { setLoading, setError, setUser } from "../../reducers/auth/auth";
 import Cookies from 'universal-cookie';
 import { navigate } from "../router/router";
 import axios from "axios";
+import { routes } from "../../../routes/router";
 
 const cookies = new Cookies();
 
@@ -40,7 +41,7 @@ export const getUserInfo = () => async dispatch => {
     try {
         const user = await (await axios.get("http://localhost:8080/api/v1/auth", {withCredentials: true})).data;
         await dispatch(setUser(user));
-        await dispatch(navigate("home"));
+        await dispatch(navigate(routes.HOME));
     } catch (err) {
         dispatch(setError(err));
     } finally {
@@ -53,7 +54,7 @@ export const logout = () =>  async dispatch => {
     try {
         await axios.get("http://localhost:8080/api/v1/auth/logout", {withCredentials: true});
         await dispatch(setUser(null));
-        await dispatch(navigate("auth"))
+        await dispatch(navigate(routes.AUTH))
     } catch (err) {
         dispatch(setError(err));
     } finally {

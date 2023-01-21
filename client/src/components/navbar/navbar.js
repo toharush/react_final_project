@@ -5,13 +5,16 @@ import Navbar from 'react-bootstrap/Navbar';
 import "./navbar.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUser } from '../../store/selectors/selectors';
-import { getUserInfo, logout, Logout } from '../../store/middlewares/auth/auth';
+import { logout } from '../../store/middlewares/auth/auth';
 import { navigate } from '../../store/middlewares/router/router';
+import { getCurrentPage } from '../../store/selectors/router/router';
+import { routes } from '../../routes/router';
 
 function CustomNavbar() {
     const dispatch = useDispatch();
     const [navbar, setNavbar] = useState(false);
     const user = useSelector(getCurrentUser);
+    const currentPage = useSelector(getCurrentPage);
 
     const changeBackground = () => {
         if (window.scrollY >= 66) {
@@ -32,11 +35,11 @@ function CustomNavbar() {
     return (
         <div className='navbar'>
         <Navbar id="navbar" variant="dark" className={navbar ? "custoNavbar active" : "custoNavbar"} fixed='top'>
-            <Navbar.Brand onClick={() => dispatch(navigate("home"))} className='brandName'> Terminal</Navbar.Brand>
+            <Navbar.Brand onClick={() => dispatch(navigate(routes.HOME))} className='brandName'> Terminal</Navbar.Brand>
             <Container>
                 <Nav className="me-auto">
-                    <Nav.Link onClick={() => dispatch(navigate("home"))}>Home</Nav.Link>
-                    <Nav.Link onClick={() => dispatch(navigate("products"))}>Products</Nav.Link>
+                    <Nav.Link active={currentPage == routes.HOME ? true : false} onClick={() => dispatch(navigate(routes.HOME))}>Home</Nav.Link>
+                    <Nav.Link active={currentPage == routes.PRODUCTS ? true : false} onClick={() => dispatch(navigate(routes.PRODUCTS))}>Products</Nav.Link>
                 </Nav>
                 <span>{user?.email}</span>
                 {user?.email && <button onClick={handleLogout}>Log out</button>}
