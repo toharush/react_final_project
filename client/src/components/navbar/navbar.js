@@ -34,12 +34,12 @@ function CustomNavbar() {
     
     return (
         <div className='navbar'>
-        <Navbar id="navbar" variant="dark" className={navbar ? "custoNavbar active" : "custoNavbar"} fixed='top'>
+        <Navbar id="navbar" variant="dark" className={navbar ? "custoNavbar sliceNavbar" : "custoNavbar"} fixed='top'>
             <Navbar.Brand onClick={() => dispatch(navigate(routes.HOME))} className='brandName'> Terminal</Navbar.Brand>
             <Container>
                 <Nav className="me-auto">
-                    <Nav.Link active={currentPage == routes.HOME ? true : false} onClick={() => dispatch(navigate(routes.HOME))}>Home</Nav.Link>
-                    <Nav.Link active={currentPage == routes.PRODUCTS ? true : false} onClick={() => dispatch(navigate(routes.PRODUCTS))}>Products</Nav.Link>
+                    <Nav.Link className='Link' active={currentPage == routes.HOME ? true : false} onClick={() => dispatch(navigate(routes.HOME))}>Home</Nav.Link>
+                    <Nav.Link className='Link' active={currentPage == routes.PRODUCTS ? true : false} onClick={() => dispatch(navigate(routes.PRODUCTS))}>Products</Nav.Link>
                 </Nav>
                 <span>{user?.email}</span>
                 {user?.email && <button onClick={handleLogout}>Log out</button>}

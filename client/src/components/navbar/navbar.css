@@ -1,16 +1,24 @@
 .custoNavbar {
     transition: 500ms ease;
     background: transparent;
+    color: black;
 }
-
+.Link {
+    color: black;
+}
 .navbar {
     height: 50px;
 } 
 
 .active {
-    background-color: black;
+    color: #CDE990;
+}
+
+.sliceNavbar {
+    background-color: #CDE990;
 }
 
 .brandName {
+    margin-left: 15px;
     color: #D5CEA3
 }
