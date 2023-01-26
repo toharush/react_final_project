@@ -46,8 +46,7 @@ function CustomNavbar() {
           onClick={() => dispatch(navigate(routes.HOME))}
           className="brandName"
         >
-          {" "}
-          Terminal
+          {"Terminal"}
         </Navbar.Brand>
         <Container>
           <Nav className="me-auto">
