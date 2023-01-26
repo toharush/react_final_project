@@ -42,6 +42,7 @@ function CustomNavbar() {
                 <Nav className="me-auto">
                     <Nav.Link className='Link' active={currentPage == routes.HOME ? true : false} onClick={() => dispatch(navigate(routes.HOME))}>Home</Nav.Link>
                     <Nav.Link className='Link' active={currentPage == routes.PRODUCTS ? true : false} onClick={() => dispatch(navigate(routes.PRODUCTS))}>Products</Nav.Link>
+                    {!user &&  <Nav.Link className='Link' active={currentPage == routes.AUTH ? true : false} onClick={() => dispatch(navigate(routes.AUTH))}>Auth</Nav.Link>}
                     {admin && <Nav.Link className='Link' active={currentPage == routes.ADMIN ? true : false} onClick={() => dispatch(navigate(routes.ADMIN))}>Admin</Nav.Link>}
                 </Nav>
                 <span>{user?.email}</span>

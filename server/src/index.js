@@ -1,11 +1,10 @@
-const express = require('express')
+const express = require('express');
+const cors = require('cors');
+const cookieParser = require("cookie-parser");
+const routes = require("./routes/main");
 const app = express();
 const port = 8080;
-const cors = require('cors')
-const routes = require("./routes/main");
-const data = require("./data.json");
-const { verifyToken } = require('./middlewares/auth');
-const cookieParser = require("cookie-parser");
+const wss = require("./ws/ws");
 
 app.use(cors({
   credentials: true,
