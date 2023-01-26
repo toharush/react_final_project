@@ -2,7 +2,7 @@ import "./loader.css";
 
 function Loader() {
   return (
-    <div className='center'>
+    <div className="center">
       <span className="loader"></span>
     </div>
   );

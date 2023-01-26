@@ -1,1 +1,1 @@
-export const getCurrentPage = state => state.router.current;
+export const getCurrentPage = (state) => state.router.current;
