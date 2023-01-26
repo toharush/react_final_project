@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllProducts } from '../../store/middlewares/middleware';
-import { selectProducts, isLoading } from '../../store/selectors/selectors';
-import Product from '../../components/product/product';
-import Loader from '../../components/loader/loader';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllProducts } from "../../store/middlewares/middleware";
+import { selectProducts, isLoading } from "../../store/selectors/selectors";
+import Product from "../../components/product/product";
+import Loader from "../../components/loader/loader";
 import "./products.css";
 
 function Products() {
@@ -16,10 +16,14 @@ function Products() {
   }, []);
 
   return (
-    <div className='products'>
-      {
-        loading ? <Loader /> : products.map(product => <Product product={product} key={product.id} />)
-      }
+    <div className="products">
+      {loading ? (
+        <Loader />
+      ) : (
+        products.map((product) => (
+          <Product product={product} key={product.id} />
+        ))
+      )}
     </div>
   );
 }
