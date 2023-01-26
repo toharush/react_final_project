@@ -44,6 +44,7 @@ function Router() {
             <SafeRoute Component={<Products />} route={routes.PRODUCTS} />
             <SafeRoute Component={<Cart />} route={routes.CART} />
             <SafeRoute Component={<Admin />} route={routes.ADMIN} AfterCcondition={admin} />
+            
             <a className="float" onClick={() => dispatch(navigate(routes.CART))}><i className="gg-shopping-cart"></i></a>
         </div>
     );
