@@ -4,12 +4,16 @@ export const tokenSlice = createSlice({
     name: 'auth',
     initialState: {
         user: null,
+        admin: false,
         loading: false,
         error: null,
     },
     reducers: {
         setUser: (state, action) => {
             return { ...state, user: action.payload }
+        },
+        setAdmin: (state, action) => {
+            return {...state, admin: action.payload}
         },
         setLoading: (state, action) => {
             return { ...state, loading: action.payload }
@@ -20,5 +24,5 @@ export const tokenSlice = createSlice({
     },
 });
 
-export const { setLoading, setError, setUser } = tokenSlice.actions;
+export const { setLoading, setError, setUser, setAdmin } = tokenSlice.actions;
 export default tokenSlice.reducer;

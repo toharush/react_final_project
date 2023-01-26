@@ -9,11 +9,13 @@ import { logout } from '../../store/middlewares/auth/auth';
 import { navigate } from '../../store/middlewares/router/router';
 import { getCurrentPage } from '../../store/selectors/router/router';
 import { routes } from '../../routes/router';
+import { isAdmin } from '../../store/selectors/selectors';
 
 function CustomNavbar() {
     const dispatch = useDispatch();
     const [navbar, setNavbar] = useState(false);
     const user = useSelector(getCurrentUser);
+    const admin = useSelector(isAdmin);
     const currentPage = useSelector(getCurrentPage);
 
     const changeBackground = () => {
@@ -34,12 +36,13 @@ function CustomNavbar() {
     
     return (
         <div className='navbar'>
-        <Navbar id="navbar" variant="dark" className={navbar ? "custoNavbar active" : "custoNavbar"} fixed='top'>
+        <Navbar id="navbar" variant="dark" className={navbar ? "custoNavbar sliceNavbar" : "custoNavbar"} fixed='top'>
             <Navbar.Brand onClick={() => dispatch(navigate(routes.HOME))} className='brandName'> Terminal</Navbar.Brand>
             <Container>
                 <Nav className="me-auto">
-                    <Nav.Link active={currentPage == routes.HOME ? true : false} onClick={() => dispatch(navigate(routes.HOME))}>Home</Nav.Link>
-                    <Nav.Link active={currentPage == routes.PRODUCTS ? true : false} onClick={() => dispatch(navigate(routes.PRODUCTS))}>Products</Nav.Link>
+                    <Nav.Link className='Link' active={currentPage == routes.HOME ? true : false} onClick={() => dispatch(navigate(routes.HOME))}>Home</Nav.Link>
+                    <Nav.Link className='Link' active={currentPage == routes.PRODUCTS ? true : false} onClick={() => dispatch(navigate(routes.PRODUCTS))}>Products</Nav.Link>
+                    {admin && <Nav.Link className='Link' active={currentPage == routes.ADMIN ? true : false} onClick={() => dispatch(navigate(routes.ADMIN))}>Admin</Nav.Link>}
                 </Nav>
                 <span>{user?.email}</span>
                 {user?.email && <button onClick={handleLogout}>Log out</button>}
