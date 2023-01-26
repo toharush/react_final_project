@@ -10,6 +10,7 @@ router.post("/", async(req, res) => {
         } else {
             res.status(500);
         }
+    } else {
         res.status(400);
     }
 

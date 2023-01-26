@@ -3,12 +3,13 @@ const { isUserAdmin } = require("../controllers/auth");
 
 exports.isLogin = (req, res, next) => {
     try {
-        if(JSON.parse(req.cookies.user)) {
+        if(req.cookies?.user?.uid) {
             next();
         } else {
             res.status(401).end();
         }
-    } catch {
+    } catch (err) {
+        console.log(err)
         res.status(500).end();
     }
 }
