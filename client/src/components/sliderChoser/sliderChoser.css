@@ -49,3 +49,7 @@
 .blue .form-check-input {
     background-color: blue;
 }
+
+.form-check-input:checked[type=radio] {
+    background-image: none;
+}

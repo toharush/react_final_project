@@ -3,7 +3,7 @@ const { verifyToken, isUserAdmin } = require('../controllers/auth');
 const router = Router();
 
 router.post("/", async(req, res) => {
-    const user = await verifyToken(req.headers.token);
+    const user = await verifyToken(req.headers.Authorization);
     res.cookie('user', user);
     res.end();
 });
