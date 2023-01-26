@@ -2,14 +2,15 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo, isUserAdmin } from "../store/middlewares/auth/auth";
 import { navigate } from "../store/middlewares/router/router";
-import { getCurrentPage } from "../store/selectors/router/router";
 import { getCurrentUser, isAdmin } from "../store/selectors/selectors";
 import Admin from "../views/admin/admin";
 import Auth from "../views/auth/auth";
 import Cart from "../views/cart/cart";
 import Home from "../views/home/home";
 import Products from "../views/products/products";
+import Route from "./route";
 import "./router.css";
+import SafeRoute from "./safeRoute";
 
 export const routes = {
     HOME: "home",
@@ -21,37 +22,29 @@ export const routes = {
 
 function Router() {
     const dispatch = useDispatch();
-    const currentPage = useSelector(getCurrentPage);
     const auth = useSelector(getCurrentUser);
     const admin = useSelector(isAdmin);
 
     useEffect(() => {
-        if (currentPage == routes.AUTH) {
-            if (!Boolean(auth)) { dispatch(getUserInfo()); dispatch(isUserAdmin()); }
-            else {
-                dispatch(navigate(routes.HOME));
+        if (!auth) {
+            dispatch(getUserInfo());
+        } else {
+            if (!admin) {
+                dispatch(isUserAdmin());
             }
         }
-
-    }, [auth, currentPage])
-
-    const handleUnauthorized = () => {
-        dispatch(navigate(routes.AUTH));
-    }
+    }, [auth]);
 
     return (
         <div className="container">
-            {currentPage == routes.HOME && <Home />}
-            {currentPage == routes.AUTH && <Auth />}
-            {auth ?
-                <>
-                    {currentPage == routes.PRODUCTS && <Products />}
-                    {currentPage == routes.CART && <Cart />}
-                    {admin && <>
-                        {currentPage == routes.ADMIN && <Admin />}
-                    </>}
-                </> : handleUnauthorized()}
-                <a class="float" onClick={() => dispatch(navigate(routes.CART))}><i class="gg-shopping-cart"></i></a>
+            <Route Component={<Home />} route={routes.HOME} />
+            <Route Component={<Auth />} route={routes.AUTH} />
+
+            <SafeRoute Component={<Products />} route={routes.PRODUCTS} />
+            <SafeRoute Component={<Cart />} route={routes.CART} />
+            <SafeRoute Component={<Admin />} route={routes.ADMIN} AfterCcondition={admin} />
+            
+            <a className="float" onClick={() => dispatch(navigate(routes.CART))}><i className="gg-shopping-cart"></i></a>
         </div>
     );
 }
