@@ -2,10 +2,14 @@ const { admin, app } = require("../config/auth");
 const { isUserAdmin } = require("../controllers/auth");
 
 exports.isLogin = (req, res, next) => {
-    if(req.cookies.user) {
-        next();
-    } else {
-        res.status(401).end();
+    try {
+        if(JSON.parse(req.cookies.user)) {
+            next();
+        } else {
+            res.status(401).end();
+        }
+    } catch {
+        res.status(500).end();
     }
 }
 
