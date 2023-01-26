@@ -14,7 +14,7 @@ function SafeRoute({ Component, route, BeforeCcondition = true, AfterCcondition 
 
     return (
         <>
-            { BeforeCcondition && auth && AfterCcondition ? <Route Component={Component} route={route} /> : handleUnauthorized()}
+            {BeforeCcondition && auth && AfterCcondition ? <Route Component={Component} route={route} /> : handleUnauthorized()}
         </>
     );
 }
