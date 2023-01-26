@@ -10,7 +10,7 @@ import Home from "../views/home/home";
 import Products from "../views/products/products";
 import Route from "./route";
 import "./router.css";
-import SafeRoute from "./safeRoute";
+import SafeRoutes from "./safeRoute";
 
 export const routes = {
   HOME: "home",
@@ -40,12 +40,12 @@ function Router() {
       <Route Component={<Home />} route={routes.HOME} />
       <Route Component={<Auth />} route={routes.AUTH} />
 
-      <SafeRoute Component={<Products />} route={routes.PRODUCTS} />
-      <SafeRoute Component={<Cart />} route={routes.CART} />
-      <SafeRoute
-        Component={<Admin />}
-        route={routes.ADMIN}
-        AfterCcondition={admin}
+      <SafeRoutes
+        Components={[
+          { route: routes.ADMIN, Component: <Admin />, condition: admin },
+          { route: routes.CART, Component: <Cart /> },
+          { route: routes.PRODUCTS, Component: <Products /> }
+        ]}
       />
 
       <a className="float" onClick={() => dispatch(navigate(routes.CART))}>

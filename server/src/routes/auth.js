@@ -5,7 +5,7 @@ const router = Router();
 router.post("/", async (req, res) => {
   if (req.headers.authorization) {
     const user = await verifyToken(req.headers.authorization);
-    if (user) {
+    if (user?.uid) {
       res.cookie("user", user);
     } else {
       res.status(500);

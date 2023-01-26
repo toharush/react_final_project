@@ -4,12 +4,7 @@ import { getCurrentUser } from "../store/selectors/selectors";
 import Route from "./route";
 import { routes } from "./router";
 
-function SafeRoute({
-  Component,
-  route,
-  BeforeCcondition = true,
-  AfterCcondition = true,
-}) {
+function SafeRoutes({ Components }) {
   const dispatch = useDispatch();
   const auth = useSelector(getCurrentUser);
 
@@ -19,13 +14,21 @@ function SafeRoute({
 
   return (
     <>
-      {BeforeCcondition && auth && AfterCcondition ? (
-        <Route Component={Component} route={route} />
-      ) : (
-        handleUnauthorized()
-      )}
+      {auth
+        ? Components.map((component) => {
+            if (component.condition == undefined || component.condition) {
+              return (
+                <Route
+                  Component={component.Component}
+                  route={component.route}
+                  key={component.route}
+                />
+              );
+            }
+          })
+        : handleUnauthorized()}
     </>
   );
 }
 
-export default SafeRoute;
+export default SafeRoutes;
