@@ -1,6 +1,5 @@
-const { Router } = require("express");
+const router = require("express").Router();
 const { verifyToken, isUserAdmin } = require("../controllers/auth");
-const router = Router();
 
 router.post("/", async (req, res) => {
   if (req.headers.authorization) {

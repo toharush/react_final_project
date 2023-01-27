@@ -1,6 +1,5 @@
-const { Router } = require("express");
+const router = require("express").Router();
 const { isLogin, isAdmin } = require("../middlewares/auth");
-const router = Router();
 const authRouter = require("./auth");
 const itemRouter = require("./item");
 const adminRouter = require("./admin");

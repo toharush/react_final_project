@@ -1,6 +1,5 @@
-const { Router } = require("express");
+const router = require("express").Router();
 const data = require("../data");
-const router = Router();
 
 router.get("/userinfo", (req, res) => {
   res.json({
