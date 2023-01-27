@@ -44,7 +44,7 @@
     "description": "Bla Bla Bla"
   },
   {
-    "id": 2,
+    "id": 5,
     "name": "Clothes 2",
     "supplier": "Bershka",
     "price": 123,
@@ -55,7 +55,7 @@
     "description": "Bla Bla Bla"
   },
   {
-    "id": 3,
+    "id": 6,
     "name": "Clothes 3",
     "supplier": "Fox",
     "price": 32,
@@ -66,7 +66,7 @@
     "description": "Bla Bla Bla"
   },
   {
-    "id": 1,
+    "id": 7,
     "name": "Clothes 1",
     "supplier": "Terminal X",
     "price": 198273,
@@ -77,7 +77,7 @@
     "description": "Bla Bla Bla"
   },
   {
-    "id": 2,
+    "id": 8,
     "name": "Clothes 2",
     "supplier": "Bershka",
     "price": 123,

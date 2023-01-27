@@ -9,11 +9,9 @@ function Admin() {
   const user = useSelector(getCurrentUser);
   const wss = useWebSocket(WS_URL, {
     onMessage: (data) => {
-      console.log(data);
       setData(data.data);
     },
     share: true,
-    shouldReconnect: true,
   });
 
 

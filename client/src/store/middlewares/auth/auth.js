@@ -53,8 +53,8 @@ export const getUserInfo = () => async (dispatch) => {
   try {
     const user = await (await axios.get("/auth")).data;
     await dispatch(setUser(user));
-    dispatch(isUserAdmin());
-    await dispatch(navigate(routes.HOME));
+    if (user) await dispatch(navigate(routes.HOME));
+    await dispatch(isUserAdmin());
   } catch (err) {
     dispatch(setError(err));
   } finally {
