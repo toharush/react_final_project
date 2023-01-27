@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useUserState from "../hooks/useUserSate";
 import { getUserInfo, isUserAdmin } from "../store/middlewares/auth/auth";
 import { navigate } from "../store/middlewares/router/router";
 import { getCurrentUser, isAdmin } from "../store/selectors/selectors";
@@ -21,19 +22,7 @@ export const routes = {
 };
 
 function Router() {
-  const dispatch = useDispatch();
-  const auth = useSelector(getCurrentUser);
-  const admin = useSelector(isAdmin);
-
-  useEffect(() => {
-    if (!auth) {
-      dispatch(getUserInfo());
-    } else {
-      if (!admin) {
-        dispatch(isUserAdmin());
-      }
-    }
-  }, [auth]);
+  const userState = useUserState();
 
   return (
     <div className="container">
@@ -42,15 +31,15 @@ function Router() {
 
       <SafeRoutes
         Components={[
-          { route: routes.ADMIN, Component: <Admin />, condition: admin },
+          { route: routes.ADMIN, Component: <Admin />, condition: userState.admin },
           { route: routes.CART, Component: <Cart /> },
-          { route: routes.PRODUCTS, Component: <Products /> }
+          { route: routes.PRODUCTS, Component: <Products /> },
         ]}
       />
-
+      {/* 
       <a className="float" onClick={() => dispatch(navigate(routes.CART))}>
         <i className="gg-shopping-cart"></i>
-      </a>
+      </a> */}
     </div>
   );
 }

@@ -10,12 +10,12 @@ import { navigate } from "../../store/middlewares/router/router";
 import { getCurrentPage } from "../../store/selectors/router/router";
 import { routes } from "../../routes/router";
 import { isAdmin } from "../../store/selectors/selectors";
+import useUserState from "../../hooks/useUserSate";
 
 function CustomNavbar() {
+  const userState = useUserState();
   const dispatch = useDispatch();
   const [navbar, setNavbar] = useState(false);
-  const user = useSelector(getCurrentUser);
-  const admin = useSelector(isAdmin);
   const currentPage = useSelector(getCurrentPage);
 
   const changeBackground = () => {
@@ -64,7 +64,7 @@ function CustomNavbar() {
             >
               Products
             </Nav.Link>
-            {!user && (
+            {!userState.auth && (
               <Nav.Link
                 className="Link"
                 active={currentPage == routes.AUTH ? true : false}
@@ -73,7 +73,7 @@ function CustomNavbar() {
                 Auth
               </Nav.Link>
             )}
-            {admin && (
+            {userState.admin && (
               <Nav.Link
                 className="Link"
                 active={currentPage == routes.ADMIN ? true : false}
@@ -83,8 +83,10 @@ function CustomNavbar() {
               </Nav.Link>
             )}
           </Nav>
-          <span>{user?.email}</span>
-          {user?.email && <button onClick={handleLogout}>Log out</button>}
+          <span>{userState.auth?.email}</span>
+          {userState.auth?.email && (
+            <button onClick={handleLogout}>Log out</button>
+          )}
         </Container>
       </Navbar>
     </div>
