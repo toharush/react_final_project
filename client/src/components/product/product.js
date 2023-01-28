@@ -7,32 +7,33 @@ import SliderChoser from "../sliderChoser/sliderChoser";
 import "./product.css";
 
 function Product({ product }) {
-  const { name, supplier, price, img, size, color } = product;
+  const [chosenColor, setChosenColor] = useState(0);
+  const { name, supplier, price, color } = product;
 
   const dispatch = useDispatch();
-  const [chosenSize, setChosenSize] = useState(size[0]);
-  const [chosenColor, setChosenColor] = useState(color[0]);
+  // const [chosenSize, setChosenSize] = useState(size[0]);
+
 
   const handleAddToCart = () => {
     dispatch(
       AddToCartServer({
         ...product,
-        chosenSize: chosenSize,
+        // chosenSize: chosenSize,
         chosenColor: chosenColor,
       })
     );
   };
-
+console.log(color)
   return (
     <div className="el-wrapper">
       <div className="box-up">
-        <img className="img" src={img} alt="" />
+        <img className="img" src={color[chosenColor]?.img} alt="" />
         <div className="img-info">
           <div className="info-inner">
             <span className="p-name">{name}</span>
             <span className="p-company">{supplier}</span>
           </div>
-          <SliderChoser
+          {/* <SliderChoser
             content={{
               title: "Available sizes",
               options: size,
@@ -40,15 +41,15 @@ function Product({ product }) {
               chosen: chosenSize,
               label: true,
             }}
-          />
+          /> */}
           <div className="second">
             <SliderChoser
               content={{
                 title: "Available color",
                 options: color,
                 setChosen: setChosenColor,
-                chosen: chosenColor,
-                label: false,
+                chosen: color[chosenColor],
+                label: true,
               }}
             />
           </div>

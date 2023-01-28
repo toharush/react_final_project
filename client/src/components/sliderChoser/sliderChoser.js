@@ -12,13 +12,11 @@ function SliderChoser({ content }) {
           {options.map((option, index) => (
             <Form.Check
               inline
-              label={label ? option : null}
-              className={option}
+              label={label ? option.color.name.replace(" : צבע", "") : null}
               checked={chosen == option}
               name={title}
-              color={option}
               type={"radio"}
-              onClick={() => setChosen(option)}
+              onClick={() => setChosen(index)}
               id={option}
             />
           ))}
