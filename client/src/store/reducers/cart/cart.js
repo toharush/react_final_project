@@ -11,7 +11,11 @@ export const cartSlice = createSlice({
       let res = [...state.items];
 
       res.map((item, index) => {
-        if (item._id === action.payload._id) {
+        if (
+          item._id === action.payload._id &&
+          item.chosenColor === action.payload.chosenColor &&
+          item.chosenSize === action.payload.chosenSize
+        ) {
           isInCart = index;
         }
       });
@@ -32,15 +36,20 @@ export const cartSlice = createSlice({
       let isInCart = -1;
       let res = [...state.items];
       res.map((item, index) => {
-        if (item._id === action.payload._id) {
+        if (
+          item._id === action.payload._id &&
+          item.chosenColor === action.payload.chosenColor &&
+          item.chosenSize === action.payload.chosenSize
+        ) {
           isInCart = index;
+          console.log(isInCart)
         }
       });
 
       if (isInCart !== -1) {
         if (action.payload.quantity <= 0) {
           res.splice(isInCart, 1);
-          console.log(res)
+          console.log(res);
         } else {
           res[isInCart] = {
             ...action.payload,
