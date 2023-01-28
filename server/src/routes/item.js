@@ -16,7 +16,6 @@ const sleep = (ms) => {
 };
 
 router.get("/", async (req, res) => {
-  console.log("hey")
   res.json(await GetAllProducts());
 });
 

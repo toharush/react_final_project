@@ -1,6 +1,5 @@
-const { GetAllProductsFromDb } = require("../model/product")
+const { GetAllProductsFromDb } = require("../model/product");
 
-exports.GetAllProducts = async() => {
-    console.log("hey")
-   return await GetAllProductsFromDb();
-}
+exports.GetAllProducts = async () => {
+  return await GetAllProductsFromDb();
+};

@@ -1,8 +1,7 @@
 const admin = require("firebase-admin");
-require('dotenv').config();
+require("dotenv").config();
 
-
-console.log(process.env.FIREBASE_DOMAIN)
+console.log(process.env.FIREBASE_DOMAIN);
 exports.app = admin.initializeApp({
   apiKey: process.env.FIREBASE_API,
   authDomain: process.env.FIREBASE_DOMAIN,
@@ -10,7 +9,7 @@ exports.app = admin.initializeApp({
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.FIREBASE_MSG_SENDER_ID,
   appId: process.env.FIREBASE_AUTH_ID,
-  measurementId: process.env.MEASUREMENT_ID
+  measurementId: process.env.MEASUREMENT_ID,
 });
 
 exports.admin = admin;
