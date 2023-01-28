@@ -5,8 +5,8 @@ import cart from "./cart/cart";
 import router from "./router/router";
 
 export default combineReducers({
-  productsSlice: products,
-  authSlice: auth,
+  products: products,
+  auth: auth,
   cart: cart,
   router: router,
 });

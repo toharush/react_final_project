@@ -11,8 +11,8 @@ function useUserState() {
   useEffect(() => {
     if(!auth) {
       dispatch(getUserInfo());
-    }
-  }, [auth])
+    } 
+  }, [auth]);
 
   return {
     auth: auth, 

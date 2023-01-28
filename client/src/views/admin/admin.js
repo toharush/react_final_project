@@ -1,20 +1,8 @@
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import useWebSocket, { useEventSource } from "react-use-websocket";
-import { getCurrentUser } from "../../store/selectors/selectors";
-const WS_URL = "ws://localhost:8080/api/v1/admin";
+import { getAdminMsg } from "../../store/selectors/selectors";
 
 function Admin() {
-  const [data, setData] = useState();
-  const user = useSelector(getCurrentUser);
-  const wss = useWebSocket(WS_URL, {
-    onMessage: (data) => {
-      setData(data.data);
-    },
-    share: true,
-  });
-
-
+  const data = useSelector(getAdminMsg);
   return (
     <div>
       admin

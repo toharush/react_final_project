@@ -4,7 +4,10 @@ export const tokenSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
-    admin: false,
+    admin: {
+      isAdmin: false,
+      msg: null,
+    },
     loading: false,
     error: null,
   },
@@ -12,8 +15,23 @@ export const tokenSlice = createSlice({
     setUser: (state, action) => {
       return { ...state, user: action.payload };
     },
-    setAdmin: (state, action) => {
-      return { ...state, admin: action.payload };
+    setIsAdmin: (state, action) => {
+      return {
+        ...state,
+        admin: {
+          ...state.admin,
+          isAdmin: action.payload,
+        },
+      };
+    },
+    setAdminMsg: (state, action) => {
+      return {
+        ...state,
+        admin: {
+          ...state.admin,
+          msg: action.payload,
+        },
+      };
     },
     setLoading: (state, action) => {
       return { ...state, loading: action.payload };
@@ -24,5 +42,5 @@ export const tokenSlice = createSlice({
   },
 });
 
-export const { setLoading, setError, setUser, setAdmin } = tokenSlice.actions;
+export const { setLoading, setError, setUser, setIsAdmin, setAdminMsg } = tokenSlice.actions;
 export default tokenSlice.reducer;

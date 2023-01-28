@@ -1,4 +1,5 @@
-export const getCurrentUser = (state) => state.authSlice.user;
-export const isLogin = (state) => Boolean(state.authSlice.user);
-export const isAdmin = (state) => state.authSlice.admin;
-export const isAuthLoading = (state) => state.authSlice.loading;
+export const getCurrentUser = (state) => state.auth.user;
+export const isLogin = (state) => Boolean(state.auth.user);
+export const isAdmin = (state) => state.auth.admin.isAdmin;
+export const getAdminMsg = (state) => state.auth.admin.msg;
+export const isAuthLoading = (state) => state.auth.loading;

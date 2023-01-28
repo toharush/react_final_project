@@ -1,3 +1,4 @@
+import useAdminWs from "../hooks/useAdminWs";
 import useUserState from "../hooks/useUserSate";
 import Admin from "../views/admin/admin";
 import Auth from "../views/auth/auth";
@@ -18,6 +19,7 @@ export const routes = {
 
 function Router() {
   const userState = useUserState();
+  useAdminWs();
 
   return (
     <div className="container">
