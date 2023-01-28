@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { AddToCartServer } from "../../store/middlewares/cart/cart";
 import { addToCart } from "../../store/reducers/cart/cart";
+import { getCurrentUser } from "../../store/selectors/selectors";
 import SliderChoser from "../sliderChoser/sliderChoser";
 import "./product.css";
 
@@ -13,7 +15,7 @@ function Product({ product }) {
 
   const handleAddToCart = () => {
     dispatch(
-      addToCart({
+      AddToCartServer({
         ...product,
         chosenSize: chosenSize,
         chosenColor: chosenColor,

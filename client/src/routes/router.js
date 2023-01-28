@@ -1,5 +1,7 @@
+import { useDispatch } from "react-redux";
 import useAdminWs from "../hooks/useAdminWs";
 import useUserState from "../hooks/useUserSate";
+import { navigate } from "../store/middlewares/router/router";
 import Admin from "../views/admin/admin";
 import Auth from "../views/auth/auth";
 import Cart from "../views/cart/cart";
@@ -18,6 +20,7 @@ export const routes = {
 };
 
 function Router() {
+  const dispatch = useDispatch();
   const userState = useUserState();
   useAdminWs();
 
@@ -33,10 +36,10 @@ function Router() {
           { route: routes.PRODUCTS, Component: <Products /> },
         ]}
       />
-      {/* 
+      
       <a className="float" onClick={() => dispatch(navigate(routes.CART))}>
         <i className="gg-shopping-cart"></i>
-      </a> */}
+      </a>
     </div>
   );
 }
