@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const data = require("../data");
+const { GetAllProducts } = require("../controllers/products");
 
 router.get("/userinfo", (req, res) => {
   res.json({
@@ -16,8 +16,8 @@ const sleep = (ms) => {
 };
 
 router.get("/", async (req, res) => {
-  await sleep(1000);
-  res.json(data);
+  console.log("hey")
+  res.json(await GetAllProducts());
 });
 
 module.exports = router;
