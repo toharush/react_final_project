@@ -4,19 +4,19 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "./navbar.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getCurrentUser } from "../../store/selectors/selectors";
 import { logout } from "../../store/middlewares/auth/auth";
 import { navigate } from "../../store/middlewares/router/router";
 import { getCurrentPage } from "../../store/selectors/router/router";
 import { routes } from "../../routes/router";
-import { isAdmin } from "../../store/selectors/selectors";
 import useUserState from "../../hooks/useUserSate";
+import { getCurrentUser, isAdmin } from "../../store/selectors/selectors";
 
 function CustomNavbar() {
-  const userState = useUserState();
   const dispatch = useDispatch();
   const [navbar, setNavbar] = useState(false);
   const currentPage = useSelector(getCurrentPage);
+  const auth = useSelector(getCurrentUser);
+  const admin = useSelector(isAdmin);
 
   const changeBackground = () => {
     if (window.scrollY >= 66) {
@@ -64,7 +64,7 @@ function CustomNavbar() {
             >
               Products
             </Nav.Link>
-            {!userState.auth && (
+            {!auth && (
               <Nav.Link
                 className="Link"
                 active={currentPage == routes.AUTH ? true : false}
@@ -73,7 +73,7 @@ function CustomNavbar() {
                 Auth
               </Nav.Link>
             )}
-            {userState.admin && (
+            {admin && (
               <Nav.Link
                 className="Link"
                 active={currentPage == routes.ADMIN ? true : false}
@@ -83,8 +83,8 @@ function CustomNavbar() {
               </Nav.Link>
             )}
           </Nav>
-          <span>{userState.auth?.email}</span>
-          {userState.auth?.email && (
+          <span>{auth?.email}</span>
+          {auth?.email && (
             <button onClick={handleLogout}>Log out</button>
           )}
         </Container>

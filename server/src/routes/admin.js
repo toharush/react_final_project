@@ -2,11 +2,8 @@ const { isLogin, isLoginWebSocket } = require("../middlewares/auth");
 
 const router = require("express").Router();
 
-router.get("/", async (req, res) => {
-  res.send("admin");
-});
 
-router.ws("/", isLoginWebSocket, (ws, req) => {
+router.ws("/", (ws, req) => {
   console.log("socket from client");
   ws.on("message", (msg) => {
     ws.send("back from node");

@@ -8,8 +8,9 @@ import { loginAndSignUp } from "../../store/middlewares/auth/auth";
 import { isAuthLoading } from "../../store/selectors/selectors";
 
 function Auth() {
-  const isLoading = useSelector(isAuthLoading);
   const dispatch = useDispatch();
+  const isLoading = useSelector(isAuthLoading);
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 

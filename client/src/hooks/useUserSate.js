@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo, isUserAdmin } from "../store/middlewares/auth/auth";
-import { getCurrentPage } from "../store/selectors/router/router";
+import { getUserInfo } from "../store/middlewares/auth/auth";
 import { getCurrentUser, isAdmin } from "../store/selectors/selectors";
 
 function useUserState() {
@@ -10,13 +9,9 @@ function useUserState() {
   const admin = useSelector(isAdmin);
 
   useEffect(() => {
-    if (!auth) {
+    if(!auth) {
       dispatch(getUserInfo());
-    } else {
-      if (!admin) {
-        dispatch(isUserAdmin());
-      }
-    }
+    } 
   }, [auth]);
 
   return {

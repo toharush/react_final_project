@@ -1,9 +1,5 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import useAdminWs from "../hooks/useAdminWs";
 import useUserState from "../hooks/useUserSate";
-import { getUserInfo, isUserAdmin } from "../store/middlewares/auth/auth";
-import { navigate } from "../store/middlewares/router/router";
-import { getCurrentUser, isAdmin } from "../store/selectors/selectors";
 import Admin from "../views/admin/admin";
 import Auth from "../views/auth/auth";
 import Cart from "../views/cart/cart";
@@ -23,6 +19,7 @@ export const routes = {
 
 function Router() {
   const userState = useUserState();
+  useAdminWs();
 
   return (
     <div className="container">
