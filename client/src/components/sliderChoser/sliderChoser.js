@@ -12,7 +12,7 @@ function SliderChoser({ content }) {
           {options.map((option, index) => (
             <Form.Check
               inline
-              label={label ? option.color.name.replace(" : צבע", "") : null}
+              label={label ? option.name.replace(" : צבע", "") : null}
               checked={chosen == option}
               name={title}
               type={"radio"}

@@ -11,14 +11,14 @@ function Product({ product }) {
   const { name, supplier, price, color } = product;
 
   const dispatch = useDispatch();
-  // const [chosenSize, setChosenSize] = useState(size[0]);
+  const [chosenSize, setChosenSize] = useState(color[chosenColor].size[0]);
 
 
   const handleAddToCart = () => {
     dispatch(
       AddToCartServer({
         ...product,
-        // chosenSize: chosenSize,
+        chosenSize: chosenSize,
         chosenColor: chosenColor,
       })
     );
@@ -33,20 +33,20 @@ console.log(color)
             <span className="p-name">{name}</span>
             <span className="p-company">{supplier}</span>
           </div>
-          {/* <SliderChoser
+          <SliderChoser
             content={{
               title: "Available sizes",
-              options: size,
+              options: color[chosenColor].size.map(s => ({name: s})),
               setChosen: setChosenSize,
               chosen: chosenSize,
               label: true,
             }}
-          /> */}
+          />
           <div className="second">
             <SliderChoser
               content={{
                 title: "Available color",
-                options: color,
+                options: color.map(color => color.color),
                 setChosen: setChosenColor,
                 chosen: color[chosenColor],
                 label: true,

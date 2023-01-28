@@ -17,6 +17,7 @@ function CartItem({ product }) {
     name,
     price,
     quantity,
+    color,
     supplier,
     description,
     chosenColor,
@@ -34,7 +35,7 @@ function CartItem({ product }) {
       <MDBRow className="mb-4 d-flex justify-content-between align-items-center">
         <MDBCol md="2" lg="2" xl="2">
           <MDBCardImage
-            src={img}
+            src={color[chosenColor].img}
             fluid
             className="rounded-3"
             alt="Cotton T-shirt"
@@ -42,7 +43,7 @@ function CartItem({ product }) {
         </MDBCol>
         <MDBCol md="3" lg="3" xl="3">
           <MDBTypography tag="h6" className="text-muted">
-            {name} &#x2022; {chosenColor} &#x2022; {chosenSize}
+            {name} &#x2022; {color[chosenColor].color.name} &#x2022; {chosenSize}
           </MDBTypography>
           <MDBTypography tag="h6" className="text-muted">
             {description}
