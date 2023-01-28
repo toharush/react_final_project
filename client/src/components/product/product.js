@@ -11,7 +11,7 @@ function Product({ product }) {
   const { name, supplier, price, color } = product;
 
   const dispatch = useDispatch();
-  const [chosenSize, setChosenSize] = useState(color[chosenColor].size[0]);
+  const [chosenSize, setChosenSize] = useState(0);
 
 
   const handleAddToCart = () => {
@@ -23,7 +23,7 @@ function Product({ product }) {
       })
     );
   };
-console.log(color)
+
   return (
     <div className="el-wrapper">
       <div className="box-up">
@@ -38,7 +38,7 @@ console.log(color)
               title: "Available sizes",
               options: color[chosenColor].size.map(s => ({name: s})),
               setChosen: setChosenSize,
-              chosen: chosenSize,
+              chosen: color[chosenColor].size[chosenSize],
               label: true,
             }}
           />

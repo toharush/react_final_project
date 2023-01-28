@@ -43,7 +43,7 @@ function CartItem({ product }) {
         </MDBCol>
         <MDBCol md="3" lg="3" xl="3">
           <MDBTypography tag="h6" className="text-muted">
-            {name} &#x2022; {color[chosenColor].color.name} &#x2022; {chosenSize}
+            {name} &#x2022; {color[chosenColor].color.name} &#x2022; {color[chosenColor].size[chosenSize]}
           </MDBTypography>
           <MDBTypography tag="h6" className="text-muted">
             {description}
