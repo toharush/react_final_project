@@ -1,23 +1,16 @@
+import { filter, intersectionWith, isEqual } from "lodash";
+
 export const selectProducts = (state) => state.products.products;
 export const selectProductsWithFilter = (state) => {
-    const Filter = [(item) => item.price < 100, (item) => item.supplier === "Terminal X", (item) => {
-        return item.color.map(color => {
-            console.log(color.size.includes("S"))
-            if(color.size.includes("S")) {
-                return item
-            }
-        })
-    }]
-    if(Filter.length > 0) {
-        let p = [...state.products.products]
-        Filter.map(filterBy =>{
-            console.log(filterBy);
-            p = p.filter(filterBy)
-        });
-        console.log(p)
-        return p;
-    } else {
-        return state.products.products;
-    }
+  let data = state.products.products;
+  if (state.products.search) {
+    data = filter(data, state.products.search);
+  }
+  if (state.products.filteredProducts.length > 0) {
+    state.products.filteredProducts.map((filterBy) => {
+      data = filter(data, filterBy);
+    });
+  }
+  return data;
 };
 export const isLoading = (state) => state.products.loading;

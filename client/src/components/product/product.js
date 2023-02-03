@@ -1,7 +1,9 @@
+import { MDBInput } from "mdb-react-ui-kit";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AddToCartServer } from "../../store/middlewares/cart/cart";
 import { addToCart } from "../../store/reducers/cart/cart";
+import { setSearch } from "../../store/reducers/products/products";
 import { getCurrentUser } from "../../store/selectors/selectors";
 import SliderChoser from "../sliderChoser/sliderChoser";
 import "./product.css";
@@ -12,7 +14,6 @@ function Product({ product }) {
 
   const dispatch = useDispatch();
   const [chosenSize, setChosenSize] = useState(0);
-
 
   const handleAddToCart = () => {
     dispatch(
@@ -36,7 +37,7 @@ function Product({ product }) {
           <SliderChoser
             content={{
               title: "Available sizes",
-              options: color[chosenColor].size.map(s => ({name: s})),
+              options: color[chosenColor].size.map((s) => ({ name: s })),
               setChosen: setChosenSize,
               chosen: color[chosenColor].size[chosenSize],
               label: true,
@@ -46,7 +47,7 @@ function Product({ product }) {
             <SliderChoser
               content={{
                 title: "Available color",
-                options: color.map(color => color.color),
+                options: color.map((color) => color.color),
                 setChosen: setChosenColor,
                 chosen: color[chosenColor],
                 label: true,

@@ -1,15 +1,8 @@
 import {
   MDBBtn,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCardText,
   MDBCol,
-  MDBContainer,
-  MDBIcon,
   MDBInput,
-  MDBRow,
-  MDBTypography,
+  MDBTypography
 } from "mdb-react-ui-kit";
 import { useSelector } from "react-redux";
 import { getItemPrice, getTotalPrice } from "../../store/selectors/cart/cart";

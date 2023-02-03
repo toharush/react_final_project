@@ -10,6 +10,8 @@ import { getCurrentPage } from "../../store/selectors/router/router";
 import { routes } from "../../routes/router";
 import useUserState from "../../hooks/useUserSate";
 import { getCurrentUser, isAdmin } from "../../store/selectors/selectors";
+import { MDBInput } from "mdb-react-ui-kit";
+import { setSearch } from "../../store/reducers/products/products";
 
 function CustomNavbar() {
   const dispatch = useDispatch();
@@ -84,9 +86,7 @@ function CustomNavbar() {
             )}
           </Nav>
           <span>{auth?.email}</span>
-          {auth?.email && (
-            <button onClick={handleLogout}>Log out</button>
-          )}
+          {auth?.email && <button onClick={handleLogout}>Log out</button>}
         </Container>
       </Navbar>
     </div>

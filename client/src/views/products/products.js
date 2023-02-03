@@ -1,11 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProducts } from "../../store/middlewares/middleware";
-import { selectProducts, isLoading, selectProductsWithFilter } from "../../store/selectors/selectors";
+import {
+  selectProducts,
+  isLoading,
+  selectProductsWithFilter,
+} from "../../store/selectors/selectors";
 import Product from "../../components/product/product";
 import Loader from "../../components/loader/loader";
 import "./products.css";
 import FilterBy from "../../components/filterBy/filterBy";
+import { setSearch } from "../../store/reducers/products/products";
+import { MDBInput } from "mdb-react-ui-kit";
 
 function Products() {
   const dispatch = useDispatch();
@@ -17,15 +23,27 @@ function Products() {
   }, []);
 
   return (
-    <div className="products">
+    <div>
+      <MDBInput
+        onChange={(event) =>
+          dispatch(
+            setSearch(({ name }) =>
+              name.toUpperCase().includes(event.target.value)
+            )
+          )
+        }
+      />
+
       <FilterBy />
-      {loading ? (
-        <Loader />
-      ) : (
-        products.map((product) => (
-          <Product product={product} key={product._id} />
-        ))
-      )}
+      <div className="products">
+        {loading ? (
+          <Loader />
+        ) : (
+          products.map((product) => (
+            <Product product={product} key={product._id} />
+          ))
+        )}
+      </div>
     </div>
   );
 }

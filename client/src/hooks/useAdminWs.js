@@ -2,12 +2,10 @@ import { useDispatch } from "react-redux";
 import useWebSocket from "react-use-websocket";
 import { setAdminMsg } from "../store/reducers/auth/auth";
 
-const WS_URL = "ws://localhost:8080/api/v1/admin";
-
 function useAdminWs() {
   const dispatch = useDispatch();
 
-  useWebSocket(WS_URL, {
+  useWebSocket(`${process.env.REACT_APP_WS_URL}/admin`, {
     onMessage: (data) => {
       dispatch(setAdminMsg(data.data));
     },
