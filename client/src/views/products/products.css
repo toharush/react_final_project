@@ -1,4 +1,7 @@
 .products {
+  display: flex;
+  flex-direction: row;
   text-align: justify;
-  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }

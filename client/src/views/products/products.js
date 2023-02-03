@@ -1,15 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProducts } from "../../store/middlewares/middleware";
-import { selectProducts, isLoading } from "../../store/selectors/selectors";
+import { selectProducts, isLoading, selectProductsWithFilter } from "../../store/selectors/selectors";
 import Product from "../../components/product/product";
 import Loader from "../../components/loader/loader";
 import "./products.css";
+import FilterBy from "../../components/filterBy/filterBy";
 
 function Products() {
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
-  const products = useSelector(selectProducts);
+  const products = useSelector(selectProductsWithFilter);
 
   useEffect(() => {
     dispatch(fetchAllProducts());
@@ -17,6 +18,7 @@ function Products() {
 
   return (
     <div className="products">
+      <FilterBy />
       {loading ? (
         <Loader />
       ) : (
