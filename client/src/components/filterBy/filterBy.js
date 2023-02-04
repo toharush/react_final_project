@@ -1,6 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../../store/reducers/products/products";
-import { getAllAvilableColors, getAllAvilableSizes } from "../../store/selectors/selectors";
+import {
+  getAllAvilableColors,
+  getAllAvilableSizes,
+  getCurrentColor,
+} from "../../store/selectors/selectors";
+import Select from "react-select";
 
 function FilterBy() {
   const dispatch = useDispatch();
@@ -13,20 +18,17 @@ function FilterBy() {
 
   return (
     <>
-      <select className="select" multiple>
-        {colors.map((selectedColor) => (
-          <option onClick={() => filterBy({ color: selectedColor })}>
-            {selectedColor}
-          </option>
-        ))}
-      </select>
-      <select className="select" multiple>
-        {sizes.map((selectedSize) => (
-          <option onClick={() => filterBy({ size: selectedSize })}>
-            {selectedSize}
-          </option>
-        ))}
-      </select>
+      <Select
+        options={colors.map((c) => ({ value: c, label: c }))}
+        onChange={(event) => filterBy({ color: event?.value || null })}
+        isSearchable={true}
+        isClearable={true}
+      />
+      <Select
+        options={sizes.map((s) => ({ value: s, label: s }))}
+        onChange={(event) => filterBy({ size: event?.value || null })}
+        isClearable={true}
+      />
       <input
         type="radio"
         value="0 - 100"

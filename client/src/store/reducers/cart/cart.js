@@ -48,7 +48,6 @@ export const cartSlice = createSlice({
       if (isInCart !== -1) {
         if (action.payload.quantity <= 0) {
           res.splice(isInCart, 1);
-          console.log(res);
         } else {
           res[isInCart] = {
             ...action.payload,

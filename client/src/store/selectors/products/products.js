@@ -5,7 +5,7 @@ export const selectProductsWithFilter = (state) => {
   let data = state.products.products;
   if (state.products.filter.name) {
     data = filter(data, ({ name }) =>
-      name.includes(state.products.filter.name)
+      name.toUpperCase().includes(state.products.filter.name.toUpperCase())
     );
   }
   if (state.products.filter.color) {
@@ -63,3 +63,5 @@ export const getAllAvilableSizes = (state) => {
   }
   return uniqueSizes;
 };
+
+export const getCurrentColor = (state) => state.products.filter.color;
