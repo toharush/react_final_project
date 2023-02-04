@@ -42,7 +42,6 @@ export const cartSlice = createSlice({
           item.chosenSize === action.payload.chosenSize
         ) {
           isInCart = index;
-          console.log(isInCart)
         }
       });
 

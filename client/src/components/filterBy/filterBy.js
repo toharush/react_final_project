@@ -1,9 +1,11 @@
-import { useDispatch } from "react-redux";
-import { setFilter, setSearch } from "../../store/reducers/products/products";
-import { MDBInput } from "mdb-react-ui-kit";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilter } from "../../store/reducers/products/products";
+import { getAllAvilableColors, getAllAvilableSizes } from "../../store/selectors/selectors";
 
 function FilterBy() {
   const dispatch = useDispatch();
+  const colors = useSelector(getAllAvilableColors);
+  const sizes = useSelector(getAllAvilableSizes);
 
   const filterBy = (filter) => {
     dispatch(setFilter(filter));
@@ -11,22 +13,26 @@ function FilterBy() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          filterBy(({ price }) => price < 50);
-        }}
-      >
-        Filter By Price
-      </button>
-      <button
-        onClick={() => {
-          filterBy(({ name }) =>
-            name.includes("טופ עיגולי מראה / Purim Collection")
-          );
-        }}
-      >
-        Filter By Name
-      </button>
+      <select className="select" multiple>
+        {colors.map((selectedColor) => (
+          <option onClick={() => filterBy({ color: selectedColor })}>
+            {selectedColor}
+          </option>
+        ))}
+      </select>
+      <select className="select" multiple>
+        {sizes.map((selectedSize) => (
+          <option onClick={() => filterBy({ size: selectedSize })}>
+            {selectedSize}
+          </option>
+        ))}
+      </select>
+      <input
+        type="radio"
+        value="0 - 100"
+        name="filter"
+        onClick={() => filterBy({ price: 100 })}
+      />
     </>
   );
 }

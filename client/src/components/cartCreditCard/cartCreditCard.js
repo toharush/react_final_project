@@ -1,15 +1,11 @@
-import {
-  MDBBtn,
-  MDBCol,
-  MDBInput,
-  MDBTypography
-} from "mdb-react-ui-kit";
+import { MDBCol, MDBInput, MDBTypography } from "mdb-react-ui-kit";
 import { useSelector } from "react-redux";
 import { getItemPrice, getTotalPrice } from "../../store/selectors/cart/cart";
+import "./cartCreditCard.css";
 
 function CartCreditCart({ count }) {
-    const totalPrice = useSelector(getTotalPrice);
-    const itemPrice = useSelector(getItemPrice);
+  const totalPrice = useSelector(getTotalPrice);
+  const itemPrice = useSelector(getItemPrice);
   return (
     <>
       <MDBCol lg="4" className="bg-grey">
@@ -48,12 +44,12 @@ function CartCreditCart({ count }) {
             <MDBTypography tag="h5" className="text-uppercase">
               Total price
             </MDBTypography>
-            <MDBTypography tag="h5">${totalPrice}</MDBTypography>
+            <MDBTypography tag="h5" className="totalPrice">
+              ${totalPrice}
+            </MDBTypography>
           </div>
 
-          <MDBBtn color="dark" block size="lg">
-            Buy
-          </MDBBtn>
+          <button className="btn btn-dark">Buy</button>
         </div>
       </MDBCol>
     </>

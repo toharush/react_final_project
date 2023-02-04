@@ -48,7 +48,7 @@ export default function Cart() {
 
                       {products.length > 0 &&
                         products.map((product) => (
-                          <CartItem product={product} />
+                          <CartItem product={product} key={product} />
                         ))}
                     </div>
                   </MDBCol>

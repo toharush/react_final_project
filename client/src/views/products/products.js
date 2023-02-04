@@ -5,18 +5,22 @@ import {
   selectProducts,
   isLoading,
   selectProductsWithFilter,
+  getAllAvilableColors,
+  getAllAvilableSizes,
 } from "../../store/selectors/selectors";
 import Product from "../../components/product/product";
 import Loader from "../../components/loader/loader";
 import "./products.css";
 import FilterBy from "../../components/filterBy/filterBy";
-import { setSearch } from "../../store/reducers/products/products";
+import { setFilter, setSearch } from "../../store/reducers/products/products";
 import { MDBInput } from "mdb-react-ui-kit";
 
 function Products() {
   const dispatch = useDispatch();
   const loading = useSelector(isLoading);
   const products = useSelector(selectProductsWithFilter);
+  const colors = useSelector(getAllAvilableColors);
+
 
   useEffect(() => {
     dispatch(fetchAllProducts());
@@ -25,13 +29,8 @@ function Products() {
   return (
     <div>
       <MDBInput
-        onChange={(event) =>
-          dispatch(
-            setSearch(({ name }) =>
-              name.toUpperCase().includes(event.target.value)
-            )
-          )
-        }
+        type="search"
+        onChange={(event) => dispatch(setFilter({ name: event.target.value }))}
       />
 
       <FilterBy />
