@@ -5,6 +5,8 @@ import {
   getAllAvilableSizes,
 } from "../../store/selectors/selectors";
 import Select from "react-select";
+import { MDBInput } from "mdb-react-ui-kit";
+import "./filterBy.css";
 
 function FilterBy() {
   const dispatch = useDispatch();
@@ -17,22 +19,26 @@ function FilterBy() {
 
   return (
     <>
+      <MDBInput
+        type="search"
+        onChange={(event) => filterBy({ name: event.target.value })}
+        placeholder="search"
+      />
+
       <Select
         options={colors.map((c) => ({ value: c, label: c }))}
         onChange={(event) => filterBy({ color: event?.value || null })}
         isSearchable={true}
         isClearable={true}
+        placeholder="color"
+        className="select"
       />
       <Select
         options={sizes.map((s) => ({ value: s, label: s }))}
         onChange={(event) => filterBy({ size: event?.value || null })}
         isClearable={true}
-      />
-      <input
-        type="radio"
-        value="0 - 100"
-        name="filter"
-        onClick={() => filterBy({ price: 100 })}
+        placeholder="size"
+        className="select"
       />
     </>
   );

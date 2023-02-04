@@ -4,4 +4,15 @@
   text-align: justify;
   justify-content: space-between;
   flex-wrap: wrap;
+  width: 70%;
+}
+
+.float-child {
+  float: left;
+  padding: 20px;
+}  
+
+.filter {
+  margin-left: 10px;
+  width: 20%;
 }

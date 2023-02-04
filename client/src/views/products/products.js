@@ -21,20 +21,17 @@ function Products() {
   const products = useSelector(selectProductsWithFilter);
   const colors = useSelector(getAllAvilableColors);
 
-
   useEffect(() => {
     dispatch(fetchAllProducts());
   }, []);
 
   return (
-    <div>
-      <MDBInput
-        type="search"
-        onChange={(event) => dispatch(setFilter({ name: event.target.value }))}
-      />
+    <>
+      <div className="filter float-child">
+        <FilterBy />
+      </div>
 
-      <FilterBy />
-      <div className="products">
+      <div className="products float-child">
         {loading ? (
           <Loader />
         ) : (
@@ -43,7 +40,7 @@ function Products() {
           ))
         )}
       </div>
-    </div>
+    </>
   );
 }
 

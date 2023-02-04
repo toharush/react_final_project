@@ -25,7 +25,7 @@ function Router() {
   useAdminWs();
 
   return (
-    <div className="container">
+    <div>
       <Route Component={<Home />} route={routes.HOME} />
       <Route Component={<Auth />} route={routes.AUTH} />
 
