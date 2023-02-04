@@ -63,5 +63,3 @@ export const getAllAvilableSizes = (state) => {
   }
   return uniqueSizes;
 };
-
-export const getCurrentColor = (state) => state.products.filter.color;

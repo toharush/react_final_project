@@ -3,7 +3,6 @@ import { setFilter } from "../../store/reducers/products/products";
 import {
   getAllAvilableColors,
   getAllAvilableSizes,
-  getCurrentColor,
 } from "../../store/selectors/selectors";
 import Select from "react-select";
 

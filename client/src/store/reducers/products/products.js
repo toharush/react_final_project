@@ -1,21 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { filter } from "lodash";
-
+const initialState = {
+  products: [],
+  filter: {
+    name: null,
+    color: null,
+    price: null,
+    size: null,
+  },
+  sortProducts: null,
+  loading: true,
+  error: null,
+};
 export const productsSlice = createSlice({
   name: "products",
-  initialState: {
-    products: [],
-    filter: {
-      name: null,
-      color: null,
-      price: null,
-      size: null
-    },
-    sortProducts: null,
-    loading: true,
-    error: null,
-  },
+  initialState: initialState,
   reducers: {
+    setInitState: (state, action) => {
+      return { ...initialState };
+    },
     setProducts: (state, action) => {
       return { ...state, products: [...action.payload] };
     },
@@ -46,5 +48,6 @@ export const {
   setLoading,
   setError,
   setSort,
+  setInitState,
 } = productsSlice.actions;
 export default productsSlice.reducer;

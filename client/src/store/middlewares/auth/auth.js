@@ -14,6 +14,7 @@ import { navigate } from "../router/router";
 import axios from "../../../utils/axios";
 import { routes } from "../../../routes/router";
 import { useSelector } from "react-redux";
+import { setInitState } from "../../reducers/products/products";
 
 const cookies = new Cookies();
 
@@ -64,6 +65,7 @@ export const getUserInfo = () => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   dispatch(setLoading(true));
+  dispatch(setInitState());
   try {
     await axios.get("/auth/logout");
     await dispatch(setUser(null));
