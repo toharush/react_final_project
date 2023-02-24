@@ -2,7 +2,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../../../config/auth";
+// import { auth } from "../../../lib/firebase";
 import {
   setLoading,
   setError,
@@ -11,42 +11,42 @@ import {
 } from "../../reducers/auth/auth";
 import Cookies from "universal-cookie";
 import { navigate } from "../router/router";
-import axios from "../../../utils/axios";
-import { routes } from "../../../routes/router";
+import axios from "../../../lib/axios";
+import { routes } from "../../../router/router";
 import { useSelector } from "react-redux";
 import { setInitState } from "../../reducers/products/products";
 
 const cookies = new Cookies();
 
 export const loginAndSignUp = (login, email, password) => async (dispatch) => {
-  dispatch(setLoading(true));
-  let user;
-  try {
-    if (!cookies.get("user")) {
-      if (login) {
-        user = await signInWithEmailAndPassword(auth, email, password);
-      } else {
-        user = await createUserWithEmailAndPassword(auth, email, password);
-      }
+  // dispatch(setLoading(true));
+  // let user;
+  // try {
+  //   if (!cookies.get("user")) {
+  //     if (login) {
+  //       user = await signInWithEmailAndPassword(auth, email, password);
+  //     } else {
+  //       user = await createUserWithEmailAndPassword(auth, email, password);
+  //     }
 
-      await axios.post(
-        "/auth",
-        {},
-        {
-          headers: {
-            Authorization: user.user.stsTokenManager.accessToken,
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-      await dispatch(getUserInfo());
-    }
-  } catch (err) {
-    dispatch(setError(err));
-  } finally {
-    dispatch(setLoading(false));
-  }
+  //     await axios.post(
+  //       "/auth",
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: user.user.stsTokenManager.accessToken,
+  //           "Content-Type": "application/json",
+  //           Accept: "application/json",
+  //         },
+  //       }
+  //     );
+  //     await dispatch(getUserInfo());
+  //   }
+  // } catch (err) {
+  //   dispatch(setError(err));
+  // } finally {
+  //   dispatch(setLoading(false));
+  // }
 };
 
 export const getUserInfo = () => async (dispatch) => {

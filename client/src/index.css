@@ -5,11 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffe8;
-  overflow-x: hidden;
-}
-::-webkit-scrollbar {
-  display: none;
+  /* background-color: #ffffe8; */
+  overflow-y: scroll;
+  background-color: #EEEEEE;
 }
 
 code {

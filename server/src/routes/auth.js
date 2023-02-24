@@ -4,7 +4,7 @@ const { verifyToken, isUserAdmin } = require("../controllers/auth");
 router.post("/", async (req, res) => {
   if (req.headers.authorization) {
     const user = await verifyToken(req.headers.authorization);
-    console.log(user)
+    console.log(user);
     if (user?.uid) {
       res.cookie("user", user);
     } else {
@@ -18,6 +18,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+  console.log(req.cookies.user);
   res.json(req.cookies.user);
 });
 

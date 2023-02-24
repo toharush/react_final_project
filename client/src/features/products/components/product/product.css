@@ -1,0 +1,25 @@
+.product {
+  margin: 5px;
+  width: 345px;
+  height: 100%;
+}
+
+.name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+
+.product-img {
+    width: 100%;
+    height: 400px;
+}
+
+.avtr-btn {
+    cursor: pointer;
+}
+
+.product-action {
+    z-index: 10;
+}

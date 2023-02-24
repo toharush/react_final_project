@@ -15,7 +15,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 import CartCreditCart from "../../components/cartCreditCard/cartCreditCard";
 import CartItem from "../../components/cartItem/cartItem";
-import { getCartItems, itemPrice, totalPrice } from "../../store/selectors/cart/cart";
+import {
+  getCartItems,
+  itemPrice,
+  totalPrice,
+} from "../../store/selectors/cart/cart";
 
 export default function Cart() {
   const products = useSelector(getCartItems);
@@ -47,12 +51,14 @@ export default function Cart() {
                       <hr className="my-4" />
 
                       {products.length > 0 &&
-                        products.map((product) => (
-                          <CartItem product={product} key={product} />
-                        ))}
+                        products.map((product) =>
+                          product.chosen.map(chosen =>
+                            <CartItem product={product} chosen={chosen} key={product._id + chosen.chosenColor + chosen.chosenSize} />
+                          )
+                        )}
                     </div>
                   </MDBCol>
-                 <CartCreditCart count={products.length} />
+                  <CartCreditCart count={products.length} />
                 </MDBRow>
               </MDBCardBody>
             </MDBCard>

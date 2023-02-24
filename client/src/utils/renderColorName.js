@@ -1,0 +1,1 @@
+export const renderColorName = (name) => name.replace(" : צבע", "");

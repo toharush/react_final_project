@@ -1,13 +1,21 @@
-import { filter, intersectionWith, isEqual } from "lodash";
+import { filter, flatMap, isEmpty, isNull, uniq } from "lodash";
 
+export const getProducts = (state) => state.products.products;
+export const getLoadingState = (state) => state.products.loading;
+export const getSearchedProducts = (state) =>
+  state.products.searchedProducts ?? state.products.products;
+export const getFilters = (state) => state.products.filter;
+export const getSuppliers = (state) => uniq(flatMap(state.products.products, (s) => s.supplier));
 export const selectProducts = (state) => state.products.products;
 export const selectProductsWithFilter = (state) => {
-  let data = state.products.products;
+  let data = state.products.searchedProducts ?? state.products.products;
+
   if (state.products.filter.name) {
     data = filter(data, ({ name }) =>
       name.toUpperCase().includes(state.products.filter.name.toUpperCase())
     );
   }
+
   if (state.products.filter.color) {
     data = filter(data, ({ color }) =>
       filter(color, ({ color }) =>
@@ -31,7 +39,7 @@ export const selectProductsWithFilter = (state) => {
     );
   }
 
-  return data;
+  return filter(data, (el) => !isNull(el) && !isEmpty(el));
 };
 
 export const isLoading = (state) => state.products.loading;
