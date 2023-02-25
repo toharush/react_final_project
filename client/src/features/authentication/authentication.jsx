@@ -50,12 +50,12 @@ const Authentication = ({ isOpen, setIsOpen }) => {
             ))}
           </TabList>
 
-          {signOptions.map((option) => (
-            <TabPanel value={option}>
+          {signOptions.map((option, index) => (
+            <TabPanel value={option}  key={option + index}>
               <AuthForm
                 handleUserSign={handleUserSign}
                 buttonTitle={option}
-                key={option}
+                key={option + index}
               />
             </TabPanel>
           ))}

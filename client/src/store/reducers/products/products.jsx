@@ -3,7 +3,7 @@ import { fetchAllProducts } from "../../../features/products/services/products";
 
 const initialState = {
   products: [],
-  searchedProducts: [],
+  searchedProducts: null,
   filter: {
     name: null,
     color: null,
