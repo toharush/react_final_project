@@ -39,7 +39,7 @@ const Delivery = () => {
 
       <div class="background-stuff">
         <div class="bg">
-          <h1 class="title">On Day Delivey</h1>
+          <h1 class="title">One Day Delivey</h1>
         </div>
         <div class="bg bg-2"></div>
         <div class="bg bg-3"></div>
