@@ -1,11 +1,11 @@
-import "./loader.css";
-import { MDBSpinner } from "mdb-react-ui-kit";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
-function Loader() {
+const Loader = () => {
   return (
-    <div className="center">
-      <MDBSpinner />
-    </div>
+    <Box sx={{ display: 'flex' }}>
+      <CircularProgress />
+    </Box>
   );
 }
 

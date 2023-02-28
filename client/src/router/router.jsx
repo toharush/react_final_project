@@ -2,10 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Product from "../features/product";
 import Admin from "../pages/admin";
-import Products from "../pages/products";
-import ProductFeat from "../features/products";
-import Filter from "../features/filter";
-import Search from "../features/search";
+import Products from "../pages/products/products";
 import Cart from "../views/cart/cart";
 import { fetchAllProducts } from "../features/products/services/products";
 
@@ -18,23 +15,27 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <Products />,
-        children: [
-          {
-            path: "",
-            element: (
-              <>
-                <Search />
-                <Filter />
-                <ProductFeat />
-              </>
-            ),
-          },
-          {
-            path: ":id",
-            loader: async () => await fetchAllProducts(),
-            element: <Product />,
-          },
-        ],
+        // children: [
+        //   {
+        //     path: "",
+        //     element: (
+        //       <>
+        //         <Filter />
+        //         <ProductFeat />
+        //       </>
+        //     ),
+        //   },
+        //   {
+        //     path: ":id/:color",
+        //     loader: async () => await fetchAllProducts(),
+        //     element: <Product />,
+        //   },
+        // ],
+      },
+      {
+        path: ":id/:color",
+        loader: async () => await fetchAllProducts(),
+        element: <Product />,
       },
       {
         path: "cart",

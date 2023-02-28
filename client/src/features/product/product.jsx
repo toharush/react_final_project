@@ -1,30 +1,27 @@
+import { isEmpty, isNull } from "lodash";
 import { useEffect, useState } from "react";
 import CardImg from "react-bootstrap/esm/CardImg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLoaderData, useParams } from "react-router-dom";
+import Loader from "../../components/loader/loader";
+import useProducts from "../../hooks/useProducts";
 import { fetchProducts } from "../../store/reducers/products/products";
+import { selectProducts } from "../../store/selectors/selectors";
 import MetaData from "./components/metaData/metaData";
 
 const Product = () => {
-  const dispatch = useDispatch();
-  const products = useLoaderData("root");
-  const { id } = useParams();
-  const [color, setColor] = useState(
-    products.filter((item) => item._id === id)[0].color[0]
-  );
+  const products = useProducts();
+  const { id, color } = useParams();
 
-  useEffect(() => {
-    dispatch(fetchProducts);
-  }, []);
-
-  return (
+  return !isNull(products) ? (
     <>
-      <CardImg src={color.img} />
-      <MetaData
-        product={products.filter((item) => item._id === id)[0]}
-        handleChosenColor={setColor}
+      <CardImg
+        src={products.filter((item) => item._id === id)[0].color[color].img}
       />
+      <MetaData product={products.filter((item) => item._id === id)[0]} />
     </>
+  ) : (
+    <Loader />
   );
 };
 

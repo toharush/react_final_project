@@ -1,11 +1,11 @@
-import { TextField } from "@mui/material";
 import { filter, union } from "lodash";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchedProducts } from "../../store/reducers/products/products";
-import { getProducts } from "../../store/selectors/selectors";
+import Search from "../../../../components/search/search";
+import { setSearchedProducts } from "../../../../store/reducers/products/products";
+import { getProducts } from "../../../../store/selectors/selectors";
 
-const Search = ({}) => {
+const SearchProducts = ({}) => {
   const dispatch = useDispatch();
   const searchField = useRef();
   const data = useSelector(getProducts);
@@ -26,24 +26,15 @@ const Search = ({}) => {
     event.preventDefault();
     const color = handleFilterByColor();
     const name = handleFilterByName();
-
+ 
     dispatch(setSearchedProducts(union(color, name)));
   };
 
   return (
     <>
-      <TextField
-        id="search"
-        label="search"
-        variant="standard"
-        InputProps={{
-          type: "search",
-        }}
-        inputRef={searchField}
-        onKeyUp={handleSearch}
-      />
+      <Search inputRef={searchField} onChange={handleSearch}/>
     </>
   );
 };
 
-export default Search;
+export default SearchProducts;

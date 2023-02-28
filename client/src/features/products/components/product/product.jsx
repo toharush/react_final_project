@@ -36,7 +36,7 @@ const Product = ({ product }) => {
 
   return (
     <Card className="product">
-      <Link to={product._id} relative="path">
+      <Link to={`../${product._id}/${chosenColor}`}>
         <CardActionArea>
           <CardMedia image={color[chosenColor].img} className="product-img" />
           <CardContent>

@@ -18,9 +18,7 @@ const initialState = {
 
 export const fetchProducts = createAsyncThunk(
   "products/setProducts",
-  async () => {
-    return await fetchAllProducts();
-  }
+  async () => await fetchAllProducts()
 );
 
 export const productsSlice = createSlice({
@@ -57,6 +55,7 @@ export const productsSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
+      console.log(action.payload)
       state.products = action.payload;
       state.loading = false;
     });
@@ -73,6 +72,6 @@ export const {
   setSort,
   setSearchedProducts,
   setInitState,
-  setCurrentProduct
+  setCurrentProduct,
 } = productsSlice.actions;
 export default productsSlice.reducer;

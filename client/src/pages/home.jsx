@@ -1,3 +1,4 @@
+import { Container } from "@mui/system";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
@@ -10,13 +11,14 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(loadUser());
-    dispatch(fetchProducts());
   }, []);
 
   return (
     <>
       <Navbar />
-      <Outlet />
+      <Container>
+        <Outlet />
+      </Container>
     </>
   );
 };

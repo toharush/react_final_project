@@ -14,22 +14,27 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Authentication from "../features/authentication/authentication";
-import { useDispatch, useSelector } from "react-redux";
-import { getCurrentUser, logout } from "../services/authentication";
+import { useDispatch } from "react-redux";
+import { logout } from "../services/authentication";
 import useNavbarPrefrences from "../hooks/useNavbarPrefrences";
-import { isAdmin } from "../store/selectors/selectors";
-import NavbarPageMenu from "../components/navbarPageMenu/navbarPageMenu";
+import { SearchProducts } from "../features/products";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const user = useSelector(getCurrentUser);
-  const admin = useSelector(isAdmin);
   const navbarPrefrences = useNavbarPrefrences();
+  const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [login, setLogin] = useState(false);
 
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = (setting) => {
@@ -44,13 +49,85 @@ const Navbar = () => {
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       variant="elevation"
       style={{ backgroundColor: "#191A19" }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <NavbarPageMenu admin={admin} />
+          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <SearchProducts />
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              {navbarPrefrences.pages.map((page) => (
+                <MenuItem key={page.route} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.name}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            Terminal
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {navbarPrefrences.pages.map((page) => (
+              <Button
+                key={page.route}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                <Link
+                  to={page.route}
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  {page.name}
+                </Link>
+              </Button>
+            ))}
+          </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
