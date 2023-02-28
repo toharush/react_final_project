@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Product from "../features/product";
+import Product from "../pages/product";
 import Admin from "../pages/admin";
 import Products from "../pages/products/products";
 import Cart from "../views/cart/cart";
-import { fetchAllProducts } from "../features/products/services/products";
+import { fetchAllProducts } from "../features/productsList";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +34,6 @@ const router = createBrowserRouter([
       },
       {
         path: ":id/:color",
-        loader: async () => await fetchAllProducts(),
         element: <Product />,
       },
       {

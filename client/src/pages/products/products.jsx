@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { default as ProductsFeat, SearchProducts } from "../../features/products";
+import ProductsList from "../../features/productsList";
 import Delivery from "../../components/delivery/delivery";
 import { fetchProducts } from "../../store/reducers/products/products";
 import "./products.css";
@@ -19,7 +19,7 @@ const Products = () => {
         <Delivery />
       </Box>
       <Filter />
-      <ProductsFeat />
+      <ProductsList />
     </>
   );
 };

@@ -17,7 +17,7 @@ import Authentication from "../features/authentication/authentication";
 import { useDispatch } from "react-redux";
 import { logout } from "../services/authentication";
 import useNavbarPrefrences from "../hooks/useNavbarPrefrences";
-import { SearchProducts } from "../features/products";
+import { SearchProducts } from "../features/productsList";
 
 const Navbar = () => {
   const dispatch = useDispatch();

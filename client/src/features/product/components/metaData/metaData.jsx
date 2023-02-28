@@ -16,14 +16,14 @@ const MetaData = ({ product, handleChosenColor }) => {
   };
   return (
     <>
-      <Link to=".." relative="path">
+      <Link to="../../products." relative="path">
         <Chip
           avatar={<Avatar>{product.supplier[0]}</Avatar>}
           label={product.supplier}
           onClick={() => handleFilter({ supplier: product.supplier })}
         />
       </Link>
-      <Link to=".." relative="path">
+      <Link to="../../products" relative="path">
         {product.color.map((color) => (
           <Chip
             avatar={

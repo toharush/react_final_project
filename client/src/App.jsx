@@ -3,15 +3,16 @@ import { SingletonHooksContainer } from "react-singleton-hook";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import Home from "./pages/home.jsx";
+import { ReactQueryDevtools } from "react-query/devtools";
 import "./App.css";
+import { QueryClient, QueryClientProvider, useQueryClient } from "react-query";
 
-function App() {
+const App = () => {
   return (
     <Provider store={store}>
-      <SingletonHooksContainer />
       <Home />
     </Provider>
   );
-}
+};
 
 export default App;

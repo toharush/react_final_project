@@ -10,7 +10,7 @@ import useProducts from "../../hooks/useProducts";
 import Loader from "../../components/loader/loader";
 
 
-const Products = () => {
+const ProductsList = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProductsWithFilter);
   const handleAddProductToCart = (product) => dispatch(addToCart(product));
@@ -34,4 +34,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductsList;
