@@ -2,7 +2,7 @@ const { isUserAdmin } = require("../controllers/auth");
 
 exports.isLogin = (req, res, next) => {
   const { ws } = req;
-
+  console.log(ws)
   try {
     if (req.cookies?.user?.uid) {
       next();
@@ -16,10 +16,11 @@ exports.isLogin = (req, res, next) => {
 };
 
 const closeConnection = (isWs, req, res, status) => {
+  console.log(isWs)
   if (isWs) {
-    req.websocket.close();
+    req.ws.close();
   } else {
-    res.status(500).end();
+    res.status(status).end();
   }
 };
 

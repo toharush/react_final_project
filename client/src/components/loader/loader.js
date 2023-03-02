@@ -1,10 +1,11 @@
-import "./loader.css";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
-function Loader() {
+const Loader = () => {
   return (
-    <div className="center">
-      <span className="loader"></span>
-    </div>
+    <Box sx={{ display: 'flex' }}>
+      <CircularProgress />
+    </Box>
   );
 }
 

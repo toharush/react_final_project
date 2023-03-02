@@ -3,11 +3,14 @@
   background: transparent;
   color: black;
 }
+
 .Link {
-  color: black;
+  color: black!important;
 }
+
 .navbar {
   height: 50px;
+  color: #cde990;
 }
 
 .active {

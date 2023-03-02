@@ -19,18 +19,20 @@ function Auth() {
   };
 
   return (
-    <div className="row">
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <Card className="loginForm">
-          <LoginAndSignup
-            setEmail={setEmail}
-            setPassword={setPassword}
-            handleLoginOrSignUp={handleLoginOrSignUp}
-          />
-        </Card>
-      )}
+    <div className="container">
+      <div className="row">
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Card className="loginForm">
+            <LoginAndSignup
+              setEmail={setEmail}
+              setPassword={setPassword}
+              handleLoginOrSignUp={handleLoginOrSignUp}
+            />
+          </Card>
+        )}
+      </div>
     </div>
   );
 }

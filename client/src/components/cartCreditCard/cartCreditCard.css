@@ -1,0 +1,5 @@
+.totalPrice {
+    width: 6.5ch;
+    overflow: hidden;
+    white-space: nowrap;
+}

@@ -1,19 +1,23 @@
+import { MDBInput } from "mdb-react-ui-kit";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { AddToCartServer } from "../../store/middlewares/cart/cart";
 import { addToCart } from "../../store/reducers/cart/cart";
+import { setSearch } from "../../store/reducers/products/products";
+import { getCurrentUser } from "../../store/selectors/selectors";
 import SliderChoser from "../sliderChoser/sliderChoser";
 import "./product.css";
 
 function Product({ product }) {
-  const { name, supplier, price, img, size, color } = product;
+  const [chosenColor, setChosenColor] = useState(0);
+  const { name, supplier, price, color } = product;
 
   const dispatch = useDispatch();
-  const [chosenSize, setChosenSize] = useState(size[0]);
-  const [chosenColor, setChosenColor] = useState(color[0]);
+  const [chosenSize, setChosenSize] = useState(0);
 
   const handleAddToCart = () => {
     dispatch(
-      addToCart({
+      AddToCartServer({
         ...product,
         chosenSize: chosenSize,
         chosenColor: chosenColor,
@@ -24,7 +28,7 @@ function Product({ product }) {
   return (
     <div className="el-wrapper">
       <div className="box-up">
-        <img className="img" src={img} alt="" />
+        <img className="img" src={color[chosenColor]?.img} alt="" />
         <div className="img-info">
           <div className="info-inner">
             <span className="p-name">{name}</span>
@@ -33,9 +37,9 @@ function Product({ product }) {
           <SliderChoser
             content={{
               title: "Available sizes",
-              options: size,
+              options: color[chosenColor].size.map((s) => ({ name: s })),
               setChosen: setChosenSize,
-              chosen: chosenSize,
+              chosen: color[chosenColor].size[chosenSize],
               label: true,
             }}
           />
@@ -43,10 +47,10 @@ function Product({ product }) {
             <SliderChoser
               content={{
                 title: "Available color",
-                options: color,
+                options: color.map((color) => color.color),
                 setChosen: setChosenColor,
-                chosen: chosenColor,
-                label: false,
+                chosen: color[chosenColor],
+                label: true,
               }}
             />
           </div>

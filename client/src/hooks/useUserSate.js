@@ -5,7 +5,8 @@ import { getCurrentUser, isAdmin } from "../store/selectors/selectors";
 
 function useUserState() {
   const dispatch = useDispatch();
-  const auth = useSelector(getCurrentUser);
+  const [auth, setAuth] = useState();
+  //const auth = useSelector(getCurrentUser);
   const admin = useSelector(isAdmin);
 
   useEffect(() => {
