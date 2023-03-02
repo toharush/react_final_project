@@ -1,7 +1,6 @@
 import "./product.css";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import {
   Avatar,
@@ -17,6 +16,7 @@ import nameToClass from "../../../../utils/nameToClass";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../../../store/reducers/cart/cart";
 import { useDispatch } from "react-redux";
+import CardImg from "react-bootstrap/esm/CardImg";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
@@ -25,20 +25,22 @@ const Product = ({ product }) => {
   const [chosenSize, setChosenSize] = useState(0);
 
   const handleAddToCart = () => {
-    dispatch(addToCart({
-      ...product,
-      chosen: {
-        chosenSize: chosenSize,
-        chosenColor: chosenColor,
-      },
-    }));
+    dispatch(
+      addToCart({
+        ...product,
+        chosen: {
+          chosenSize: chosenSize,
+          chosenColor: chosenColor,
+        },
+      })
+    );
   };
 
   return (
     <Card className="product">
       <Link to={`../${product._id}/${chosenColor}`}>
         <CardActionArea>
-          <CardMedia image={color[chosenColor].img} className="product-img" />
+          <CardImg src={color[chosenColor].img} className="product-img" />
           <CardContent>
             <Typography
               gutterBottom

@@ -6,37 +6,38 @@ import { getCurrentUser, isAdmin } from "../store/selectors/selectors";
 const useNavbarPrefrences = () => {
   const user = useSelector(getCurrentUser);
   const userPermission = useSelector(isAdmin);
-  const [settings, setSettings] = useState([]);
-  const [pages, setPages] = useState([
+
+  const loginSettings = [
+    { name: user.email, route: "profile" },
+    { name: "Logout", route: "Logout" },
+  ];
+  const regularSettings = [
+    { name: "Guest", route: null },
+    { name: "Login", route: "login" },
+  ];
+
+  const adminPages = [
     { name: "Browse", route: "products" },
     { name: "Cart", route: "cart" },
-    { name: "Admin Panel", route: "admin" }
-  ]);
+    { name: "Admin Panel", route: "admin" },
+  ];
+  const regularPages = [
+    { name: "Browse", route: "products" },
+    { name: "Cart", route: "cart" },
+  ];
+
+  const [settings, setSettings] = useState(regularSettings);
+  const [pages, setPages] = useState(regularPages);
 
   useEffect(() => {
     if (!isEmpty(user)) {
-      setSettings([
-        { name: user.email, route: "profile" },
-        { name: "Logout", route: "Logout" },
-      ]);
-      if (
-        userPermission &&
-        !pages.includes({ name: "Admin Panel", route: "admin" })
-      ) {
-        setPages([...pages, { name: "Admin Panel", route: "admin" }]);
+      setSettings(loginSettings);
+      if (userPermission) {
+        setPages(adminPages);
       }
     } else {
-      setSettings([
-        { name: "Guest", route: null },
-        { name: "Login", route: "login" },
-      ]);
-      if (pages.includes({ name: "Admin Panel", route: "admin" })) {
-        setPages(
-          pages.filter(
-            (item) => item != { name: "Admin Panel", route: "admin" }
-          )
-        );
-      }
+      setSettings(regularSettings);
+      setPages(regularPages);
     }
   }, [user, userPermission]);
 

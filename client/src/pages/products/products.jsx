@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import ProductsList from "../../features/productsList";
 import Delivery from "../../components/delivery/delivery";
-import { fetchProducts } from "../../store/reducers/products/products";
+import { fetchProducts } from "../../features/productsList";
 import "./products.css";
 import Filter from "../../features/filter/filter";
 

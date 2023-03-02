@@ -1,14 +1,11 @@
 import { useSelector } from "react-redux";
+import useAdminWs from "../../hooks/useAdminWs";
 import { getAdminMsg } from "../../store/selectors/selectors";
 
-function Admin() {
+const Admin = () => {
+  useAdminWs();
   const data = useSelector(getAdminMsg);
-  return (
-    <div>
-      admin
-      {data}
-    </div>
-  );
-}
+  return <div></div>;
+};
 
 export default Admin;

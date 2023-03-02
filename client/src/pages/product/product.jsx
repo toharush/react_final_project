@@ -6,8 +6,8 @@ import {
   useQuery,
   useQueryClient,
 } from "react-query";
-import { fetchProduct } from "../features/product/services/product";
-import { default as ProductFeat } from "../features/product";
+import { fetchProduct } from "../../features/product/services/product";
+import { default as ProductFeat } from "../../features/product";
 
 const Product = () => {
   const { id, color } = useParams();

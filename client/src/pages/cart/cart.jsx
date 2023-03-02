@@ -1,13 +1,8 @@
 import {
-  MDBBtn,
   MDBCard,
   MDBCardBody,
-  MDBCardImage,
-  MDBCardText,
   MDBCol,
   MDBContainer,
-  MDBIcon,
-  MDBInput,
   MDBRow,
   MDBTypography,
 } from "mdb-react-ui-kit";
@@ -15,13 +10,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import CartCreditCart from "../../components/cartCreditCard/cartCreditCard";
 import CartItem from "../../components/cartItem/cartItem";
-import {
-  getCartItems,
-  itemPrice,
-  totalPrice,
-} from "../../store/selectors/cart/cart";
+import { getCartItems } from "../../store/selectors/cart/cart";
 
-export default function Cart() {
+const Cart = () => {
   const products = useSelector(getCartItems);
 
   return (
@@ -52,9 +43,17 @@ export default function Cart() {
 
                       {products.length > 0 &&
                         products.map((product) =>
-                          product.chosen.map(chosen =>
-                            <CartItem product={product} chosen={chosen} key={product._id + chosen.chosenColor + chosen.chosenSize} />
-                          )
+                          product.chosen.map((chosen) => (
+                            <CartItem
+                              product={product}
+                              chosen={chosen}
+                              key={
+                                product._id +
+                                chosen.chosenColor +
+                                chosen.chosenSize
+                              }
+                            />
+                          ))
                         )}
                     </div>
                   </MDBCol>
@@ -67,4 +66,6 @@ export default function Cart() {
       </MDBContainer>
     </section>
   );
-}
+};
+
+export default Cart;

@@ -2,7 +2,7 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 
-const Search = ({ inputRef, ...props }) => {
+const Search = ({ ...props }) => {
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -50,7 +50,6 @@ const Search = ({ inputRef, ...props }) => {
       </SearchIconWrapper>
       <StyledInputBase
         placeholder="Search…"
-        inputRef={inputRef}
         inputProps={{ "aria-label": "search" }}
         {...props}
       />
