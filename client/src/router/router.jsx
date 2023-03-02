@@ -3,7 +3,7 @@ import App from "../App";
 import Product from "../pages/product";
 import Admin from "../pages/admin";
 import Products from "../pages/products/products";
-import Cart from "../views/cart/cart";
+import Cart from "../pages/cart";
 import { fetchAllProducts } from "../features/productsList";
 
 const router = createBrowserRouter([
@@ -15,22 +15,6 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <Products />,
-        // children: [
-        //   {
-        //     path: "",
-        //     element: (
-        //       <>
-        //         <Filter />
-        //         <ProductFeat />
-        //       </>
-        //     ),
-        //   },
-        //   {
-        //     path: ":id/:color",
-        //     loader: async () => await fetchAllProducts(),
-        //     element: <Product />,
-        //   },
-        // ],
       },
       {
         path: ":id/:color",

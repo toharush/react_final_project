@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import Navbar from "../layouts/navbar";
 import { loadUser } from "../services/authentication";
-import { fetchProducts } from "../store/reducers/products/products";
+import { fetchProducts } from "../features/productsList";
 
 const Home = () => {
   const dispatch = useDispatch();

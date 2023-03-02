@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { singletonHook } from "react-singleton-hook";
-import { fetchProducts } from "../store/reducers/products/products";
-import { selectProducts } from "../store/selectors/selectors";
+// import { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { singletonHook } from "react-singleton-hook";
+// import { fetchProducts } from "../store/reducers/products/products";
+// import { selectProducts } from "../store/selectors/selectors";
 
 const init = null;
 
