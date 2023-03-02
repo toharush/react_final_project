@@ -5,7 +5,7 @@ const initialState = {
   products: [],
   searchedProducts: null,
   filter: {
-    name: null,
+    search: null,
     color: null,
     price: null,
     size: null,

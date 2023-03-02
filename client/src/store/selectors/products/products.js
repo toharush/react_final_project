@@ -3,16 +3,19 @@ import { filter, flatMap, isEmpty, isNull, uniq } from "lodash";
 export const getProducts = (state) => state.products.products;
 export const getLoadingState = (state) => state.products.loading;
 export const getSearchedProducts = (state) =>
-  state.products.searchedProducts ?? state.products.products;
+  state.products.products.filter((item) =>
+    JSON.stringify(item).toLowerCase().includes(state.products.filter.search)
+  );
 export const getFilters = (state) => state.products.filter;
-export const getSuppliers = (state) => uniq(flatMap(state.products.products, (s) => s.supplier));
+export const getSuppliers = (state) =>
+  uniq(flatMap(state.products.products, (s) => s.supplier));
 export const selectProducts = (state) => state.products.products;
 export const selectProductsWithFilter = (state) => {
-  let data = state.products.searchedProducts ?? state.products.products;
+  let data = state.products.products;
 
-  if (state.products.filter.name) {
-    data = filter(data, ({ name }) =>
-      name.toUpperCase().includes(state.products.filter.name.toUpperCase())
+  if (state.products.filter.search) {
+    data = data.filter((item) =>
+      JSON.stringify(item).toLowerCase().includes(state.products.filter.search)
     );
   }
 
