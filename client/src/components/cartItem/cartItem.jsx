@@ -23,7 +23,6 @@ import { setItem } from "../../store/reducers/cart/cart";
 function CartItem({ product, chosen }) {
   const dispatch = useDispatch();
   const { img, name, price, quantity, color, supplier, description } = product;
-  console.log(product, chosen);
 
   const changeItemCount = (count) => {
     if (count > 0) {

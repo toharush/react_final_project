@@ -10,7 +10,6 @@ import Filter from "../../features/filter/filter";
 const Products = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("run");
     dispatch(fetchProducts());
   }, []);
   return (
