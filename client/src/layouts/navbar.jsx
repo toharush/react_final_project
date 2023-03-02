@@ -136,12 +136,14 @@ const Navbar = () => {
               onClose={handleCloseUserMenu}
             >
               {navbarPrefrences.settings.map((setting) => (
-                <MenuItem
-                  key={setting.name}
-                  onClick={() => handleCloseUserMenu(setting)}
-                >
-                  <Typography textAlign="center">{setting.name}</Typography>
-                </MenuItem>
+                <Link to={setting.isLinkActive ? setting.route : null}>
+                  <MenuItem
+                    key={setting.name}
+                    onClick={() => handleCloseUserMenu(setting)}
+                  >
+                    <Typography textAlign="center">{setting.name}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>

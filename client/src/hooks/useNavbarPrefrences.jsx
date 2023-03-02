@@ -8,12 +8,12 @@ const useNavbarPrefrences = () => {
   const userPermission = useSelector(isAdmin);
 
   const loginSettings = [
-    { name: user.email, route: "profile" },
-    { name: "Logout", route: "Logout" },
+    { name: user.email, route: "profile", isLinkActive: true },
+    { name: "Logout", route: "Logout", isLinkActive: false },
   ];
   const regularSettings = [
-    { name: "Guest", route: null },
-    { name: "Login", route: "login" },
+    { name: "Guest", route: null, isLinkActive: false },
+    { name: "Login", route: "login", isLinkActive: false },
   ];
 
   const adminPages = [
