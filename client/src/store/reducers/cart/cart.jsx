@@ -10,7 +10,6 @@ export const cartSlice = createSlice({
       const product = state.items.find(
         (item) => item._id === action.payload._id
       );
-      console.log(product);
       if (!product) {
         return {
           ...state,

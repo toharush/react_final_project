@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import { addToCart } from "../../../../store/reducers/cart/cart";
 import { useDispatch } from "react-redux";
 import CardImg from "react-bootstrap/esm/CardImg";
+import ImageSlider from "../imageSlider/imageSlider";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
@@ -38,37 +39,30 @@ const Product = ({ product }) => {
 
   return (
     <Card className="product">
+      <ImageSlider
+        slides={color.map((color) => color)}
+        className="product-img"
+        currentIndex={chosenColor}
+        setCurrentIndex={setChosenColor}
+        link={`../${product._id}/${chosenColor}`}
+      />
       <Link to={`../${product._id}/${chosenColor}`}>
-        <CardActionArea>
-          <CardImg src={color[chosenColor].img} className="product-img" />
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="div"
-              className="name"
-            >
-              {name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {supplier}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            className="name"
+          >
+            {name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {supplier}
+          </Typography>
+        </CardContent>
       </Link>
       <CardActions>
         <Stack width={"345px"} alignItems="center">
-          <Selector value={chosenSize} setValue={setChosenColor}>
-            {color.map((c, index) => (
-              <Avatar
-                className={"avtr-btn " + nameToClass(c.color.name)}
-                variant="circular"
-                typeof="button"
-                onClick={() => setChosenColor(index)}
-                key={c.color.name}
-              />
-            ))}
-          </Selector>
           <Selector value={chosenSize} setValue={setChosenSize}>
             {color[chosenColor].size.map((size, index) => (
               <ToggleButton value={index} key={chosenSize + size}>
