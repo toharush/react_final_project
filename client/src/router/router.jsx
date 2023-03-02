@@ -1,10 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Product from "../pages/product";
-import Admin from "../pages/admin";
+import Product from "../pages/product/product";
+import Admin from "../pages/admin/admin";
 import Products from "../pages/products/products";
-import Cart from "../pages/cart";
-import { fetchAllProducts } from "../features/productsList";
+import Cart from "../pages/cart/cart";
 
 const router = createBrowserRouter([
   {

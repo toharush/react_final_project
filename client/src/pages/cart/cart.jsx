@@ -8,9 +8,9 @@ import {
 } from "mdb-react-ui-kit";
 import React from "react";
 import { useSelector } from "react-redux";
-import CartCreditCart from "../components/cartCreditCard/cartCreditCard";
-import CartItem from "../components/cartItem/cartItem";
-import { getCartItems } from "../store/selectors/cart/cart";
+import CartCreditCart from "../../components/cartCreditCard/cartCreditCard";
+import CartItem from "../../components/cartItem/cartItem";
+import { getCartItems } from "../../store/selectors/cart/cart";
 
 const Cart = () => {
   const products = useSelector(getCartItems);
