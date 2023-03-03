@@ -33,7 +33,6 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/cart/add/:item", async (req, res) => {
-  console.log(req.params.item, req.cookies?.user?.uid);
   res.send(await AddToCart(req.params.item, req.cookies?.user?.uid));
 });
 

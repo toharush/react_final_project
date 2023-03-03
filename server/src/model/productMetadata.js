@@ -7,7 +7,6 @@ exports.AddProductMetadata = async(productId, userId) => {
           productId: productId,
           userId: userId
       });
-      console.log(res)
       if(res.length == 0) {
          res = await productsMetadata.insertMany({
               productId: productId, 
@@ -15,7 +14,6 @@ exports.AddProductMetadata = async(productId, userId) => {
               buy: false
           });
       }
-      console.log(res);
     } catch (err) {
       console.log(err);
     } finally {
