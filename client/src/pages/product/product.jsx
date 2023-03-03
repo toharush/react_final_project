@@ -7,13 +7,16 @@ import { fetchNewComments } from "../../features/comments/services/comments";
 
 const Product = () => {
   const { id, color } = useParams();
+  const [chosenColor, setChosenColor] = useState(Number(color));
+  const [rating, setRating] = useState(0);
   const [data, setData] = useState(null);
 
   const handleNewComment = async (comment) => {
     if (!isEmpty(comment.current.value)) {
-      await fetchNewComments(comment.current.value, id);
+      await fetchNewComments(comment.current.value, rating, id);
       await loadProduct();
       comment.current.value = "";
+      setRating(0);
     }
   };
 
@@ -28,8 +31,11 @@ const Product = () => {
   return data ? (
     <ProductFeat
       product={data}
-      color={color}
+      chosenColor={chosenColor}
+      setChosenColor={setChosenColor}
       handleNewComment={handleNewComment}
+      rating={rating}
+      setRating={setRating}
     />
   ) : null;
 };

@@ -6,6 +6,7 @@ const adminRouter = require("./admin");
 const { wss } = require("..");
 const User = require("../model/user");
 const user = new User();
+
 router.use("/auth", authRouter);
 router.use("/items", itemRouter);
 router.use("/admin", adminRouter);

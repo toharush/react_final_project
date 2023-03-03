@@ -1,0 +1,13 @@
+.quantity-card {
+  display: flex;
+  width: 200px;
+  height: 40px;
+}
+
+.quantity-btn {
+    height: 100%;
+}
+
+.quantity-input {
+    height: 100% !important;
+}

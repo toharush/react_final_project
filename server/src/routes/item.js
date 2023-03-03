@@ -15,6 +15,7 @@ router.post("/comments", isLogin, async (req, res) => {
     await addComment(
       req.body.productId,
       req.cookies?.user?.uid,
+      req.body.rating,
       req.body.comment
     )
   );

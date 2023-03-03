@@ -1,6 +1,6 @@
 const comments = require("../schemas/comments");
 
-exports.addCommentToDb = async (productsId, userId, comment) => {
+exports.addCommentToDb = async (productsId, userId, rating, comment) => {
   return await comments.findOneAndUpdate(
     { productId: productsId },
     {
@@ -8,7 +8,8 @@ exports.addCommentToDb = async (productsId, userId, comment) => {
         comments: {
           userId: userId,
           comment: comment,
-          date: new Date().toDateString()
+          rating: rating,
+          date: new Date().toDateString(),
         },
       },
     },

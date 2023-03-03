@@ -50,7 +50,7 @@ function CartItem({ product, chosen }) {
   return (
     <>
       <TableRow className="mb-4 d-flex justify-content-between align-items-center">
-        <TableCell md="2" lg="2" xl="2">
+        <TableCell md="2" lg="2" xl="2" >
           <CardImg
             src={color[chosen.chosenColor].img}
             className="rounded-3"
@@ -58,8 +58,8 @@ function CartItem({ product, chosen }) {
           />
         </TableCell>
         <TableCell md="3" lg="3" xl="3">
-          <Typography tag="h6" className="text-muted">
-            {name} &#x2022; {color[chosen.chosenColor].color.name} &#x2022;{" "}
+          <Typography tag="h6">
+            {name} &#x2022; {color[chosen.chosenColor].color.name} &#x2022;
             {color[chosen.chosenColor].size[chosen.chosenSize]}
           </Typography>
           <Typography tag="h6" className="text-muted">
@@ -69,25 +69,20 @@ function CartItem({ product, chosen }) {
             {supplier}
           </Typography>
         </TableCell>
-        <TableCell md="3" lg="3" xl="3" className="d-flex align-items-center">
-          <TextField
+        <TextField
             type="number"
             min="0"
             value={chosen.quantity}
             size="sm"
+            style={{
+              width: "10vw",
+              marginRight: "1vw"
+            }}
             onChange={(event) => changeItemCount(event.target.value)}
           />
-        </TableCell>
-        <TableCell md="3" lg="2" xl="2" className="text-end">
-          <Typography tag="h6" className="mb-0">
-            ${price}
-          </Typography>
-        </TableCell>
-        <TableCell md="1" lg="1" xl="1" className="text-end">
-          <a href="#!" className="text-muted">
-            <MDBIcon fas icon="times" />
-          </a>
-        </TableCell>
+        <Typography tag="h6" className="mb-0">
+          ${price}
+        </Typography>
       </TableRow>
       <Divider />
     </>
