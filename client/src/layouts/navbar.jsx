@@ -16,13 +16,17 @@ import Authentication from "../features/authentication/authentication";
 import useNavbarPrefrences from "../hooks/useNavbarPrefrences";
 import { SearchProducts } from "../features/productsList";
 import { signout } from "../services/authentication";
-
+import useWs from "../hooks/useWs";
+import { isAdmin } from "../store/selectors/selectors";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const navbarPrefrences = useNavbarPrefrences();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [login, setLogin] = useState(false);
+  const admin = useSelector(isAdmin);
+  useWs({ isAdmin: admin });
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
