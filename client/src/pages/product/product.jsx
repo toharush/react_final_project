@@ -14,13 +14,13 @@ const Product = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const loadProduct = async() => {
-        return await setData(await fetchProduct(id))
-    }
+    const loadProduct = async () => {
+      console.log(await fetchProduct(id));
+      return await setData(await fetchProduct(id));
+    };
 
     loadProduct();
   }, []);
-
   return data ? <ProductFeat product={data} color={color} /> : null;
 };
 

@@ -6,7 +6,7 @@ export const fetchProduct = async (id) => {
     const comments =
       (await (await axios.get(`/items/${id}/comments`)).data) ?? [];
     return {
-      ...comments,
+      comments,
       ...item,
     };
   } catch (err) {

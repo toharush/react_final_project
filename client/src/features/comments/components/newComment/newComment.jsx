@@ -7,7 +7,7 @@ import { Button, CardActionArea, CardActions, TextField } from "@mui/material";
 
 const NewComments = ({ onSubmit, commentRef }) => {
   return (
-    <Card style={{ margin: "5px" }}>
+    <>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -28,7 +28,7 @@ const NewComments = ({ onSubmit, commentRef }) => {
       <CardActions>
         <Button onClick={onSubmit}>Send</Button>
       </CardActions>
-    </Card>
+    </>
   );
 };
 

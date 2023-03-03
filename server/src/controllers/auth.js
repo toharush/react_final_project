@@ -5,7 +5,8 @@ exports.getUserByEmail = (email) => {
 };
 
 exports.getUserById = async(id) => {
-  return await admin.auth(app).getUser(id);
+  const res = await admin.auth(app).getUser(id);
+  return res.email;
 }
 
 exports.isUserAdmin = (uid) => {

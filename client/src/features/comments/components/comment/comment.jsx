@@ -7,7 +7,7 @@ import { red } from "@mui/material/colors";
 
 const Comment = ({ comment }) => {
   return (
-    <Card style={{ margin: "5px" }}>
+    <>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -22,7 +22,7 @@ const Comment = ({ comment }) => {
           {comment.comment}
         </Typography>
       </CardContent>
-    </Card>
+    </>
   );
 };
 
