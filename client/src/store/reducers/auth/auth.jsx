@@ -7,7 +7,7 @@ export const tokenSlice = createSlice({
     user: null,
     admin: {
       isAdmin: false,
-      msg: null,
+      msg: [],
     },
     loading: false,
     error: null,

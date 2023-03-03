@@ -5,7 +5,6 @@ exports.GetAllProductsFromDb = async () => {
 
   try {
     res = await products.find({});
-    console.log(res);
   } catch (err) {
     console.log(err);
   } finally {
@@ -18,7 +17,6 @@ exports.GetProductByIdFromDb = async (id) => {
 
   try {
     res = await products.findById(id);
-    console.log(res);
   } catch (err) {
     console.log(err);
   } finally {

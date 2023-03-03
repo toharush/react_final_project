@@ -1,7 +1,6 @@
 const admin = require("firebase-admin");
 require("dotenv").config();
 
-console.log(process.env.FIREBASE_DOMAIN);
 exports.app = admin.initializeApp({
   credential: admin.credential.cert({
     projectId: process.env.FIREBASE_PROJECT_ID,

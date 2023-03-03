@@ -21,7 +21,6 @@ exports.GetAllCommentsFromDb = async () => {
 
   try {
     res = await comments.find({});
-    console.log(res);
   } catch (err) {
     console.log(err);
   } finally {
@@ -34,7 +33,6 @@ exports.GetAllCommentsByIdFromDb = async (id) => {
 
   try {
     res = await comments.findOne({ productId: id });
-    console.log(res);
   } catch (err) {
     console.log(err);
   } finally {
