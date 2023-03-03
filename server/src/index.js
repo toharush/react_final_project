@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const app = express();
 
@@ -9,6 +10,8 @@ require("express-ws")(app);
 
 const port = process.env.PORT || 8080;
 const routes = require("./routes/main");
+
+app.use(bodyParser.json({ extended: true }));
 
 app.use(
   cors({
