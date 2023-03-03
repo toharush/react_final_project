@@ -10,6 +10,7 @@ export const getFilters = (state) => state.products.filter;
 export const getSuppliers = (state) =>
   uniq(flatMap(state.products.products, (s) => s.supplier));
 export const selectProducts = (state) => state.products.products;
+export const selectProductsErrors = (state) => state.products.error;
 export const selectProductsWithFilter = (state) => {
   let data = state.products.products;
 

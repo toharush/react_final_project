@@ -1,16 +1,18 @@
 import Product from "./components/product/product";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import {
+  selectProductsErrors,
   selectProductsWithFilter,
 } from "../../store/selectors/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/reducers/cart/cart";
 import Loader from "../../components/loader/loader";
-
+import { Alert } from "@mui/material";
 
 const ProductsList = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProductsWithFilter);
+  const error = useSelector(selectProductsErrors);
   const handleAddProductToCart = (product) => addToCart(product);
 
   return products ? (

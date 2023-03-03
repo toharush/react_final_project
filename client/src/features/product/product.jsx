@@ -15,6 +15,7 @@ const Product = ({
   handleNewComment,
   rating,
   setRating,
+  loading
 }) => {
   const inputRef = useRef();
   const dispatch = useDispatch();
@@ -75,6 +76,7 @@ const Product = ({
           handleNewComment={handleNewComment}
           rating={rating}
           setRating={setRating}
+          loading={loading}
         />
       </div>
     </div>

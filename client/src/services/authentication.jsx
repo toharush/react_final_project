@@ -1,71 +1,56 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import cookies from "../lib/cookies";
 import axios from "../lib/axios";
-import { firebasecreateUser, firebaseSignIn } from "./firebase";
+import {
+  firebasecreateUser,
+  firebaseSignIn,
+  getCurrentUserFromFireBase,
+  signOutFromFirebase,
+} from "./firebase";
 
 export const signUp = createAsyncThunk("auth/setUser", async (userData) => {
   const { email, password } = userData;
-  try {
-    if (!cookies.get("user")) {
-      const user = await firebasecreateUser(email, password);
-
-      await registerLoginInServer(user);
-    }
-    return await loadUser();
-  } catch (e) {
-    throw e;
+  const loggedIn = await getCurrentUser();
+  if (!loggedIn) {
+    return await firebasecreateUser(email, password);
   }
 });
 
 export const signIn = createAsyncThunk("auth/setUser", async (userData) => {
   const { email, password } = userData;
-  try {
-    if (!cookies.get("user")) {
-      const user = await firebaseSignIn(email, password);
-      await registerLoginInServer(user);
-    }
-    return await loadUser();
-  } catch (e) {
-    throw e;
+  const loggedIn = await getCurrentUser();
+  if (!loggedIn) {
+    return await firebaseSignIn(email, password);
   }
 });
 
-export const loadUser = createAsyncThunk("auth/setUser", async () => {
-  try {
-    const user = await getCurrentUser();
-    const admin = await isUserAdmin();
-    return { user: user, admin: admin };
-  } catch (e) {
-    throw e;
-  }
+export const isAdmin = createAsyncThunk("auth/setUser", async () => {
+  return await isUserAdmin();
 });
-
-export const registerLoginInServer = async (user) => {
-  await axios.post(
-    "/auth",
-    {},
-    {
-      headers: {
-        Authorization: user.stsTokenManager.accessToken,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    }
-  );
-};
 
 export const getCurrentUser = async () => {
-  return await (
-    await axios.get("/auth")
-  ).data;
+  return await getCurrentUserFromFireBase();
 };
 
 export const isUserAdmin = async () => {
+  console.log((await getCurrentUser()).uid.toString());
   return await (
-    await axios.get("/auth/isAdmin")
+    await axios.get("/auth/isAdmin", {
+      headers: {
+        authorization: (await getCurrentUser()).uid.toString(),
+      },
+    })
   ).data;
 };
 
-export const logout = createAsyncThunk("auth/logout", async () => {
-  return await axios.get("/auth/logout");
-});
+export const signout = async () => {
+  try {
+    await (
+      await axios.get("/auth/signout", {
+        headers: {
+          authorization: (await getCurrentUser()).uid.toString(),
+        },
+      })
+    ).data;
+    await signOutFromFirebase();
+  } catch {}
+};

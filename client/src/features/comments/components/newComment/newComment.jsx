@@ -10,10 +10,11 @@ import {
   Rating,
   TextField,
 } from "@mui/material";
+import Loader from "../../../../components/loader/loader";
+import { Box } from "@mui/system";
 
-const NewComments = ({ onSubmit, commentRef, rating, setRating }) => {
-  
-  return (
+const NewComments = ({ onSubmit, commentRef, rating, setRating, loading }) => {
+  return !loading ? (
     <>
       <CardHeader
         avatar={
@@ -43,6 +44,12 @@ const NewComments = ({ onSubmit, commentRef, rating, setRating }) => {
         <Button onClick={onSubmit}>Send</Button>
       </CardActions>
     </>
+  ) : (
+    <Box style={{
+      height: "100px"
+    }}>
+      <Loader />
+    </Box>
   );
 };
 
