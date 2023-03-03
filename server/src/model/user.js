@@ -14,7 +14,7 @@ class User {
     if (id) {
       User.loggedInUsers.length > 0 ? User.loggedInUsers-- : null;
     } else {
-      User.guestUser.length > 0 ? User.guestUsers-- : null;
+      User.guestUsers.length > 0 ? User.guestUsers-- : null;
     }
     console.log(
       "removeUser",

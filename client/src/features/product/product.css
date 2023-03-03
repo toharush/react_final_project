@@ -1,0 +1,27 @@
+.product-page {
+  margin-top: 1%;
+  display: flex;
+}
+.product-page-details {
+  width: 100%;
+  display: flex;
+  margin-left: 3%;
+}
+.product-page-image {
+  width: 30vw;
+  height: 75vh;
+  display: table-cell;
+}
+.product-text-details {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  align-content: stretch;
+  width: 100%;
+  justify-content: space-between;
+}
+.comments {
+  width: 40%;
+  margin-right: 3%;
+}

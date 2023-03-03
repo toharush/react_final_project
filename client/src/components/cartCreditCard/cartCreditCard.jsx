@@ -1,3 +1,4 @@
+import { Button, Divider, TextField, Typography } from "@mui/material";
 import { MDBCol, MDBInput, MDBTypography } from "mdb-react-ui-kit";
 import { useSelector } from "react-redux";
 import { getItemPrice, getTotalPrice } from "../../store/selectors/cart/cart";
@@ -10,46 +11,52 @@ function CartCreditCart({ count }) {
     <>
       <MDBCol lg="4" className="bg-grey">
         <div className="p-5">
-          <MDBTypography tag="h3" className="fw-bold mb-5 mt-2 pt-1">
+          <Typography
+            variant="h5"
+            fontWeight="bold"
+            style={{
+              margin: "10px",
+            }}
+          >
             Summary
-          </MDBTypography>
+          </Typography>
 
-          <hr className="my-4" />
+          <Divider variant="middle" />
 
-          <div className="d-flex justify-content-between mb-4">
-            <MDBTypography tag="h5" className="text-uppercase">
-              items {count}
-            </MDBTypography>
-            <MDBTypography tag="h5">${itemPrice}</MDBTypography>
-          </div>
-          <MDBTypography tag="h5" className="text-uppercase mb-3">
-            Credit Card
-          </MDBTypography>
+          <TextField
+            variant="outlined"
+            label="credit card"
+            fullWidth
+            style={{
+              margin: "10px",
+            }}
+          />
 
-          <div className="mb-5">
-            <MDBInput size="lg" label="Enter your credit card" />
-          </div>
+          <TextField
+            variant="outlined"
+            label="ID Number"
+            fullWidth
+            style={{
+              margin: "10px",
+            }}
+          />
 
-          <MDBTypography tag="h5" className="text-uppercase mb-3">
-            ID Number
-          </MDBTypography>
+          <Divider variant="middle" />
 
-          <div className="mb-5">
-            <MDBInput size="lg" label="Enter your ID Number" />
-          </div>
+          <div
+            className="d-flex justify-content-between mb-5"
+            style={{
+              margin: "10px",
+            }}
+          >
+            <Typography variant="h5">Total price</Typography>
 
-          <hr className="my-4" />
-
-          <div className="d-flex justify-content-between mb-5">
-            <MDBTypography tag="h5" className="text-uppercase">
-              Total price
-            </MDBTypography>
-            <MDBTypography tag="h5" className="totalPrice">
+            <Typography variant="h5" className="totalPrice">
               ${totalPrice}
-            </MDBTypography>
+            </Typography>
           </div>
 
-          <button className="btn btn-dark">Buy</button>
+          <Button variant="contained">Buy</Button>
         </div>
       </MDBCol>
     </>

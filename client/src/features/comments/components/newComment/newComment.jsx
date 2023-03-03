@@ -3,9 +3,16 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import { red } from "@mui/material/colors";
-import { Button, CardActionArea, CardActions, TextField } from "@mui/material";
+import {
+  Button,
+  CardActionArea,
+  CardActions,
+  Rating,
+  TextField,
+} from "@mui/material";
 
-const NewComments = ({ onSubmit, commentRef }) => {
+const NewComments = ({ onSubmit, commentRef, rating, setRating }) => {
+  
   return (
     <>
       <CardHeader
@@ -18,6 +25,13 @@ const NewComments = ({ onSubmit, commentRef }) => {
         subheader={new Date().toDateString()}
       />
       <CardContent>
+        <Rating
+          name="simple-controlled"
+          value={rating}
+          onChange={(event, newValue) => {
+            setRating(newValue);
+          }}
+        />
         <TextField
           variant="outlined"
           label="comment"

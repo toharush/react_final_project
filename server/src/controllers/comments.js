@@ -4,8 +4,8 @@ const {
 } = require("../model/comments");
 const { getUserById } = require("./auth");
 
-exports.addComment = async (productsId, userId, comment) => {
-  return await addCommentToDb(productsId, userId, comment);
+exports.addComment = async (productsId, userId, rating, comment) => {
+  return await addCommentToDb(productsId, userId, rating, comment);
 };
 
 exports.GetAllComments = async () => {
@@ -14,11 +14,18 @@ exports.GetAllComments = async () => {
 
 exports.GetAllCommentsById = async (id) => {
   let comments = [];
-  for (let comment of (await GetAllCommentsByIdFromDb(id)).comments) {
-    await comments.push({
-      ...comment,
-      userId: await getUserById(comment.userId),
-    });
+
+  try {
+    const res = await GetAllCommentsByIdFromDb(id);
+    for (let comment of res.comments) {
+      await comments.push({
+        ...comment,
+        userId: await getUserById(comment.userId),
+      });
+    }
+  } catch (err) {
+    console.log(err);
   }
+
   return await comments;
 };

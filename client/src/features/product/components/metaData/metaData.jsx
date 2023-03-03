@@ -15,10 +15,11 @@ const MetaData = ({ product, handleChosenColor }) => {
     Navigate({ to: "..", relative: "path" });
   };
   return (
-    <>
+    <div style={{ margin: "10px" }}>
       <Link to="../../products." relative="path">
         <Chip
           avatar={<Avatar>{product.supplier[0]}</Avatar>}
+          style={{marginBottom: "5px", marginRight: "5px"}}
           label={product.supplier}
           onClick={() => handleFilter({ supplier: product.supplier })}
         />
@@ -31,6 +32,7 @@ const MetaData = ({ product, handleChosenColor }) => {
                 {color.color.name[0]}
               </Avatar>
             }
+            style={{marginBottom: "5px", marginRight: "5px"}}
             label={renderColorName(color.color.name)}
             //   onClick={() => handleChosenColor(color)}
             onClick={() => handleFilter({ color: color.color.name })}
@@ -38,7 +40,7 @@ const MetaData = ({ product, handleChosenColor }) => {
         ))}
       </Link>
       <Chip avatar={<CalendarTodayIcon />} label={getDateById(product._id)} />
-    </>
+    </div>
   );
 };
 

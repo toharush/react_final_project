@@ -11,7 +11,7 @@ import Loader from "../../components/loader/loader";
 const ProductsList = () => {
   const dispatch = useDispatch();
   const products = useSelector(selectProductsWithFilter);
-  const handleAddProductToCart = (product) => dispatch(addToCart(product));
+  const handleAddProductToCart = (product) => addToCart(product);
 
   return products ? (
     <>
