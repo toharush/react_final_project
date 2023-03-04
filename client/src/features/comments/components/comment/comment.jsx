@@ -12,7 +12,7 @@ const Comment = ({ comment }) => {
     <>
       <CardHeader
         avatar={
-          <ProfileImage id={comment.userId} />
+          <ProfileImage id={comment.userId} date={false} />
         }
         title={comment.userEmail}
         subheader={comment.date}

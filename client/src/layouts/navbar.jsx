@@ -18,16 +18,18 @@ import { SearchProducts } from "../features/productsList";
 import { signout } from "../services/authentication";
 import useWs from "../hooks/useWs";
 import { getCurrentUser, isAdmin } from "../store/selectors/selectors";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProfileImage from "../components/profileImage/profileImage";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const navbarPrefrences = useNavbarPrefrences();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [login, setLogin] = useState(false);
   const user = useSelector(getCurrentUser);
   const admin = useSelector(isAdmin);
+  
   useWs({ isAdmin: admin });
 
   const handleOpenNavMenu = (event) => {
@@ -46,7 +48,7 @@ const Navbar = () => {
       setLogin(true);
     }
     if (setting.name === "Logout") {
-      signout();
+      dispatch(signout());
     }
     setAnchorElUser(null);
   };
@@ -121,7 +123,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <ProfileImage id={user?.uid} />
+                <ProfileImage id={user?.uid} date={user?.reloadUser} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -141,12 +143,14 @@ const Navbar = () => {
               onClose={handleCloseUserMenu}
             >
               {navbarPrefrences.settings.map((setting) => (
-                <MenuItem
-                  key={setting.name}
-                  onClick={() => handleCloseUserMenu(setting)}
-                >
-                  <Typography textAlign="center">{setting.name}</Typography>
-                </MenuItem>
+                <Link to={setting.isLinkActive ? setting.route : null}>
+                  <MenuItem
+                    key={setting.name}
+                    onClick={() => handleCloseUserMenu(setting)}
+                  >
+                    <Typography textAlign="center">{setting.name}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
