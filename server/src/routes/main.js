@@ -23,7 +23,6 @@ const aWss = wss.getWss("/api/v1/");
 
 setInterval(() => {
   aWss.clients.forEach((client) => {
-    client.ping((data) => console.log(data));
     client.send(
       `${user.getLoggedInUsers()},${
         aWss.clients.size - user.getLoggedInUsers() > 0

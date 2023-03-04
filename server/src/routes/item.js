@@ -14,7 +14,7 @@ router.post("/comments", isLogin, async (req, res) => {
   res.send(
     await addComment(
       req.body.productId,
-      req.cookies?.user?.uid,
+      req.headers.authorization,
       req.body.rating,
       req.body.comment
     )
@@ -34,7 +34,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/cart/add/:item", async (req, res) => {
-  res.send(await AddToCart(req.params.item, req.cookies?.user?.uid));
+  res.send(await AddToCart(req.params.item, req.headers.authorization));
 });
 
 module.exports = router;

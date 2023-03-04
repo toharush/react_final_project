@@ -29,9 +29,7 @@ const NewComments = ({ onSubmit, commentRef, rating, setRating, loading }) => {
         <Rating
           name="simple-controlled"
           value={rating}
-          onChange={(event, newValue) => {
-            setRating(newValue);
-          }}
+          onChange={(event, newValue) => setRating(newValue)}
         />
         <TextField
           variant="outlined"
@@ -45,9 +43,11 @@ const NewComments = ({ onSubmit, commentRef, rating, setRating, loading }) => {
       </CardActions>
     </>
   ) : (
-    <Box style={{
-      height: "100px"
-    }}>
+    <Box
+      style={{
+        height: "100px",
+      }}
+    >
       <Loader />
     </Box>
   );

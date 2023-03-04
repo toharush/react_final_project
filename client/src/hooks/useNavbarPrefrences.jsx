@@ -10,7 +10,7 @@ const useNavbarPrefrences = () => {
   const userPermission = useSelector(isAdminFromStore);
 
   const loginSettings = [
-    { name: user.email, route: "profile" },
+    { name: user?.email, route: "profile" },
     { name: "Logout", route: "Logout" },
   ];
   const regularSettings = [

@@ -1,26 +1,37 @@
 import { Card, Divider } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Comment from "./components/comment/comment";
 import NewComments from "./components/newComment/newComment";
 import { Scrollbars } from "react-custom-scrollbars-2";
+import { getCurrentUser } from "../../store/selectors/auth/auth";
+import { useSelector } from "react-redux";
 
-const Comments = ({ comments, handleNewComment, rating, setRating, loading }) => {
+const Comments = ({
+  comments,
+  handleNewComment,
+  rating,
+  setRating,
+  loading,
+}) => {
   const comment = useRef();
+  const user = useSelector(getCurrentUser)
 
   const handleSubmit = async () => {
-    await handleNewComment(comment, rating, setRating);
+    await handleNewComment(comment, user?.uid);
   };
 
   return (
     <Scrollbars style={{ width: "100%", height: "85vh" }}>
-    <Card>
-        <NewComments
-          onSubmit={handleSubmit}
-          commentRef={comment}
-          rating={rating}
-          setRating={setRating}
-          loading={loading}
-        />
+      <Card>
+        {user ? (
+          <NewComments
+            onSubmit={handleSubmit}
+            commentRef={comment}
+            rating={rating}
+            setRating={setRating}
+            loading={loading}
+          />
+        ) : null}
         <Divider variant="middle" />
         {comments &&
           comments.map((comment) => (
@@ -29,8 +40,7 @@ const Comments = ({ comments, handleNewComment, rating, setRating, loading }) =>
               <Divider variant="middle" />
             </>
           ))}
-
-    </Card>
+      </Card>
     </Scrollbars>
   );
 };

@@ -18,9 +18,10 @@ import { SearchProducts } from "../features/productsList";
 import { signout } from "../services/authentication";
 import useWs from "../hooks/useWs";
 import { isAdmin } from "../store/selectors/selectors";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const navbarPrefrences = useNavbarPrefrences();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -44,7 +45,7 @@ const Navbar = () => {
       setLogin(true);
     }
     if (setting.name === "Logout") {
-      signout();
+      dispatch(signout());
     }
     setAnchorElUser(null);
   };

@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { isAdmin, signIn } from "../../../services/authentication";
+import { isAdmin, signIn, signout } from "../../../services/authentication";
 
 export const tokenSlice = createSlice({
   name: "auth",
   initialState: {
+    user: null,
     admin: {
       isAdmin: false,
       msg: [],
@@ -42,12 +43,18 @@ export const tokenSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(isAdmin.fulfilled, (state, action) => {
-      state.admin.isAdmin = action.payload;
+      state.user = action.payload.user;
+      state.admin.isAdmin = action.payload.admin;
       state.loading = false;
     });
     builder.addCase(isAdmin.rejected, (state, action) => {
       state.error = action.error.message;
       state.admin.isAdmin = null;
+      state.loading = false;
+    });
+    builder.addCase(signout.fulfilled, (state, action) => {
+      state.admin.isAdmin = null;
+      state.admin.user = null;
       state.loading = false;
     });
   },

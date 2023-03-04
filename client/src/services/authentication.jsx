@@ -24,7 +24,13 @@ export const signIn = createAsyncThunk("auth/setUser", async (userData) => {
 });
 
 export const isAdmin = createAsyncThunk("auth/setUser", async () => {
-  return await isUserAdmin();
+  const user = await getCurrentUser();
+  const admin = await isUserAdmin();
+
+  return {
+    user,
+    admin,
+  };
 });
 
 export const getCurrentUser = async () => {
@@ -41,7 +47,7 @@ export const isUserAdmin = async () => {
   ).data;
 };
 
-export const signout = async () => {
+export const signout = createAsyncThunk("auth/signOut", async () => {
   try {
     await (
       await axios.get("/auth/signout", {
@@ -52,4 +58,4 @@ export const signout = async () => {
     ).data;
     await signOutFromFirebase();
   } catch {}
-};
+});

@@ -15,12 +15,12 @@ const Product = () => {
   const [data, setData] = useState(null);
   const [loading, seLoading] = useState(false);
 
-  const handleNewComment = async (comment) => {
+  const handleNewComment = async (comment, userId) => {
     if (!isEmpty(comment.current.value)) {
-      await fetchNewComments(comment.current.value, rating, id);
+      await fetchNewComments(comment.current.value, rating, userId, id);
       await loadProduct();
-      comment.current.value = "";
       setRating(0);
+      comment.current.value = "";
     }
   };
 
@@ -45,8 +45,9 @@ const Product = () => {
       setRating={setRating}
       loading={loading}
     />
-    
-  ) : <Loader />;
+  ) : (
+    <Loader />
+  );
 };
 
 export default Product;
