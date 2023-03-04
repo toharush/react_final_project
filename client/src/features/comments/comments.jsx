@@ -22,16 +22,15 @@ const Comments = ({
 
   return (
     <Scrollbars style={{ width: "100%", height: "85vh" }}>
-      <Card>
-        {user ? (
-          <NewComments
-            onSubmit={handleSubmit}
-            commentRef={comment}
-            rating={rating}
-            setRating={setRating}
-            loading={loading}
-          />
-        ) : null}
+    <Card>
+        <NewComments
+          onSubmit={handleSubmit}
+          commentRef={comment}
+          rating={rating}
+          setRating={setRating}
+          loading={loading}
+          userId={user?.uid}
+        />
         <Divider variant="middle" />
         {comments &&
           comments.map((comment) => (

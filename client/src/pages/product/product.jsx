@@ -17,7 +17,7 @@ const Product = () => {
 
   const handleNewComment = async (comment, userId) => {
     if (!isEmpty(comment.current.value)) {
-      await fetchNewComments(comment.current.value, rating, userId, id);
+      await fetchNewComments(comment.current.value, rating, id, userId);
       await loadProduct();
       setRating(0);
       comment.current.value = "";

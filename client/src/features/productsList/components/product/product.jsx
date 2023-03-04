@@ -65,7 +65,7 @@ const Product = ({ product }) => {
         <Stack width={"345px"} alignItems="center">
           <Selector value={chosenSize} setValue={setChosenSize}>
             {color[chosenColor].size.map((size, index) => (
-              <ToggleButton value={index} key={chosenSize + size}>
+              <ToggleButton value={index} key={product._id + size}>
                 {size}
               </ToggleButton>
             ))}

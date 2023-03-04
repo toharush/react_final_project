@@ -12,16 +12,13 @@ import {
 } from "@mui/material";
 import Loader from "../../../../components/loader/loader";
 import { Box } from "@mui/system";
+import ProfileImage from "../../../../components/profileImage/profileImage";
 
-const NewComments = ({ onSubmit, commentRef, rating, setRating, loading }) => {
+const NewComments = ({ onSubmit, commentRef, rating, setRating, loading, userId }) => {
   return !loading ? (
     <>
       <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
-        }
+        avatar={<ProfileImage id={userId} date={false} />}
         title="Me"
         subheader={new Date().toDateString()}
       />

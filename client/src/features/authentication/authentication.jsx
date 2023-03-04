@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthForm from "./components/authForm/authForm";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Card, Modal, Tab } from "@mui/material";
@@ -10,6 +10,8 @@ import {
   getCurrentUser,
 } from "../../store/selectors/selectors";
 import { isEmpty, isNull } from "lodash";
+import ProfileImageUploader from "../../components/profileImageUploader/profileImageUploader";
+import { handleUpload } from "../../lib/storage";
 
 const Authentication = ({ isOpen, setIsOpen }) => {
   const dispatch = useDispatch();
@@ -18,6 +20,8 @@ const Authentication = ({ isOpen, setIsOpen }) => {
   const authLoading = useSelector(getAuthLoading);
   const authError = useSelector(getAuthError);
   const [mode, setMode] = useState(signOptions[0]);
+  const [file, setFile] = useState(""); // progress
+  const [percent, setPercent] = useState(0); // Handle file upload event and update state
 
   const style = {
     position: "absolute",
@@ -35,13 +39,25 @@ const Authentication = ({ isOpen, setIsOpen }) => {
     } else if (mode == signOptions[1]) {
       await dispatch(signUp({ email, password }));
     }
-    setIsOpen(false);
   };
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      if (currentUser?.uid) {
+        if (file) {
+          await handleUpload(file, currentUser.uid, setPercent);
+        }
+        await setFile("");
+        await setIsOpen(false);
+      }
+    };
+    fetchImage();
+  }, [currentUser]);
 
   const handleChange = (event, newValue) => setMode(newValue);
 
   return (
-    <Modal open={isOpen && isEmpty(currentUser)} onClose={setIsOpen}>
+    <Modal open={isOpen} onClose={setIsOpen}>
       <Card sx={style}>
         <TabContext value={mode}>
           <TabList onChange={handleChange}>
@@ -51,7 +67,15 @@ const Authentication = ({ isOpen, setIsOpen }) => {
           </TabList>
 
           {signOptions.map((option, index) => (
-            <TabPanel value={option}  key={option + index}>
+            <TabPanel value={option} key={option + index}>
+              {mode == signOptions[1] ? (
+                <ProfileImageUploader
+                  id={"tets"}
+                  file={file}
+                  percent={percent}
+                  setFile={setFile}
+                />
+              ) : null}
               <AuthForm
                 handleUserSign={handleUserSign}
                 buttonTitle={option}
