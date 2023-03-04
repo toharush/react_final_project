@@ -6,22 +6,47 @@ import {
   MDBRow,
   MDBTypography,
 } from "mdb-react-ui-kit";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartCreditCart from "../../components/cartCreditCard/cartCreditCard";
 import CartItem from "../../components/cartItem/cartItem";
+import { fetchProduct } from "../../features/product/services/product";
 import { loadCart } from "../../services/cart";
 import { getCartItems } from "../../store/selectors/cart/cart";
 import { getCurrentUser } from "../../store/selectors/selectors";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const products = useSelector(getCartItems);
+  const [products, setProdcts] = useState([]);
+  const cartItems = useSelector(getCartItems);
   const user = useSelector(getCurrentUser);
 
   useEffect(() => {
+    const loadItems = async () => {
+      console.log("loadItems");
+      let productsItems = [];
+      for (let cartItem of cartItems) {
+        console.log(cartItem);
+        const res = await fetchProduct(cartItem.productId, dispatch);
+        productsItems.push({
+          ...res,
+          chosen: {
+            chosenColor: cartItem.color,
+            chosenSize: cartItem.size,
+            quantity: cartItem.quantity,
+          },
+        });
+      }
+
+      setProdcts(productsItems);
+    };
     if (user?.uid) {
       dispatch(loadCart({ userId: user.uid }));
+    }
+    if (cartItems.length > 0) {
+      console.log(cartItems);
+
+      loadItems();
     }
   }, [user]);
 
@@ -51,19 +76,15 @@ const Cart = () => {
                     <hr className="my-4" />
 
                     {products.length > 0 &&
-                      products.map((product) =>
-                        product.chosen.map((chosen) => (
-                          <CartItem
-                            product={product}
-                            chosen={chosen}
-                            key={
-                              product._id +
-                              chosen.chosenColor +
-                              chosen.chosenSize
-                            }
-                          />
-                        ))
-                      )}
+                      products.map((product) => (
+                        <CartItem
+                          product={product}
+                          chosen={product.chosen}
+                          key={
+                            product._id + product.chosen.chosenColor + product.chosen.chosenSize
+                          }
+                        />
+                      ))}
                   </div>
                 </MDBCol>
                 <CartCreditCart count={products.length} />

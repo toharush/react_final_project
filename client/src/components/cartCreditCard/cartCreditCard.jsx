@@ -5,7 +5,7 @@ import { getItemPrice, getTotalPrice } from "../../store/selectors/cart/cart";
 import "./cartCreditCard.css";
 
 function CartCreditCart({ count }) {
-  const totalPrice = useSelector(getTotalPrice);
+  // const totalPrice = useSelector(getTotalPrice);
   const itemPrice = useSelector(getItemPrice);
   return (
     <>
@@ -52,7 +52,7 @@ function CartCreditCart({ count }) {
             <Typography variant="h5">Total price</Typography>
 
             <Typography variant="h5" className="totalPrice">
-              ${totalPrice}
+              ${0}
             </Typography>
           </div>
 
