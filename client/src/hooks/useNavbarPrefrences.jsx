@@ -35,7 +35,7 @@ const useNavbarPrefrences = () => {
   const [pages, setPages] = useState(regularPages);
 
   useEffect(() => {
-    if (!isEmpty(user)) {
+    if (!isEmpty(user?.uid)) {
       setSettings(loginSettings);
 
       if (userPermission) {

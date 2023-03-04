@@ -26,9 +26,7 @@ const NewComments = ({ onSubmit, commentRef, rating, setRating, loading, userId 
         <Rating
           name="simple-controlled"
           value={rating}
-          onChange={(event, newValue) => {
-            setRating(newValue);
-          }}
+          onChange={(event, newValue) => setRating(newValue)}
         />
         <TextField
           variant="outlined"

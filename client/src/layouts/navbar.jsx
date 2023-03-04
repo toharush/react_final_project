@@ -29,7 +29,7 @@ const Navbar = () => {
   const [login, setLogin] = useState(false);
   const user = useSelector(getCurrentUser);
   const admin = useSelector(isAdmin);
-  
+
   useWs({ isAdmin: admin });
 
   const handleOpenNavMenu = (event) => {
@@ -48,7 +48,7 @@ const Navbar = () => {
       setLogin(true);
     }
     if (setting.name === "Logout") {
-      dispatch(signout());
+      dispatch(signout({ id: user.uid }));
     }
     setAnchorElUser(null);
   };
@@ -93,6 +93,7 @@ const Navbar = () => {
               {navbarPrefrences.pages.map((page) => (
                 <Link
                   to={page.route}
+                  key={page.name}
                   style={{ color: "inherit", textDecoration: "none" }}
                 >
                   <MenuItem key={page.route} onClick={handleCloseNavMenu}>
@@ -143,7 +144,10 @@ const Navbar = () => {
               onClose={handleCloseUserMenu}
             >
               {navbarPrefrences.settings.map((setting) => (
-                <Link to={setting.isLinkActive ? setting.route : null}>
+                <Link
+                  to={setting.isLinkActive ? setting.route : null}
+                  key={setting.name}
+                >
                   <MenuItem
                     key={setting.name}
                     onClick={() => handleCloseUserMenu(setting)}

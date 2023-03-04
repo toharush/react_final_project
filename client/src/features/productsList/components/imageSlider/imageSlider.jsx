@@ -90,7 +90,7 @@ const ImageSlider = ({
 
       <div style={dotsContainerStyles}>
         {slides.map((slide, slideIndex) => (
-          <Radio {...controlProps(slideIndex)} />
+          <Radio {...controlProps(slideIndex)} key={slideIndex} />
         ))}
       </div>
     </div>

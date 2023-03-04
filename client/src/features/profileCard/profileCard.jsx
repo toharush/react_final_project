@@ -26,10 +26,7 @@ const ProfileCard = () => {
   const [percent, setPercent] = useState(0); // Handle file upload event and update state
 
   const handleSubmit = async () => {
-    if (file) {
-      await handleUpload(file, user?.uid, setPercent);
-      await dispatch(setReloadUser());
-    }
+    await handleUpload(file, user?.uid, setPercent, dispatch);
 
     if (password.current.value) {
       await changePassword(user, password.current.value);
