@@ -35,7 +35,6 @@ export const isAdmin = createAsyncThunk("auth/setAdmin", async () => {
 });
 
 export const getCurrentUser = async () => {
-  console.log(await getCurrentUserFromFireBase())
   return await getCurrentUserFromFireBase();
 };
 
@@ -49,11 +48,12 @@ export const isUserAdmin = async (id) => {
   ).data;
 };
 
-export const signout = createAsyncThunk("auth/signOut", async () => {
+export const signout = createAsyncThunk("auth/signOut", async (userData) => {
+  const { id } = userData;
   await (
     await axios.get("/auth/signout", {
       headers: {
-        authorization: (await getCurrentUser()).uid.toString(),
+        authorization: id,
       },
     })
   ).data;
