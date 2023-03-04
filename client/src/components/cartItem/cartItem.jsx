@@ -25,14 +25,9 @@ function CartItem({ userId, products, product, handleChange }) {
   const { name, price, color, supplier, description } = product;
 
   const changeItemCount = (count) => {
-    dispatch(
-      syncCart({
-        userId: userId,
-        cart: products,
-        count: count,
-        newProduct: product,
-      })
-    );
+    console.log(product.chosen.quantity);
+    product.chosen.quantity = count;
+    console.log(product.chosen.quantity);
     handleChange();
   };
 
@@ -48,7 +43,8 @@ function CartItem({ userId, products, product, handleChange }) {
         </TableCell>
         <TableCell md="3" lg="3" xl="3">
           <Typography tag="h6">
-            {name} &#x2022; {color[product.chosen.chosenColor].color.name} &#x2022;
+            {name} &#x2022; {color[product.chosen.chosenColor].color.name}{" "}
+            &#x2022;
             {color[product.chosen.chosenColor].size[product.chosen.chosenSize]}
           </Typography>
           <Typography tag="h6" className="text-muted">

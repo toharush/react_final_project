@@ -40,6 +40,10 @@ const Cart = () => {
     setProdcts(productsItems);
   };
 
+  const sync = () => {
+    console.log("start syncing....")
+  }
+
   useEffect(() => {
     if (user?.uid) {
       dispatch(loadCart({ userId: user.uid }));
@@ -77,7 +81,7 @@ const Cart = () => {
                     {products.length > 0 &&
                       products.map((product) => (
                         <CartItem
-                          handleChange={() => loadItems()}
+                          handleChange={() => sync()}
                           products={cartItems}
                           userId={user.uid}
                           product={product}

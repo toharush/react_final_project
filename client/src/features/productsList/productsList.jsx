@@ -10,11 +10,11 @@ import Loader from "../../components/loader/loader";
 import { getCartItems } from "../../store/selectors/cart/cart";
 import { syncCart } from "../../services/cart";
 
-const ProductsList = () => {
+const ProductsList = ({ products }) => {
   const dispatch = useDispatch();
   const user = useSelector(getCurrentUser);
   const cart = useSelector(getCartItems);
-  const products = useSelector(selectProductsWithFilter);
+  
   const handleAddProductToCart = (product) => {
     console.log(product);
     dispatch(

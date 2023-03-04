@@ -8,7 +8,7 @@ import Scrollbars from "react-custom-scrollbars-2";
 const App = () => {
   return (
     <Provider store={store}>
-      <Scrollbars style={{ width: "100%", height: "100vh", overflowX: "hidden", }}>
+      <Scrollbars style={{ width: "100%", height: "100vh", overflowX: "hidden" }} >
         <Home />
       </Scrollbars>
     </Provider>

@@ -39,9 +39,9 @@ const Product = ({ product, addToCart }) => {
         className="product-img"
         currentIndex={chosenColor}
         setCurrentIndex={setChosenColor}
-        link={`../${product._id}/${chosenColor}`}
+        link={`/${product._id}/${chosenColor}`}
       />
-      <Link to={`../${product._id}/${chosenColor}`}>
+      <Link to={`/${product._id}/${chosenColor}`} >
         <CardContent>
           <Typography
             gutterBottom
