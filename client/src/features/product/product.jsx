@@ -1,15 +1,17 @@
-import { Button, Divider, Typography } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AdminEditAbleValue from "../../components/adminEditAbleValue/adminEditAbleValue";
 import Quantity from "../../components/quantity/quantity";
+import { syncCart } from "../../services/cart";
 import { addToCart } from "../../store/reducers/cart/cart";
-import { isAdmin } from "../../store/selectors/selectors";
+import { getCurrentUser, isAdmin } from "../../store/selectors/selectors";
 import Comments from "../comments/comments";
 import { FilterField } from "../filter";
 import { ImageSlider } from "../productsList";
 import MetaData from "./components/metaData/metaData";
 import "./product.css";
+import { getCartItems } from "../../store/selectors/cart/cart";
 
 const Product = ({
   product,
@@ -22,24 +24,38 @@ const Product = ({
 }) => {
   const inputRef = useRef();
   const dispatch = useDispatch();
+  const user = useSelector(getCurrentUser);
+  const cart = useSelector(getCartItems);
   const admin = useSelector(isAdmin);
   const [chosenSize, setChosenSize] = useState(0);
 
   const handleAddToCart = () => {
     dispatch(
-      addToCart({
-        ...product,
-        chosen: {
-          chosenSize: chosenSize,
-          chosenColor: chosenColor,
+      // addToCart({
+      //   ...product,
+      //   chosen: {
+      //     chosenSize: chosenSize,
+      //     chosenColor: chosenColor,
+      //   },
+      // })
+      syncCart({
+        userId: user?.uid,
+        cart: cart,
+        newProduct: {
+          ...product,
+          chosen: {
+            chosenSize: chosenSize,
+            chosenColor: chosenColor,
+          },
         },
       })
     );
   };
 
   useEffect(() => {
-    console.log(chosenSize)
-  }, [chosenSize])
+    console.log(chosenSize);
+    console.log(cart, admin);
+  }, [chosenSize, cart, admin]);
 
   return (
     <div className="product-page">
@@ -89,8 +105,8 @@ const Product = ({
               inputRef={inputRef}
               max={
                 chosenSize >= 0
-                ? product.color[chosenColor].quantity[chosenSize]
-                : chosenSize
+                  ? product.color[chosenColor].quantity[chosenSize]
+                  : chosenSize
               }
             />
             <FilterField

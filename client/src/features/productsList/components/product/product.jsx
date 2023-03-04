@@ -3,9 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import {
-  Avatar,
   Button,
-  CardActionArea,
   CardActions,
   Stack,
   ToggleButton,
@@ -18,22 +16,20 @@ import { useDispatch } from "react-redux";
 import ImageSlider from "../imageSlider/imageSlider";
 import "./product.css";
 
-const Product = ({ product }) => {
+const Product = ({ product, addToCart }) => {
   const dispatch = useDispatch();
   const { name, color, supplier } = product;
   const [chosenColor, setChosenColor] = useState(0);
   const [chosenSize, setChosenSize] = useState(0);
 
   const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        ...product,
-        chosen: {
-          chosenSize: chosenSize,
-          chosenColor: chosenColor,
-        },
-      })
-    );
+    addToCart({
+      ...product,
+      chosen: {
+        chosenSize: chosenSize,
+        chosenColor: chosenColor,
+      },
+    })
   };
 
   return (

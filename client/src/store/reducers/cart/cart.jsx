@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { syncCart } from "../../../services/cart";
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -102,6 +103,11 @@ export const cartSlice = createSlice({
       };
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(syncCart.fulfilled, (state, action) => {
+      state.items = action.payload;
+    });
+  }
 });
 
 export const { addToCart, removeFromCart, setItem } = cartSlice.actions;

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { AddToCart } = require("../controllers/cart");
+const { AddToCart, syncCart, getCart } = require("../controllers/cart");
 const {
   addComment,
   GetAllComments,
@@ -24,6 +24,16 @@ router.post("/comments", isLogin, async (req, res) => {
       req.body.comment
     )
   );
+});
+
+router.post("/cart", isLogin, async (req, res) => {
+  console.log(req.headers.authorization);
+  res.send(await syncCart(req.headers.authorization, req.body.cart));
+});
+
+router.get("/cart", isLogin, async (req, res) => {
+  console.log("cart", req.headers.authorization);
+  res.send(await getCart(req.headers.authorization));
 });
 
 router.get("/:item/comments", async (req, res) => {

@@ -6,7 +6,6 @@ import { setFilter } from "../../../../store/reducers/products/products";
 import { Link, Navigate } from "react-router-dom";
 import classByName from "../../../../utils/nameToClass";
 import { renderColorName } from "../../../../utils/renderColorName";
-import { useRef } from "react";
 
 const MetaData = ({ product, handleChosenColor }) => {
   const dispatch = useDispatch();

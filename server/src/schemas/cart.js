@@ -5,7 +5,7 @@ const ObjectId = Schema.ObjectId;
 
 const cart = new Schema(
   {
-    productId: [],
+    products: [],
     userId: String,
   },
   {
