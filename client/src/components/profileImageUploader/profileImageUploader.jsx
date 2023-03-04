@@ -2,7 +2,7 @@ import { Badge, Avatar, Input } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { useRef } from "react";
 
-const ProfileImageUploader = ({ percent, file, setFile }) => {
+const ProfileImageUploader = ({ percent, file, setFile, id }) => {
   const inputRef = useRef();
 
   const handleChange = (event) => {
@@ -46,7 +46,7 @@ const ProfileImageUploader = ({ percent, file, setFile }) => {
               width: "90px",
               height: "90px",
             }}
-            src={file ? URL.createObjectURL(file) : null}
+            src={file ? URL.createObjectURL(file) : id ? `https://firebasestorage.googleapis.com/v0/b/terminal-a408f.appspot.com/o/profile%2F${id}?alt=media&token=6096a587-1e62-4824-a487-a7cd2e81fa3d` : null}
             onClick={() => console.log(inputRef.current.click())}
           />
         </Badge>

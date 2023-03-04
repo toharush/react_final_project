@@ -12,22 +12,25 @@ import {
 import { Container } from "@mui/system";
 import { useSelector } from "react-redux";
 import { getCurrentUser } from "../../store/selectors/auth/auth";
+import ProfileImageUploader from "../../components/profileImageUploader/profileImageUploader";
+import { useState } from "react";
 
 const ProfileCard = () => {
   const user = useSelector(getCurrentUser);
+  const [file, setFile] = useState(""); // progress
+  const [percent, setPercent] = useState(0); // Handle file upload event and update state
+
   return (
     <Container className="profile-card" fixed>
       <Card>
         <CardHeader></CardHeader>
         <CardContent>
-          <Avatar
-            alt="Remy Sharp"
-            src="https://mui.com/static/images/avatar/3.jpg"
-          />
+          <ProfileImageUploader id={user.uid} file={file} percent={percent} setFile={setFile}/>
           <TextField
             fullWidth
             id="email"
             type="email"
+            disabled
             label="email"
             variant="outlined"
             value={user.email}
