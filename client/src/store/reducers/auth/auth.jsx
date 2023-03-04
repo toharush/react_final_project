@@ -104,11 +104,6 @@ export const tokenSlice = createSlice({
       };
       state.loading = false;
     });
-    builder.addCase(signout.fulfilled, (state, action) => {
-      state.admin.isAdmin = null;
-      state.admin.user = null;
-      state.loading = false;
-    });
   },
 });
 

@@ -16,61 +16,31 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <Products />,
-        errorElement: (
-          <FourOFour
-            errorNumber="500"
-            errorName="We run in some error"
-            errorMsg="Try something else while we are fixing it!"
-          />
-        ),
+        errorElement: <FourOFour errorNumber="500" />,
       },
       {
         path: ":id/:color",
         element: <Product />,
-        errorElement: (
-          <FourOFour
-            errorNumber="500"
-            errorName="We run in some error"
-            errorMsg="Try something else while we are fixing it!"
-          />
-        ),
+        errorElement: <FourOFour errorNumber="500" />,
       },
       {
         path: "cart",
         element: <Cart />,
-        errorElement: (
-          <FourOFour
-            errorNumber="500"
-            errorName="We run in some error"
-            errorMsg="Try something else while we are fixing it!"
-          />
-        ),
+        errorElement: <FourOFour errorNumber="500" />,
       },
       {
         path: "admin",
         element: <Admin />,
-        errorElement: (
-          <FourOFour
-            errorNumber="500"
-            errorName="We run in some error"
-            errorMsg="Try something else while we are fixing it!"
-          />
-        ),
+        errorElement: <FourOFour errorNumber="500" />,
       },
       {
         path: "*",
-        element: (
-          <FourOFour
-            errorNumber="404"
-            errorName="Look like you're lost"
-            errorMsg="the page you are looking for not avaible!"
-          />
-        ),
+        element: <FourOFour errorNumber="404" />,
       },
       {
         path: "profile",
-        element: <Profile />
-      }
+        element: <Profile />,
+      },
     ],
   },
 ]);
