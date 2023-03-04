@@ -3,7 +3,7 @@ const { isUserAdmin } = require("../controllers/auth");
 exports.isLogin = (req, res, next) => {
   const { ws } = req;
   try {
-    if (req.cookies?.user?.uid) {
+    if (req.headers?.authorization) {
       next();
     } else {
       closeConnection(Boolean(ws), req, res, 401);
@@ -26,7 +26,7 @@ exports.isAdmin = (req, res, next) => {
   const { ws } = req;
 
   try {
-    if (isUserAdmin(req.cookies?.user?.uid)) {
+    if (isUserAdmin(req.headers?.authorization)) {
       next();
     } else {
       closeConnection(Boolean(ws), req, res, 401);

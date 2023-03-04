@@ -5,17 +5,16 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import { Rating } from "@mui/material";
+import ProfileImage from "../../../../components/profileImage/profileImage";
 
 const Comment = ({ comment }) => {
   return (
     <>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
+          <ProfileImage id={comment.userId} />
         }
-        title={comment.userId}
+        title={comment.userEmail}
         subheader={comment.date}
       />
       <CardContent>
