@@ -56,7 +56,7 @@ const ProfileImageUploader = ({ percent, file, setFile, id }) => {
                 ? `https://firebasestorage.googleapis.com/v0/b/terminal-a408f.appspot.com/o/profile%2F${id}?alt=media&token=6096a587-1e62-4824-a487-a7cd2e81fa3d`
                 : null
             }
-            onClick={() => console.log(inputRef.current.click())}
+            onClick={() => inputRef.current.click()}
           />
         </Badge>
       </div>

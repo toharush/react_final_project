@@ -17,8 +17,6 @@ const Authentication = ({ isOpen, setIsOpen }) => {
   const dispatch = useDispatch();
   const signOptions = ["Sign In", "Sign Up"];
   const currentUser = useSelector(getCurrentUser);
-  const authLoading = useSelector(getAuthLoading);
-  const authError = useSelector(getAuthError);
   const [mode, setMode] = useState(signOptions[0]);
   const [file, setFile] = useState(""); // progress
   const [percent, setPercent] = useState(0); // Handle file upload event and update state
@@ -44,9 +42,8 @@ const Authentication = ({ isOpen, setIsOpen }) => {
   useEffect(() => {
     const fetchImage = async () => {
       if (currentUser?.uid) {
-        if (file) {
-          await handleUpload(file, currentUser.uid, setPercent);
-        }
+        await handleUpload(file, currentUser.uid, setPercent, dispatch);
+
         await setFile("");
         await setIsOpen(false);
       }

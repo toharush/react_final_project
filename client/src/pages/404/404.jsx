@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "./404.css";
 
 const FourOFour = ({ errorNumber }) => {
@@ -6,15 +5,14 @@ const FourOFour = ({ errorNumber }) => {
     <>
       <h1>{errorNumber}</h1>
 
-      <div class="frame">
-        <div></div>
-        <div></div>
-        <div></div>
+      <div className="frame">
+        <div />
+        <div />
+        <div />
       </div>
-      <div class="caps">
-        <img src="http://ademilter.com/caps.png" alt="" />
-      </div>
-      <canvas id="canvas"></canvas>
+      <div className="caps" />
+
+      <canvas id="canvas" />
     </>
   );
 };
