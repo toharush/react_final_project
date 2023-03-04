@@ -1,4 +1,5 @@
 import { filter, flatMap, isEmpty, isNull, uniq } from "lodash";
+import { renderColorName } from "../../../utils/renderColorName";
 
 export const getProducts = (state) => state.products.products;
 export const getLoadingState = (state) => state.products.loading;
@@ -23,7 +24,7 @@ export const selectProductsWithFilter = (state) => {
   if (state.products.filter.color) {
     data = filter(data, ({ color }) =>
       filter(color, ({ color }) =>
-        color.name.includes(state.products.filter.color)
+        renderColorName(color.name).includes(state.products.filter.color)
       ).length > 0
         ? color
         : null
@@ -32,6 +33,12 @@ export const selectProductsWithFilter = (state) => {
 
   if (state.products.filter.price) {
     data = filter(data, ({ price }) => price < state.products.filter.price);
+  }
+
+  if (state.products.filter.category) {
+    data = filter(data, ({ categories }) =>
+      categories.includes(state.products.filter.category)
+    );
   }
 
   if (state.products.filter.size) {
@@ -53,13 +60,27 @@ export const getAllAvilableColors = (state) => {
   let uniqueColors = [];
   if (state.products.products.length > 0) {
     state.products.products.map((product) =>
-      product.color.map((c) => colors.push(c.color.name))
+      product.color.map((c) => colors.push(renderColorName(c.color.name)))
     );
     uniqueColors = colors.filter(
       (value, index, self) => self.indexOf(value) === index
     );
   }
   return uniqueColors;
+};
+
+export const getAllAvilableCategories = (state) => {
+  let categories = [];
+  let uniqueCategories = [];
+  if (state.products.products.length > 0) {
+    state.products.products.map((product) =>
+      categories.push(...product.categories)
+    );
+    uniqueCategories = categories.filter(
+      (value, index, self) => self.indexOf(value) === index
+    );
+  }
+  return uniqueCategories;
 };
 
 export const getAllAvilableSizes = (state) => {

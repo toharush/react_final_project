@@ -1,11 +1,16 @@
 import { Button, Card, IconButton, TextField, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./quantity.css";
 import { Box } from "@mui/system";
-const Quantity = ({ props }) => {
-  const [quantity, setQuantity] = useState(1);
+const Quantity = ({ max }) => {
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    setQuantity(max <= 0 ? 0 : 1);
+  }, [max]);
+
   return (
     <Box component="form">
       <TextField
@@ -14,7 +19,9 @@ const Quantity = ({ props }) => {
         label="Quantity"
         variant="outlined"
         onChange={(e) =>
-          e.target.value > 0 ? setQuantity(e.target.value) : null
+          e.target.value > 0 && e.target.value <= max
+            ? setQuantity(e.target.value)
+            : null
         }
         value={quantity}
       />

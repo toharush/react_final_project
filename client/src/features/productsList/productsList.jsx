@@ -17,7 +17,10 @@ const ProductsList = () => {
 
   return products ? (
     <>
-      <Grid2 container spacing={1} justifyContent="center">
+      <Grid2 container spacing={1} justifyContent="center" sx={{
+        "--Grid-rowSpacing": "0px",
+        "--Grid-columnSpacing": "0px"
+      }}>
         {products.map((product, index) => (
           <Grid2 xs={"auto"} key={product._id + index}>
             <Product

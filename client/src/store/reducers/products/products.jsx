@@ -8,6 +8,7 @@ const initialState = {
     search: null,
     color: null,
     price: null,
+    category: null,
     size: null,
     supplier: null,
   },

@@ -19,10 +19,20 @@ const MetaData = ({ product, handleChosenColor }) => {
       <Link to="../../products." relative="path">
         <Chip
           avatar={<Avatar>{product.supplier[0]}</Avatar>}
-          style={{marginBottom: "5px", marginRight: "5px"}}
+          style={{ marginBottom: "5px", marginRight: "5px" }}
           label={product.supplier}
           onClick={() => handleFilter({ supplier: product.supplier })}
         />
+      </Link>
+      <Link to="../../products" relative="path">
+        {product.categories.map((category) => (
+          <Chip
+            avatar={<Avatar>{category[0]}</Avatar>}
+            style={{ marginBottom: "5px", marginRight: "5px" }}
+            label={category}
+            onClick={() => handleFilter({ category: category })}
+          />
+        ))}
       </Link>
       <Link to="../../products" relative="path">
         {product.color.map((color) => (
@@ -32,10 +42,12 @@ const MetaData = ({ product, handleChosenColor }) => {
                 {color.color.name[0]}
               </Avatar>
             }
-            style={{marginBottom: "5px", marginRight: "5px"}}
+            style={{ marginBottom: "5px", marginRight: "5px" }}
             label={renderColorName(color.color.name)}
             //   onClick={() => handleChosenColor(color)}
-            onClick={() => handleFilter({ color: color.color.name })}
+            onClick={() =>
+              handleFilter({ color: renderColorName(color.color.name) })
+            }
           />
         ))}
       </Link>

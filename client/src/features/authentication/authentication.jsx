@@ -42,8 +42,9 @@ const Authentication = ({ isOpen, setIsOpen }) => {
   useEffect(() => {
     const fetchImage = async () => {
       if (currentUser?.uid) {
-        await handleUpload(file, currentUser.uid, setPercent, dispatch);
-
+        if (file) {
+          await handleUpload(file, currentUser.uid, setPercent, dispatch);
+        }
         await setFile("");
         await setIsOpen(false);
       }

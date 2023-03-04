@@ -12,12 +12,11 @@ import {
 } from "@mui/material";
 import Selector from "../selector/selector";
 import { useState } from "react";
-import nameToClass from "../../../../utils/nameToClass";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../../../store/reducers/cart/cart";
 import { useDispatch } from "react-redux";
-import CardImg from "react-bootstrap/esm/CardImg";
 import ImageSlider from "../imageSlider/imageSlider";
+import "./product.css";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
@@ -38,7 +37,7 @@ const Product = ({ product }) => {
   };
 
   return (
-    <Card className="product">
+    <Card className="product-card">
       <ImageSlider
         slides={color.map((color) => color)}
         className="product-img"

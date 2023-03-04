@@ -2,18 +2,23 @@ const { CreateNewProduct } = require("../controllers/products");
 const pageScraper = require("./pageScraper");
 const scrapeAll = async (browserInstance) => {
   const urls = [
-    "https://www.terminalx.com/brands/terminal-x/terminal-x-men?p=3",
-    "https://www.terminalx.com/brands/terminal-x/terminal-x-women?p=3",
+    {url: "https://www.terminalx.com/men/shirts/tshirts", categories: ["גברים", "טישירטים"]},
+    {url: "https://www.terminalx.com/men/knitwear-sweatshirts/sweatshirts", categories: ["גברים", "סוויטשירטים"]},
+    {url: "https://www.terminalx.com/men/jackets-coats/coats", categories: ["גברים", "מעילים"]},
+    {url: "https://www.terminalx.com/men/pants/jeans", categories: ["גברים", "ג'ינסים"]},
+    {url: "https://www.terminalx.com/women/tops/tshirts", categories: ["נשים", "טישירטים"]},
+    {url: "https://www.terminalx.com/women/jackets-coats/coats", categories: ["נשים", "מעילים"]},
+    {url: "https://www.terminalx.com/women/knitwear-sweatshirts/sweatshirts", categories: ["נשים", "סוויטשירטים"]},
+    {url: "https://www.terminalx.com/women/pants-skirts/jeans", categories: ["נשים", "ג'ינסים"]}
   ];
   let browser;
   try {
     browser = await browserInstance;
     for (let url of urls) {
-      console.log(url);
-      const a = await pageScraper.scraper(browser, url);
+      const a = await pageScraper.scraper(browser, url.url);
       await a.map(async (b) => {
         if (b?.color?.length > 0) {
-          await CreateNewProduct(b);
+          await CreateNewProduct(b, url.categories);
         }
       });
     }

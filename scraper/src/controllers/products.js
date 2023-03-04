@@ -1,5 +1,5 @@
 const { CreateNewProductDb } = require("../models/products");
 
-exports.CreateNewProduct = async (product) => {
-  return await CreateNewProductDb(product);
+exports.CreateNewProduct = async (product, categories) => {
+  return await CreateNewProductDb(product, categories);
 };

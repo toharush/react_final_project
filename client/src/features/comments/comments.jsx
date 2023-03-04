@@ -14,7 +14,7 @@ const Comments = ({
   loading,
 }) => {
   const comment = useRef();
-  const user = useSelector(getCurrentUser)
+  const user = useSelector(getCurrentUser);
 
   const handleSubmit = async () => {
     await handleNewComment(comment, user?.uid);
@@ -22,7 +22,7 @@ const Comments = ({
 
   return (
     <Scrollbars style={{ width: "100%", height: "85vh" }}>
-    <Card>
+      <Card>
         <NewComments
           onSubmit={handleSubmit}
           commentRef={comment}

@@ -8,7 +8,8 @@ const productsSchema = new Schema(
     price: String,
     name: String,
     supplier: String,
-    color: []
+    categories: [],
+    color: [],
   },
   {
     collection: "products",
