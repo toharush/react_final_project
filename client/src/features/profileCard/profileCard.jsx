@@ -10,15 +10,25 @@ import {
   TextField,
 } from "@mui/material";
 import { Container } from "@mui/system";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../../store/selectors/auth/auth";
 import ProfileImageUploader from "../../components/profileImageUploader/profileImageUploader";
 import { useState } from "react";
+import { handleUpload } from "../../lib/storage";
+import { setReloadUser } from "../../store/reducers/auth/auth";
 
 const ProfileCard = () => {
+  const dispatch = useDispatch();
   const user = useSelector(getCurrentUser);
   const [file, setFile] = useState(""); // progress
   const [percent, setPercent] = useState(0); // Handle file upload event and update state
+
+  const handleSubmit = () => {
+    if(file) {
+      handleUpload(file, user.uid, setPercent);
+      dispatch(setReloadUser());
+    }
+  }
 
   return (
     <Container className="profile-card" fixed>
@@ -50,7 +60,7 @@ const ProfileCard = () => {
           />
         </CardContent>
         <CardActions>
-          <Button>Save</Button>
+          <Button onClick={handleSubmit}>Save</Button>
 
           <Button>Cancel</Button>
         </CardActions>

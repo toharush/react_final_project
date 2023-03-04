@@ -4,12 +4,14 @@ import { isAdmin, signIn } from "../../../services/authentication";
 export const tokenSlice = createSlice({
   name: "auth",
   initialState: {
+    user: null,
     admin: {
       isAdmin: false,
       msg: [],
     },
     loading: false,
     error: null,
+    reloadUser: new Date().toLocaleTimeString(),
   },
   reducers: {
     setIsAdmin: (state, action) => {
@@ -20,6 +22,9 @@ export const tokenSlice = createSlice({
           isAdmin: action.payload,
         },
       };
+    },
+    setReloadUser: (state, action) => {
+      return { ...state, reloadUser: new Date().toLocaleTimeString() };
     },
     setAdminMsg: (state, action) => {
       return {
@@ -48,11 +53,12 @@ export const tokenSlice = createSlice({
     builder.addCase(isAdmin.rejected, (state, action) => {
       state.error = action.error.message;
       state.admin.isAdmin = null;
+      state.user = null;
       state.loading = false;
     });
   },
 });
 
-export const { setLoading, setError, setIsAdmin, setAdminMsg } =
+export const { setLoading, setError, setIsAdmin, setAdminMsg, setReloadUser } =
   tokenSlice.actions;
 export default tokenSlice.reducer;

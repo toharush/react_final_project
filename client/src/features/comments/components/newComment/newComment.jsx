@@ -18,7 +18,7 @@ const NewComments = ({ onSubmit, commentRef, rating, setRating, loading, userId 
   return !loading ? (
     <>
       <CardHeader
-        avatar={<ProfileImage id={userId} />}
+        avatar={<ProfileImage id={userId} date={false} />}
         title="Me"
         subheader={new Date().toDateString()}
       />

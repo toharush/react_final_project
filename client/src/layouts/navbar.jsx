@@ -121,7 +121,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <ProfileImage id={user?.uid} />
+                <ProfileImage id={user?.uid} date={user?.reloadUser} />
               </IconButton>
             </Tooltip>
             <Menu
