@@ -41,6 +41,7 @@ const Product = ({
       syncCart({
         userId: user?.uid,
         cart: cart,
+        quantity: 1,
         newProduct: {
           ...product,
           chosen: {

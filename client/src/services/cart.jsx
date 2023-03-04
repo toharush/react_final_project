@@ -3,9 +3,9 @@ import { cloneDeep } from "lodash";
 import axios from "../lib/axios";
 
 export const syncCart = createAsyncThunk("cart/setCart", async (userData) => {
-  let { userId, cart, newProduct } = userData;
+  let { userId, cart, quantity, newProduct, count } = userData;
   let carItems = cloneDeep(cart);
-  console.log(userId, carItems, newProduct);
+  console.log(userId, carItems, newProduct, count);
   const findItem = await carItems.findIndex(
     (item) =>
       item.productId === newProduct._id &&
@@ -13,10 +13,10 @@ export const syncCart = createAsyncThunk("cart/setCart", async (userData) => {
       item.color === newProduct.chosen.chosenColor
   );
   if (findItem >= 0) {
-    try {
-      carItems[findItem].quantity++;
-    } catch (err) {
-      console.log(err);
+    if (count) {
+      carItems[findItem].quantity = count;
+    } else {
+      carItems[findItem].quantity = carItems[findItem].quantity + quantity;
     }
   } else {
     carItems.push({

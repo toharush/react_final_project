@@ -20,6 +20,7 @@ const ProductsList = () => {
     dispatch(
       syncCart({
         userId: user?.uid,
+        quantity: 1,
         cart: cart,
         newProduct: product,
       })

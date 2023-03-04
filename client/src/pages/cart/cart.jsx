@@ -21,31 +21,30 @@ const Cart = () => {
   const cartItems = useSelector(getCartItems);
   const user = useSelector(getCurrentUser);
 
-  useEffect(() => {
-    const loadItems = async () => {
-      console.log("loadItems");
-      let productsItems = [];
-      for (let cartItem of cartItems) {
-        console.log(cartItem);
-        const res = await fetchProduct(cartItem.productId, dispatch);
-        productsItems.push({
-          ...res,
-          chosen: {
-            chosenColor: cartItem.color,
-            chosenSize: cartItem.size,
-            quantity: cartItem.quantity,
-          },
-        });
-      }
+  const loadItems = async () => {
+    console.log("loadItems");
+    let productsItems = [];
+    for (let cartItem of cartItems) {
+      console.log(cartItem);
+      const res = await fetchProduct(cartItem.productId, dispatch);
+      productsItems.push({
+        ...res,
+        chosen: {
+          chosenColor: cartItem.color,
+          chosenSize: cartItem.size,
+          quantity: cartItem.quantity,
+        },
+      });
+    }
 
-      setProdcts(productsItems);
-    };
+    setProdcts(productsItems);
+  };
+
+  useEffect(() => {
     if (user?.uid) {
       dispatch(loadCart({ userId: user.uid }));
     }
     if (cartItems.length > 0) {
-      console.log(cartItems);
-
       loadItems();
     }
   }, [user]);
@@ -78,10 +77,15 @@ const Cart = () => {
                     {products.length > 0 &&
                       products.map((product) => (
                         <CartItem
+                          handleChange={() => loadItems()}
+                          products={cartItems}
+                          userId={user.uid}
                           product={product}
                           chosen={product.chosen}
                           key={
-                            product._id + product.chosen.chosenColor + product.chosen.chosenSize
+                            product._id +
+                            product.chosen.chosenColor +
+                            product.chosen.chosenSize
                           }
                         />
                       ))}
