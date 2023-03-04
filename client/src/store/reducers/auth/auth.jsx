@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { isAdmin, signIn } from "../../../services/authentication";
+import { signOut } from "firebase/auth";
+import {
+  isAdmin,
+  signIn,
+  signout,
+  signUp,
+} from "../../../services/authentication";
 
 export const tokenSlice = createSlice({
   name: "auth",
@@ -11,7 +17,6 @@ export const tokenSlice = createSlice({
     },
     loading: false,
     error: null,
-    reloadUser: new Date().toLocaleTimeString(),
   },
   reducers: {
     setIsAdmin: (state, action) => {
@@ -24,7 +29,13 @@ export const tokenSlice = createSlice({
       };
     },
     setReloadUser: (state, action) => {
-      return { ...state, reloadUser: new Date().toLocaleTimeString() };
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          reloadUser: new Date().toLocaleTimeString(),
+        },
+      };
     },
     setAdminMsg: (state, action) => {
       return {
@@ -43,17 +54,54 @@ export const tokenSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(isAdmin.pending, (state, action) => {
-      state.loading = true;
-    });
     builder.addCase(isAdmin.fulfilled, (state, action) => {
-      state.admin.isAdmin = action.payload;
+      state.admin.isAdmin = action.payload.admin;
+      state.user = {
+        ...action.payload.user,
+        reloadUser: new Date().toLocaleTimeString(),
+      };
       state.loading = false;
     });
     builder.addCase(isAdmin.rejected, (state, action) => {
       state.error = action.error.message;
-      state.admin.isAdmin = null;
+      state.admin = {
+        isAdmin: null,
+        msg: [],
+      };
       state.user = null;
+      state.loading = false;
+    });
+    builder.addCase(
+      signIn.pending || signUp.pending || isAdmin.pending || signout.pending,
+      (state, action) => {
+        state.loading = true;
+      }
+    );
+    builder.addCase(signout.fulfilled, (state, action) => {
+      state.user = null;
+      state.admin = {
+        isAdmin: null,
+        msg: [],
+      };
+      state.loading = false;
+    });
+    builder.addCase(signIn.rejected || signUp.rejected, (state, action) => {
+      state.user = null;
+      state.admin = {
+        isAdmin: null,
+        msg: [],
+      };
+      state.loading = false;
+    });
+    builder.addCase(signIn.fulfilled || signUp.fulfilled, (state, action) => {
+      state.user = {
+        ...action.payload,
+        reloadUser: new Date().toLocaleTimeString(),
+      };
+      state.admin = {
+        isAdmin: null,
+        msg: [],
+      };
       state.loading = false;
     });
   },

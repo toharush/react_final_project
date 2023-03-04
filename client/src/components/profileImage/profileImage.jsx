@@ -2,7 +2,6 @@ import { Avatar } from "@mui/material";
 import { red } from "@mui/material/colors";
 
 const ProfileImage = ({ id, date }) => {
-  console.log(id, date);
   return id ? (
     <Avatar
       aria-label="user"

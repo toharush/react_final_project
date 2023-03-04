@@ -13,6 +13,7 @@ export const signUp = createAsyncThunk("auth/setUser", async (userData) => {
   if (!loggedIn) {
     return await firebasecreateUser(email, password);
   }
+  return loggedIn;
 });
 
 export const signIn = createAsyncThunk("auth/setUser", async (userData) => {
@@ -21,35 +22,40 @@ export const signIn = createAsyncThunk("auth/setUser", async (userData) => {
   if (!loggedIn) {
     return await firebaseSignIn(email, password);
   }
+  return loggedIn;
 });
 
-export const isAdmin = createAsyncThunk("auth/setUser", async () => {
-  return await isUserAdmin();
+export const isAdmin = createAsyncThunk("auth/setAdmin", async () => {
+  const user = await getCurrentUser();
+  let admin;
+  if(user) {
+    admin = await isUserAdmin(user.uid);
+  }
+  return { admin, user };
 });
 
 export const getCurrentUser = async () => {
+  console.log(await getCurrentUserFromFireBase())
   return await getCurrentUserFromFireBase();
 };
 
-export const isUserAdmin = async () => {
+export const isUserAdmin = async (id) => {
   return await (
     await axios.get("/auth/isAdmin", {
       headers: {
-        authorization: (await getCurrentUser()).uid.toString(),
+        authorization: id,
       },
     })
   ).data;
 };
 
-export const signout = async () => {
-  try {
-    await (
-      await axios.get("/auth/signout", {
-        headers: {
-          authorization: (await getCurrentUser()).uid.toString(),
-        },
-      })
-    ).data;
-    await signOutFromFirebase();
-  } catch {}
-};
+export const signout = createAsyncThunk("auth/signOut", async () => {
+  await (
+    await axios.get("/auth/signout", {
+      headers: {
+        authorization: (await getCurrentUser()).uid.toString(),
+      },
+    })
+  ).data;
+  return await signOutFromFirebase();
+});

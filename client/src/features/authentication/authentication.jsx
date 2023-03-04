@@ -43,7 +43,7 @@ const Authentication = ({ isOpen, setIsOpen }) => {
 
   useEffect(() => {
     const fetchImage = async () => {
-      if (currentUser.uid) {
+      if (currentUser?.uid) {
         if (file) {
           await handleUpload(file, currentUser.uid, setPercent);
         }

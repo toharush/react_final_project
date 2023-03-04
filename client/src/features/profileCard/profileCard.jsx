@@ -13,29 +13,40 @@ import { Container } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../../store/selectors/auth/auth";
 import ProfileImageUploader from "../../components/profileImageUploader/profileImageUploader";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { handleUpload } from "../../lib/storage";
 import { setReloadUser } from "../../store/reducers/auth/auth";
+import { changePassword } from "../../services/firebase";
 
 const ProfileCard = () => {
   const dispatch = useDispatch();
+  const password = useRef();
   const user = useSelector(getCurrentUser);
   const [file, setFile] = useState(""); // progress
   const [percent, setPercent] = useState(0); // Handle file upload event and update state
 
-  const handleSubmit = () => {
-    if(file) {
-      handleUpload(file, user.uid, setPercent);
-      dispatch(setReloadUser());
+  const handleSubmit = async () => {
+    if (file) {
+      await handleUpload(file, user?.uid, setPercent);
+      await dispatch(setReloadUser());
     }
-  }
+
+    if (password.current.value) {
+      await changePassword(user, password.current.value);
+    }
+  };
 
   return (
     <Container className="profile-card" fixed>
       <Card>
         <CardHeader></CardHeader>
         <CardContent>
-          <ProfileImageUploader id={user.uid} file={file} percent={percent} setFile={setFile}/>
+          <ProfileImageUploader
+            id={user?.uid}
+            file={file}
+            percent={percent}
+            setFile={setFile}
+          />
           <TextField
             fullWidth
             id="email"
@@ -43,7 +54,7 @@ const ProfileCard = () => {
             disabled
             label="email"
             variant="outlined"
-            value={user.email}
+            value={user?.email ?? ""}
             sx={{
               padding: "10px !important",
             }}
@@ -54,6 +65,7 @@ const ProfileCard = () => {
             type="password"
             label="password"
             variant="outlined"
+            inputRef={password}
             sx={{
               padding: "10px !important",
             }}
