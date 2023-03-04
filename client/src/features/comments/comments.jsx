@@ -3,12 +3,15 @@ import { useRef, useState } from "react";
 import Comment from "./components/comment/comment";
 import NewComments from "./components/newComment/newComment";
 import { Scrollbars } from "react-custom-scrollbars-2";
+import { useSelector } from "react-redux";
+import { getCurrentUser } from "../../store/selectors/selectors";
 
 const Comments = ({ comments, handleNewComment, rating, setRating, loading }) => {
+  const user = useSelector(getCurrentUser);
   const comment = useRef();
 
   const handleSubmit = async () => {
-    await handleNewComment(comment, rating, setRating);
+    await handleNewComment(comment, user?.uid);
   };
 
   return (
@@ -20,6 +23,7 @@ const Comments = ({ comments, handleNewComment, rating, setRating, loading }) =>
           rating={rating}
           setRating={setRating}
           loading={loading}
+          userId={user?.uid}
         />
         <Divider variant="middle" />
         {comments &&

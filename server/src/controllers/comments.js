@@ -20,7 +20,7 @@ exports.GetAllCommentsById = async (id) => {
     for (let comment of res.comments) {
       await comments.push({
         ...comment,
-        userId: await getUserById(comment.userId),
+        userEmail: await getUserById(comment.userId),
       });
     }
   } catch (err) {

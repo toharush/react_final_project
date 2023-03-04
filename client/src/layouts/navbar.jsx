@@ -17,14 +17,16 @@ import useNavbarPrefrences from "../hooks/useNavbarPrefrences";
 import { SearchProducts } from "../features/productsList";
 import { signout } from "../services/authentication";
 import useWs from "../hooks/useWs";
-import { isAdmin } from "../store/selectors/selectors";
+import { getCurrentUser, isAdmin } from "../store/selectors/selectors";
 import { useSelector } from "react-redux";
+import ProfileImage from "../components/profileImage/profileImage";
 
 const Navbar = () => {
   const navbarPrefrences = useNavbarPrefrences();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [login, setLogin] = useState(false);
+  const user = useSelector(getCurrentUser);
   const admin = useSelector(isAdmin);
   useWs({ isAdmin: admin });
 
@@ -119,7 +121,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <ProfileImage id={user?.uid} />
               </IconButton>
             </Tooltip>
             <Menu
