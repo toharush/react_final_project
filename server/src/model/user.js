@@ -1,35 +1,20 @@
 class User {
-  static loggedInUsers = 0;
-  static guestUsers = 0;
+  static loggedInUsers = [];
 
   addUser(id) {
-    if (id) {
-      User.loggedInUsers++;
-    } else {
-      User.guestUsers++;
+    if (User.loggedInUsers.filter((item) => item === id).length === 0) {
+      User.loggedInUsers.push(id);
     }
   }
 
   removeUser(id) {
-    if (id) {
-      User.loggedInUsers.length > 0 ? User.loggedInUsers-- : null;
-    } else {
-      User.guestUsers.length > 0 ? User.guestUsers-- : null;
+    if (User.loggedInUsers.filter((item) => item == id).length > 0) {
+      User.loggedInUsers = [...User.loggedInUsers.filter((item) => item != id)];
     }
-    console.log(
-      "removeUser",
-      "loggedInUsers",
-      User.loggedInUsers,
-      "guestUsers",
-      User.guestUsers
-    );
   }
 
   getLoggedInUsers() {
-    return User.loggedInUsers;
-  }
-  getGuestUsers() {
-    return User.guestUsers;
+    return User.loggedInUsers.length;
   }
 }
 
