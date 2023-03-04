@@ -32,7 +32,6 @@ export const getCurrentUser = async () => {
 };
 
 export const isUserAdmin = async () => {
-  console.log((await getCurrentUser()).uid.toString());
   return await (
     await axios.get("/auth/isAdmin", {
       headers: {

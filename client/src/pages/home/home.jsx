@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import Navbar from "../../layouts/navbar";
 import Notification from "../../components/notification/notification";

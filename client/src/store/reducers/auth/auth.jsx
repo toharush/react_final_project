@@ -42,12 +42,10 @@ export const tokenSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(isAdmin.fulfilled, (state, action) => {
-      console.log(action.payload)
       state.admin.isAdmin = action.payload;
       state.loading = false;
     });
     builder.addCase(isAdmin.rejected, (state, action) => {
-      console.log(action.error.message)
       state.error = action.error.message;
       state.admin.isAdmin = null;
       state.loading = false;
