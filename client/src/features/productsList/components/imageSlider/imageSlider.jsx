@@ -73,9 +73,10 @@ const ImageSlider = ({
       <Link to={link}>
         <CardMedia
           image={slides[currentIndex].img}
-          role="img"
+          role="picture"
           src={slides[currentIndex].img}
           className={className}
+
         />
       </Link>
       <div>
@@ -89,13 +90,6 @@ const ImageSlider = ({
 
       <div style={dotsContainerStyles}>
         {slides.map((slide, slideIndex) => (
-          //   <div
-          //     style={dotStyle}
-          //     key={slideIndex}
-          //     onClick={() => goToSlide(slideIndex)}
-          //   >
-          //     ●
-          //   </div>
           <Radio {...controlProps(slideIndex)} />
         ))}
       </div>

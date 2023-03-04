@@ -27,7 +27,7 @@ const Filter = ({}) => {
   };
 
   return (
-    <>
+    <div style={{marginLeft: "3%"}}>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
         <InputLabel>Colors</InputLabel>
         <Select
@@ -79,7 +79,7 @@ const Filter = ({}) => {
           ))}
         </Select>
       </FormControl>
-    </>
+    </div>
   );
 };
 

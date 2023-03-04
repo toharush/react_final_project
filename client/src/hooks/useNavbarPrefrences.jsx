@@ -1,11 +1,13 @@
 import { isEmpty } from "lodash";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { getCurrentUser, isAdmin } from "../store/selectors/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { isAdmin } from "../services/authentication";
+import { getCurrentUser, isAdmin as isAdminFromStore } from "../store/selectors/selectors";
 
 const useNavbarPrefrences = () => {
+  const dispatch = useDispatch();
   const user = useSelector(getCurrentUser);
-  const userPermission = useSelector(isAdmin);
+  const userPermission = useSelector(isAdminFromStore);
 
   const loginSettings = [
     { name: user.email, route: "profile", isLinkActive: true },
@@ -32,6 +34,7 @@ const useNavbarPrefrences = () => {
   useEffect(() => {
     if (!isEmpty(user)) {
       setSettings(loginSettings);
+      dispatch(isAdmin());
       if (userPermission) {
         setPages(adminPages);
       }
@@ -40,6 +43,8 @@ const useNavbarPrefrences = () => {
       setPages(regularPages);
     }
   }, [user, userPermission]);
+
+
 
   return { settings, pages };
 };

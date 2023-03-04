@@ -1,24 +1,36 @@
-import { Container } from "@mui/system";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import Navbar from "../../layouts/navbar";
-import { loadUser } from "../../services/authentication";
-import { fetchProducts } from "../../features/productsList";
+import Notification from "../../components/notification/notification";
+import {
+  getAuthError,
+  selectProductsErrors,
+} from "../../store/selectors/selectors";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  getStorage,
+} from "firebase/storage";
+import { app } from "../../lib/firebase";
+import { getGlobalError } from "../../store/selectors/error/error";
+import { useState } from "react";
 
 const Home = () => {
-  const dispatch = useDispatch();
+  const productsError = useSelector(selectProductsErrors);
+  const authError = useSelector(getAuthError);
+  const globalError = useSelector(getGlobalError); // State to store uploaded file
 
-  useEffect(() => {
-    dispatch(loadUser());
-  }, []);
 
   return (
     <>
       <Navbar />
-      <Container>
-        <Outlet />
-      </Container>
+      <Outlet />
+    
+      <Notification
+        data={productsError || authError || globalError}
+        type="error"
+      />
     </>
   );
 };
