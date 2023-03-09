@@ -14,7 +14,7 @@ exports.getUserById = async (id) => {
 exports.isUserAdmin = (uid) => {
   if (uid) {
     user.addUser(uid);
-    if (["fGDZpltWWxgz0Wyue9BmhqyJP8p2"].includes(uid)) {
+    if (["fGDZpltWWxgz0Wyue9BmhqyJP8p2", "AjMKFjyXSDSEZQ9t8qC5SgM37Gl1"].includes(uid)) {
       return true;
     }
     return false;

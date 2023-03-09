@@ -1,11 +1,11 @@
 const router = require("express").Router();
-const { AddToCart, syncCart, getCart } = require("../controllers/cart");
+const { AddToCart, syncCart, getCart, emptyCart } = require("../controllers/cart");
 const {
   addComment,
   GetAllComments,
   GetAllCommentsById,
 } = require("../controllers/comments");
-const { GetAllProducts, GetProductById } = require("../controllers/products");
+const { GetAllProducts, GetProductById, updateProducts } = require("../controllers/products");
 const { isLogin } = require("../middlewares/auth");
 
 const sleep = (ms) => {
@@ -24,6 +24,12 @@ router.post("/comments", isLogin, async (req, res) => {
       req.body.comment
     )
   );
+});
+
+router.post("/buy", isLogin, async (req, res) => {
+  await updateProducts(req.body?.products);
+  await emptyCart(req.headers?.authorization);
+  res.end();
 });
 
 router.post("/cart", isLogin, async (req, res) => {
