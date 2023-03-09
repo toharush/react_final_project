@@ -25,7 +25,7 @@ export const syncCart = createAsyncThunk("cart/setCart", async (userData) => {
       productId: newProduct._id,
       size: newProduct.chosen.chosenSize,
       color: newProduct.chosen.chosenColor,
-      quantity: 1,
+      quantity: Number(quantity),
     });
   }
   if (userId) {
