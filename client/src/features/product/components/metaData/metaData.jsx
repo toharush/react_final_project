@@ -1,4 +1,4 @@
-import { Avatar, Chip, Icon } from "@mui/material";
+import { Avatar, Chip } from "@mui/material";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { getDateById } from "../../../../services/dates";
 import { useDispatch } from "react-redux";

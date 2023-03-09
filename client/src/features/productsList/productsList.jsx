@@ -2,10 +2,8 @@ import Product from "./components/product/product";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import {
   getCurrentUser,
-  selectProductsWithFilter,
 } from "../../store/selectors/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../store/reducers/cart/cart";
 import Loader from "../../components/loader/loader";
 import { getCartItems } from "../../store/selectors/cart/cart";
 import { syncCart } from "../../services/cart";
@@ -16,7 +14,6 @@ const ProductsList = ({ products }) => {
   const cart = useSelector(getCartItems);
   
   const handleAddProductToCart = (product) => {
-    console.log(product);
     dispatch(
       syncCart({
         userId: user?.uid,

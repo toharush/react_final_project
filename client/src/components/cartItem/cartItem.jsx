@@ -1,37 +1,25 @@
 import {
-  Button,
-  ButtonGroup,
   Divider,
   TableCell,
   TableRow,
   TextField,
   Typography,
 } from "@mui/material";
-import {
-  MDBBtn,
-  MDBCardImage,
-  MDBCol,
-  MDBIcon,
-  MDBInput,
-  MDBRow,
-  MDBTypography,
-} from "mdb-react-ui-kit";
 import CardImg from "react-bootstrap/esm/CardImg";
-import { useDispatch } from "react-redux";
-import { syncCart } from "../../services/cart";
 
-function CartItem({ userId, products, product, handleChange }) {
-  const dispatch = useDispatch();
+function CartItem({ userId, products, product, handleChange, cartItem }) {
   const { name, price, color, supplier, description } = product;
 
   const changeItemCount = (count) => {
-    console.log(product.chosen.quantity);
-    product.chosen.quantity = count;
-    console.log(product.chosen.quantity);
-    handleChange();
+    handleChange({
+      userId: userId,
+      cart: products,
+      count: count,
+      newProduct: product,
+    });
   };
 
-  return (
+  return cartItem ? (
     <>
       <TableRow className="mb-4 d-flex justify-content-between align-items-center">
         <TableCell md="2" lg="2" xl="2">
@@ -57,7 +45,7 @@ function CartItem({ userId, products, product, handleChange }) {
         <TextField
           type="number"
           min="0"
-          value={product.chosen.quantity}
+          value={cartItem.quantity}
           size="sm"
           style={{
             width: "10vw",
@@ -71,7 +59,7 @@ function CartItem({ userId, products, product, handleChange }) {
       </TableRow>
       <Divider />
     </>
-  );
+  ) : null;
 }
 
 export default CartItem;

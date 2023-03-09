@@ -1,10 +1,8 @@
-import { Button, Divider } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { Button, Divider, Typography } from "@mui/material";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AdminEditAbleValue from "../../components/adminEditAbleValue/adminEditAbleValue";
 import Quantity from "../../components/quantity/quantity";
 import { syncCart } from "../../services/cart";
-import { addToCart } from "../../store/reducers/cart/cart";
 import { getCurrentUser, isAdmin } from "../../store/selectors/selectors";
 import Comments from "../comments/comments";
 import { FilterField } from "../filter";
@@ -31,13 +29,6 @@ const Product = ({
 
   const handleAddToCart = () => {
     dispatch(
-      // addToCart({
-      //   ...product,
-      //   chosen: {
-      //     chosenSize: chosenSize,
-      //     chosenColor: chosenColor,
-      //   },
-      // })
       syncCart({
         userId: user?.uid,
         cart: cart,
@@ -53,13 +44,8 @@ const Product = ({
     );
   };
 
-  useEffect(() => {
-    console.log(chosenSize);
-    console.log(cart, admin);
-  }, [chosenSize, cart, admin]);
-
   return (
-    <div className="product-page">
+    <div className="product-page" id="product-page">
       <div className="product-page-details">
         <div className="product-page-image">
           <ImageSlider
@@ -72,24 +58,14 @@ const Product = ({
           <MetaData product={product} />
         </div>
         <div className="product-text-details">
-          <AdminEditAbleValue
-            value={product.name}
-            textSize="h3"
-            admin={Boolean(admin)}
-            sx={{}}
-            setValue={() => {}}
-          />
+          <Typography textSize="h1"> {product.name} </Typography>
 
-          <AdminEditAbleValue
-            value={
-              chosenSize >= 0
-                ? product.color[chosenColor].quantity[chosenSize]
-                : 0
-            }
-            admin={Boolean(admin)}
-            textSize="h6"
-            setValue={() => {}}
-          />
+          <Typography textSize="h6">
+            {" "}
+            {chosenSize >= 0
+              ? product.color[chosenColor].quantity[chosenSize]
+              : 0}{" "}
+          </Typography>
 
           <Divider variant="fullWidth" />
 
@@ -120,12 +96,7 @@ const Product = ({
               inputLabel="Choose Size"
               selectValue={product.color[chosenColor].size[chosenSize]}
             />
-            <AdminEditAbleValue
-              value={`${product.price}$`}
-              admin={Boolean(admin)}
-              textSize="h6"
-              setValue={() => {}}
-            />
+            <Typography textSize="h6">{`${product.price}$`}</Typography>
           </div>
           <div>
             <Button onClick={handleAddToCart}>Add To Cart</Button>

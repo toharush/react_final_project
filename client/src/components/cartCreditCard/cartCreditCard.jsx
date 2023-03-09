@@ -1,12 +1,9 @@
 import { Button, Divider, TextField, Typography } from "@mui/material";
-import { MDBCol, MDBInput, MDBTypography } from "mdb-react-ui-kit";
-import { useSelector } from "react-redux";
-import { getItemPrice, getTotalPrice } from "../../store/selectors/cart/cart";
+import { MDBCol } from "mdb-react-ui-kit";
 import "./cartCreditCard.css";
 
-function CartCreditCart({ count }) {
-  // const totalPrice = useSelector(getTotalPrice);
-  const itemPrice = useSelector(getItemPrice);
+function CartCreditCart({ price }) {
+
   return (
     <>
       <MDBCol lg="4" className="bg-grey">
@@ -52,7 +49,7 @@ function CartCreditCart({ count }) {
             <Typography variant="h5">Total price</Typography>
 
             <Typography variant="h5" className="totalPrice">
-              ${0}
+              ${price}
             </Typography>
           </div>
 

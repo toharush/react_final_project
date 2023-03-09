@@ -9,13 +9,14 @@ import Loader from "../../components/loader/loader";
 import { getProducts } from "../../store/selectors/selectors";
 import ProductsList from "../../features/productsList/productsList";
 import { fetchProducts } from "../../features/productsList";
-import { ScrollRestoration } from "react-router-dom";
 
 const Product = () => {
   const dispatch = useDispatch();
   const { id, color } = useParams();
+  const [currentId, setCurrentId] = useState(0);
   const [chosenColor, setChosenColor] = useState(Number(color));
   const products = useSelector(getProducts);
+  const [similarProducts, setSimilarProducts] = useState([]);
   const [rating, setRating] = useState(0);
   const [data, setData] = useState(null);
   const [loading, seLoading] = useState(false);
@@ -36,6 +37,22 @@ const Product = () => {
     return res;
   };
 
+  const getItems = () => {
+    if (products && currentId !== id) {
+      setSimilarProducts(
+        shuffle(
+          products.filter(
+            (listProduct) =>
+              listProduct.categories.includes(...data.categories) &&
+              listProduct._id !== id
+          )
+        )
+      );
+      setCurrentId(id);
+    }
+    return similarProducts;
+  }
+
   useEffect(() => {
     loadProduct();
     if (isEmpty(products)) {
@@ -55,17 +72,9 @@ const Product = () => {
         loading={loading}
       />
       <h2 style={{ marginLeft: "4%", marginTop: "2%", marginBottom: "1%" }}>
-        People also like:{" "}
+        People also like:
       </h2>
-      <ProductsList
-        products={shuffle(
-          products.filter(
-            (listProduct) =>
-              listProduct.categories.includes(...data.categories) &&
-              listProduct._id != data._id
-          )
-        )}
-      />
+      <ProductsList products={getItems()} />
     </>
   ) : (
     <Loader />

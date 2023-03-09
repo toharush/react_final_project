@@ -4,8 +4,7 @@ import axios from "../lib/axios";
 
 export const syncCart = createAsyncThunk("cart/setCart", async (userData) => {
   let { userId, cart, quantity, newProduct, count } = userData;
-  let carItems = cloneDeep(cart);
-  console.log(userId, carItems, newProduct, count);
+  let carItems = cart ? cloneDeep(cart) : [];
   const findItem = await carItems.findIndex(
     (item) =>
       item.productId === newProduct._id &&
@@ -13,10 +12,13 @@ export const syncCart = createAsyncThunk("cart/setCart", async (userData) => {
       item.color === newProduct.chosen.chosenColor
   );
   if (findItem >= 0) {
-    if (count) {
-      carItems[findItem].quantity = count;
+    if (count <= 0) {
+      carItems.splice(findItem, 1);
+    } else if (count) {
+      carItems[findItem].quantity = Number(count);
     } else {
-      carItems[findItem].quantity = carItems[findItem].quantity + quantity;
+      carItems[findItem].quantity =
+        Number(carItems[findItem].quantity) + Number(quantity);
     }
   } else {
     carItems.push({
@@ -26,22 +28,20 @@ export const syncCart = createAsyncThunk("cart/setCart", async (userData) => {
       quantity: 1,
     });
   }
-
-  return userId
-    ? (
-        await axios.post(
-          "/items/cart",
-          {
-            cart: carItems,
-          },
-          {
-            headers: {
-              authorization: userId,
-            },
-          }
-        )
-      ).data.products
-    : carItems;
+  if (userId) {
+    axios.post(
+      "/items/cart",
+      {
+        cart: carItems,
+      },
+      {
+        headers: {
+          authorization: userId,
+        },
+      }
+    );
+  }
+  return carItems;
 });
 
 export const loadCart = createAsyncThunk("cart/setCart", async (userData) => {
@@ -53,5 +53,8 @@ export const loadCart = createAsyncThunk("cart/setCart", async (userData) => {
         authorization: userId,
       },
     })
-  ).data.products;
+  ).data.products.map((product) => ({
+    ...product,
+    quantity: Number(product.quantity),
+  }));
 });

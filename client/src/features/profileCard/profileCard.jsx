@@ -1,12 +1,9 @@
-import Grid2 from "@mui/material/Unstable_Grid2";
 import {
-  Avatar,
   Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
-  CardMedia,
   TextField,
 } from "@mui/material";
 import { Container } from "@mui/system";
@@ -15,8 +12,8 @@ import { getCurrentUser } from "../../store/selectors/auth/auth";
 import ProfileImageUploader from "../../components/profileImageUploader/profileImageUploader";
 import { useRef, useState } from "react";
 import { handleUpload } from "../../lib/storage";
-import { setReloadUser } from "../../store/reducers/auth/auth";
 import { changePassword } from "../../services/firebase";
+import "./profileCard.css";
 
 const ProfileCard = () => {
   const dispatch = useDispatch();

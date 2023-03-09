@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../lib/axios";
-import { loadCart } from "./cart";
 import {
   firebasecreateUser,
   firebaseSignIn,

@@ -1,9 +1,8 @@
-import { Button, Card, IconButton, TextField, Typography } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./quantity.css";
 import { Box } from "@mui/system";
+
 const Quantity = ({ max }) => {
   const [quantity, setQuantity] = useState(0);
 

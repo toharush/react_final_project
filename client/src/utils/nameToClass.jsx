@@ -1,5 +1,4 @@
 export default (name) => {
-  console.log(name)
   switch (name) {
     case "ירוק זית : צבע":
       return "oliver-green";
