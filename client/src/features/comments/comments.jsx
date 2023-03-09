@@ -1,5 +1,5 @@
 import { Card, Divider } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Comment from "./components/comment/comment";
 import NewComments from "./components/newComment/newComment";
 import { Scrollbars } from "react-custom-scrollbars-2";

@@ -3,37 +3,30 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import {
-  Avatar,
   Button,
-  CardActionArea,
   CardActions,
   Stack,
   ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
-import Selector from "../selector/selector";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { addToCart } from "../../../../store/reducers/cart/cart";
-import { useDispatch } from "react-redux";
 import ImageSlider from "../imageSlider/imageSlider";
 import "./product.css";
 
-const Product = ({ product }) => {
-  const dispatch = useDispatch();
+const Product = ({ product, addToCart }) => {
   const { name, color, supplier } = product;
   const [chosenColor, setChosenColor] = useState(0);
   const [chosenSize, setChosenSize] = useState(0);
 
   const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        ...product,
-        chosen: {
-          chosenSize: chosenSize,
-          chosenColor: chosenColor,
-        },
-      })
-    );
+    addToCart({
+      ...product,
+      chosen: {
+        chosenSize: chosenSize,
+        chosenColor: chosenColor,
+      },
+    });
   };
 
   return (
@@ -43,9 +36,9 @@ const Product = ({ product }) => {
         className="product-img"
         currentIndex={chosenColor}
         setCurrentIndex={setChosenColor}
-        link={`../${product._id}/${chosenColor}`}
+        link={`/${product._id}/${chosenColor}`}
       />
-      <Link to={`../${product._id}/${chosenColor}`}>
+      <Link to={`/${product._id}/${chosenColor}`}>
         <CardContent>
           <Typography
             gutterBottom
@@ -60,15 +53,32 @@ const Product = ({ product }) => {
           </Typography>
         </CardContent>
       </Link>
-      <CardActions>
-        <Stack width={"345px"} alignItems="center">
-          <Selector value={chosenSize} setValue={setChosenSize}>
-            {color[chosenColor].size.map((size, index) => (
-              <ToggleButton value={index} key={product._id + size}>
-                {size}
-              </ToggleButton>
-            ))}
-          </Selector>
+      <CardActions
+        style={{
+          width: "100%",
+        }}
+      >
+        <Stack
+          spacing={2}
+          alignItems="center"
+          style={{
+            width: "100%",
+          }}
+        >
+          <ToggleButtonGroup
+            size="medium"
+            value={chosenSize}
+            exclusive
+            onChange={(event, newValue) => setChosenSize(newValue)}
+          >
+            {color[chosenColor].size.map((size, index) =>
+              color[chosenColor].quantity[index] > 0 ? (
+                <ToggleButton value={index} key={product._id + size}>
+                  {size}
+                </ToggleButton>
+              ) : null
+            )}
+          </ToggleButtonGroup>
 
           <Button size="small" color="primary" onClick={handleAddToCart}>
             Add to cart

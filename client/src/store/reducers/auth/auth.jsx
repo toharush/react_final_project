@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signOut } from "firebase/auth";
 import {
   isAdmin,
   signIn,

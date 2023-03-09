@@ -4,13 +4,8 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Card, Modal, Tab } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn, signUp } from "../../services/authentication";
-import {
-  getAuthError,
-  getAuthLoading,
-  getCurrentUser,
-} from "../../store/selectors/selectors";
-import { isEmpty, isNull } from "lodash";
 import ProfileImageUploader from "../../components/profileImageUploader/profileImageUploader";
+import { getCurrentUser } from "../../store/selectors/selectors";
 import { handleUpload } from "../../lib/storage";
 
 const Authentication = ({ isOpen, setIsOpen }) => {
@@ -32,9 +27,9 @@ const Authentication = ({ isOpen, setIsOpen }) => {
   };
 
   const handleUserSign = async (email, password) => {
-    if (mode == signOptions[0]) {
+    if (mode === signOptions[0]) {
       await dispatch(signIn({ email, password }));
-    } else if (mode == signOptions[1]) {
+    } else if (mode === signOptions[1]) {
       await dispatch(signUp({ email, password }));
     }
   };
@@ -66,7 +61,7 @@ const Authentication = ({ isOpen, setIsOpen }) => {
 
           {signOptions.map((option, index) => (
             <TabPanel value={option} key={option + index}>
-              {mode == signOptions[1] ? (
+              {mode === signOptions[1] ? (
                 <ProfileImageUploader
                   id={"tets"}
                   file={file}

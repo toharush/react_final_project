@@ -1,15 +1,15 @@
 import { Button, Divider, Typography } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AdminEditAbleValue from "../../components/adminEditAbleValue/adminEditAbleValue";
 import Quantity from "../../components/quantity/quantity";
-import { addToCart } from "../../store/reducers/cart/cart";
-import { isAdmin } from "../../store/selectors/selectors";
+import { syncCart } from "../../services/cart";
+import { getCurrentUser, isAdmin } from "../../store/selectors/selectors";
 import Comments from "../comments/comments";
 import { FilterField } from "../filter";
 import { ImageSlider } from "../productsList";
 import MetaData from "./components/metaData/metaData";
 import "./product.css";
+import { getCartItems } from "../../store/selectors/cart/cart";
 
 const Product = ({
   product,
@@ -22,27 +22,30 @@ const Product = ({
 }) => {
   const inputRef = useRef();
   const dispatch = useDispatch();
+  const user = useSelector(getCurrentUser);
+  const cart = useSelector(getCartItems);
   const admin = useSelector(isAdmin);
   const [chosenSize, setChosenSize] = useState(0);
 
   const handleAddToCart = () => {
     dispatch(
-      addToCart({
-        ...product,
-        chosen: {
-          chosenSize: chosenSize,
-          chosenColor: chosenColor,
+      syncCart({
+        userId: user?.uid,
+        cart: cart,
+        quantity: 1,
+        newProduct: {
+          ...product,
+          chosen: {
+            chosenSize: chosenSize,
+            chosenColor: chosenColor,
+          },
         },
       })
     );
   };
 
-  useEffect(() => {
-    console.log(chosenSize)
-  }, [chosenSize])
-
   return (
-    <div className="product-page">
+    <div className="product-page" id="product-page">
       <div className="product-page-details">
         <div className="product-page-image">
           <ImageSlider
@@ -55,24 +58,14 @@ const Product = ({
           <MetaData product={product} />
         </div>
         <div className="product-text-details">
-          <AdminEditAbleValue
-            value={product.name}
-            textSize="h3"
-            admin={Boolean(admin)}
-            sx={{}}
-            setValue={() => {}}
-          />
+          <Typography textSize="h1"> {product.name} </Typography>
 
-          <AdminEditAbleValue
-            value={
-              chosenSize >= 0
-                ? product.color[chosenColor].quantity[chosenSize]
-                : 0
-            }
-            admin={Boolean(admin)}
-            textSize="h6"
-            setValue={() => {}}
-          />
+          <Typography textSize="h6">
+            {" "}
+            {chosenSize >= 0
+              ? product.color[chosenColor].quantity[chosenSize]
+              : 0}{" "}
+          </Typography>
 
           <Divider variant="fullWidth" />
 
@@ -89,8 +82,8 @@ const Product = ({
               inputRef={inputRef}
               max={
                 chosenSize >= 0
-                ? product.color[chosenColor].quantity[chosenSize]
-                : chosenSize
+                  ? product.color[chosenColor].quantity[chosenSize]
+                  : chosenSize
               }
             />
             <FilterField
@@ -103,12 +96,7 @@ const Product = ({
               inputLabel="Choose Size"
               selectValue={product.color[chosenColor].size[chosenSize]}
             />
-            <AdminEditAbleValue
-              value={`${product.price}$`}
-              admin={Boolean(admin)}
-              textSize="h6"
-              setValue={() => {}}
-            />
+            <Typography textSize="h6">{`${product.price}$`}</Typography>
           </div>
           <div>
             <Button onClick={handleAddToCart}>Add To Cart</Button>

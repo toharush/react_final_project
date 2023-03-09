@@ -6,12 +6,11 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Authentication from "../features/authentication/authentication";
 import useNavbarPrefrences from "../hooks/useNavbarPrefrences";
 import { SearchProducts } from "../features/productsList";
@@ -21,7 +20,8 @@ import { getCurrentUser, isAdmin } from "../store/selectors/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileImage from "../components/profileImage/profileImage";
 
-const Navbar = () => {
+const Navbar = ({ scrollToTop }) => {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navbarPrefrences = useNavbarPrefrences();
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -52,6 +52,10 @@ const Navbar = () => {
     }
     setAnchorElUser(null);
   };
+
+  useEffect(() => {
+    scrollToTop();
+  }, [pathname]);
 
   return (
     <AppBar
