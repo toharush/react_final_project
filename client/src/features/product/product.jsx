@@ -10,6 +10,7 @@ import { ImageSlider } from "../productsList";
 import MetaData from "./components/metaData/metaData";
 import "./product.css";
 import { getCartItems } from "../../store/selectors/cart/cart";
+import AddToCartBtn from "../../components/addToCartBtn/addToCartBtn";
 
 const Product = ({
   product,
@@ -98,9 +99,7 @@ const Product = ({
             />
             <Typography textSize="h6">{`${product.price}$`}</Typography>
           </div>
-          <div>
-            <Button onClick={() => handleAddToCart()}>Add To Cart</Button>
-          </div>
+          <AddToCartBtn handleClick={handleAddToCart} />
         </div>
       </div>
 

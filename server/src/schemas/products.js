@@ -17,6 +17,7 @@ const products = new Schema(
   },
   {
     collection: "products",
+    versionKey: false
   }
 );
 

@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import ImageSlider from "../imageSlider/imageSlider";
 import "./product.css";
+import AddToCartBtn from "../../../../components/addToCartBtn/addToCartBtn";
 
 const Product = ({ product, addToCart }) => {
   const { name, color, supplier } = product;
@@ -80,9 +81,7 @@ const Product = ({ product, addToCart }) => {
             )}
           </ToggleButtonGroup>
 
-          <Button size="small" color="primary" onClick={handleAddToCart}>
-            Add to cart
-          </Button>
+          <AddToCartBtn handleClick={handleAddToCart} />
         </Stack>
       </CardActions>
     </Card>
