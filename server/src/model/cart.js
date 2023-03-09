@@ -22,8 +22,6 @@ exports.AddToCartDb = async (productId, userId) => {
   }
 };
 
-exports.Buy = () => {};
-
 exports.syncCartToDb = async (userId, cartItems) => {
   return await cart.findOneAndUpdate(
     { userId: userId },
@@ -37,4 +35,10 @@ exports.syncCartToDb = async (userId, cartItems) => {
 
 exports.getCartFromDb = async (userId) => {
   return await cart.findOne({ userId: userId });
+};
+
+exports.emptyCartFromDb = async (userId) => {
+  return await cart.findOneAndDelete(
+    {userId: userId}
+  );
 };

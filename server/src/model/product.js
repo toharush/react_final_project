@@ -23,3 +23,20 @@ exports.GetProductByIdFromDb = async (id) => {
     return res;
   }
 };
+
+exports.updateProductQuantity = async (productId, sizeIndex, colorIndex, amount) => {
+  let currProduct = {};
+
+  try {
+    currProduct = await products.findById(productId);
+    currProduct?.color[colorIndex]?.quantity[sizeIndex] -= amount;
+    return await products.findOneAndReplace(
+      {_id: productId},
+      {...currProduct}
+    );
+  } catch (err) {
+    console.log(err);
+  } finally {
+    return currProduct;
+  }  
+};
