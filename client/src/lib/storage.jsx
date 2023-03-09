@@ -7,7 +7,13 @@ import {
 import { setError, setReloadUser } from "../store/reducers/auth/auth";
 import { app } from "./firebase";
 
-export const handleUpload = (file, filename, setPercent, dispatch) => {
+export const handleUpload = (
+  file,
+  filename,
+  setPercent,
+  dispatch,
+  isUpdate = true
+) => {
   try {
     if (!file) {
       dispatch(setError("Please upload an image first!"));
@@ -27,7 +33,9 @@ export const handleUpload = (file, filename, setPercent, dispatch) => {
           getDownloadURL(uploadTask.snapshot.ref);
         }
       );
-      dispatch(setReloadUser());
+      if (isUpdate) {
+        dispatch(setReloadUser());
+      }
     }
   } catch (err) {
     console.log(err);

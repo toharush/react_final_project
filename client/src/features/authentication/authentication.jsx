@@ -7,6 +7,7 @@ import { signIn, signUp } from "../../services/authentication";
 import ProfileImageUploader from "../../components/profileImageUploader/profileImageUploader";
 import { getCurrentUser } from "../../store/selectors/selectors";
 import { handleUpload } from "../../lib/storage";
+import { isEmpty } from "lodash";
 
 const Authentication = ({ isOpen, setIsOpen }) => {
   const dispatch = useDispatch();
@@ -35,16 +36,19 @@ const Authentication = ({ isOpen, setIsOpen }) => {
   };
 
   useEffect(() => {
-    const fetchImage = async () => {
-      if (currentUser?.uid) {
-        if (file) {
-          await handleUpload(file, currentUser.uid, setPercent, dispatch);
-        }
-        await setFile("");
-        await setIsOpen(false);
+    if (currentUser?.uid) {
+      if (file) {
+        handleUpload(
+          file,
+          currentUser.uid,
+          setPercent,
+          dispatch,
+          false
+        );
+        setFile("")
       }
-    };
-    fetchImage();
+      setIsOpen(false);
+    }
   }, [currentUser]);
 
   const handleChange = (event, newValue) => setMode(newValue);

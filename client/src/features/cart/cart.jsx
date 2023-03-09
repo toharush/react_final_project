@@ -96,7 +96,7 @@ const Cart = ({ user, cartItems }) => {
                         <CartItem
                           handleChange={sync}
                           products={cartItems}
-                          userId={user.uid}
+                          userId={user?.uid}
                           product={product}
                           cartItem={cartItems[index]}
                           chosen={product.chosen}
