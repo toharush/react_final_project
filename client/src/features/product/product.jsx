@@ -20,11 +20,11 @@ const Product = ({
   setRating,
   loading,
 }) => {
-  const inputRef = useRef();
   const dispatch = useDispatch();
   const user = useSelector(getCurrentUser);
   const cart = useSelector(getCartItems);
   const admin = useSelector(isAdmin);
+  const [quantity, setQuantity] = useState(0);
   const [chosenSize, setChosenSize] = useState(0);
 
   const handleAddToCart = () => {
@@ -32,7 +32,7 @@ const Product = ({
       syncCart({
         userId: user?.uid,
         cart: cart,
-        quantity: 1,
+        quantity: Number(quantity),
         newProduct: {
           ...product,
           chosen: {
@@ -61,10 +61,9 @@ const Product = ({
           <Typography textSize="h1"> {product.name} </Typography>
 
           <Typography textSize="h6">
-            {" "}
             {chosenSize >= 0
               ? product.color[chosenColor].quantity[chosenSize]
-              : 0}{" "}
+              : 0}
           </Typography>
 
           <Divider variant="fullWidth" />
@@ -79,7 +78,8 @@ const Product = ({
             }}
           >
             <Quantity
-              inputRef={inputRef}
+              quantity={quantity}
+              setQuantity={setQuantity}
               max={
                 chosenSize >= 0
                   ? product.color[chosenColor].quantity[chosenSize]
@@ -99,8 +99,7 @@ const Product = ({
             <Typography textSize="h6">{`${product.price}$`}</Typography>
           </div>
           <div>
-            <Button onClick={handleAddToCart}>Add To Cart</Button>
-            {admin ? <Button onClick={handleAddToCart}>Update</Button> : null}
+            <Button onClick={() => handleAddToCart()}>Add To Cart</Button>
           </div>
         </div>
       </div>

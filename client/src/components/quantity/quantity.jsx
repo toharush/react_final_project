@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 import "./quantity.css";
 import { Box } from "@mui/system";
 
-const Quantity = ({ max }) => {
-  const [quantity, setQuantity] = useState(0);
-
+const Quantity = ({ max, quantity, setQuantity }) => {
   useEffect(() => {
     setQuantity(max <= 0 ? 0 : 1);
   }, [max]);
