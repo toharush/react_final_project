@@ -30,40 +30,18 @@ exports.updateProductQuantity = async (
   colorIndex,
   amount
 ) => {
-  let currProduct = {};
-
   try {
-    currProduct = await products.findById(productId);
-    const updatedProduct = {
-      ...currProduct,
-      color: [
-        ...currProduct?.color.map((color, index) => {
-          if (index === colorIndex) {
-            return {
-              ...color,
-              quantity: [
-                ...color?.quantity.map((qua, index) => {
-                  if (index === sizeIndex) {
-                    return qua - Number(amount);
-                  }
-                  return qua;
-                }),
-              ],
-            };
-          }
-          return color;
-        }),
-      ],
-    };
-    console.log("updatedProduct", updatedProduct);
-
-    return await products.findOneAndUpdate(
-      { _id: productId },
-      { ...updatedProduct }
-    );
+    return await products.findById(productId).exec().then(async (product) => {
+      try {
+        console.log(product);
+        await (product.color[colorIndex].quantity[sizeIndex] -= amount);
+        await products.findOneAndUpdate({_id: productId}, product);
+        return product;
+      } catch (error) {
+        console.log(error);
+      }
+    })
   } catch (err) {
     console.log(err);
-  } finally {
-    return currProduct;
   }
 };
