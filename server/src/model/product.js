@@ -24,19 +24,46 @@ exports.GetProductByIdFromDb = async (id) => {
   }
 };
 
-exports.updateProductQuantity = async (productId, sizeIndex, colorIndex, amount) => {
+exports.updateProductQuantity = async (
+  productId,
+  sizeIndex,
+  colorIndex,
+  amount
+) => {
   let currProduct = {};
 
   try {
     currProduct = await products.findById(productId);
-    currProduct?.color[colorIndex]?.quantity[sizeIndex] -= amount;
-    return await products.findOneAndReplace(
-      {_id: productId},
-      {...currProduct}
+    const updatedProduct = {
+      ...currProduct,
+      color: [
+        ...currProduct?.color.map((color, index) => {
+          if (index === colorIndex) {
+            return {
+              ...color,
+              quantity: [
+                ...color?.quantity.map((qua, index) => {
+                  if (index === sizeIndex) {
+                    return qua - Number(amount);
+                  }
+                  return qua;
+                }),
+              ],
+            };
+          }
+          return color;
+        }),
+      ],
+    };
+    console.log("updatedProduct", updatedProduct);
+
+    return await products.findOneAndUpdate(
+      { _id: productId },
+      { ...updatedProduct }
     );
   } catch (err) {
     console.log(err);
   } finally {
     return currProduct;
-  }  
+  }
 };

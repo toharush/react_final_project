@@ -7,18 +7,14 @@ import {
   MDBTypography,
 } from "mdb-react-ui-kit";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import CartCreditCart from "../../components/cartCreditCard/cartCreditCard";
 import CartItem from "../../components/cartItem/cartItem";
-import CartFeat from "../../features/cart/cart";
 import { fetchProduct } from "../../features/product/services/product";
-import { loadCart, syncCart } from "../../services/cart";
-import { getCartItems } from "../../store/selectors/cart/cart";
-import { getCurrentUser } from "../../store/selectors/selectors";
+import {  syncCart } from "../../services/cart";
 
-const Cart = ({ user, cartItems }) => {
+const Cart = ({ user, cartItems, handleBuy }) => {
   const [products, setProdcts] = useState([]);
-
   const dispatch = useDispatch();
   const loadItems = async () => {
     let productsItems = [];
@@ -109,7 +105,7 @@ const Cart = ({ user, cartItems }) => {
                       ))}
                   </div>
                 </MDBCol>
-                <CartCreditCart price={getPrice()} />
+                <CartCreditCart price={getPrice()} handleBuy={handleBuy}/>
               </MDBRow>
             </MDBCardBody>
           </MDBCard>

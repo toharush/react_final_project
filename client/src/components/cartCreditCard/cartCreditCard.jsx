@@ -2,7 +2,7 @@ import { Button, Divider, TextField, Typography } from "@mui/material";
 import { MDBCol } from "mdb-react-ui-kit";
 import "./cartCreditCard.css";
 
-function CartCreditCart({ price }) {
+function CartCreditCart({ price, handleBuy }) {
 
   return (
     <>
@@ -53,7 +53,7 @@ function CartCreditCart({ price }) {
             </Typography>
           </div>
 
-          <Button variant="contained">Buy</Button>
+          <Button variant="contained" onClick={handleBuy}>Buy</Button>
         </div>
       </MDBCol>
     </>

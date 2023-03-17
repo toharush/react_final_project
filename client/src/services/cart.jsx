@@ -47,14 +47,17 @@ export const syncCart = createAsyncThunk("cart/setCart", async (userData) => {
 export const loadCart = createAsyncThunk("cart/setCart", async (userData) => {
   let { userId } = userData;
 
-  return (
+  const data = (
     await axios.get("/items/cart", {
       headers: {
         authorization: userId,
       },
     })
-  ).data.products.map((product) => ({
-    ...product,
-    quantity: Number(product.quantity),
-  }));
+  ).data;
+  return data?.products
+    ? data.products.map((product) => ({
+        ...product,
+        quantity: Number(product.quantity),
+      }))
+    : [];
 });

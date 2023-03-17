@@ -3,6 +3,7 @@ const { isUserAdmin } = require("../controllers/auth");
 exports.isLogin = (req, res, next) => {
   const { ws } = req;
   try {
+    console.log(req.headers?.authorization)
     if (req.headers?.authorization) {
       next();
     } else {

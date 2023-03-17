@@ -13,6 +13,7 @@ const productsSchema = new Schema(
   },
   {
     collection: "products",
+    versionKey: false
   }
 );
 
