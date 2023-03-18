@@ -1,15 +1,15 @@
+import { useEffect } from "react";
 import { TextField } from "@mui/material";
-import { useEffect, useState } from "react";
-import "./quantity.css";
 import { Box } from "@mui/system";
+import "./quantity.css";
 
-const Quantity = ({ max, quantity, setQuantity }) => {
+const Quantity = ({ max, quantity, setQuantity, ...props }) => {
   useEffect(() => {
     setQuantity(max <= 0 ? 0 : 1);
   }, [max]);
 
   return (
-    <Box component="form">
+    <Box component="form" {...props}>
       <TextField
         type="number"
         id="outlined-basic"
