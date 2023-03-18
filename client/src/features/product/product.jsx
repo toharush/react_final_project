@@ -1,16 +1,16 @@
-import { Button, Divider, Typography } from "@mui/material";
-import { useRef, useState } from "react";
+import { Divider, Typography } from "@mui/material";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Quantity from "../../components/quantity/quantity";
 import { syncCart } from "../../services/cart";
 import { getCurrentUser, isAdmin } from "../../store/selectors/selectors";
-import Comments from "../comments/comments";
 import { FilterField } from "../filter";
 import { ImageSlider } from "../productsList";
-import MetaData from "./components/metaData/metaData";
-import "./product.css";
 import { getCartItems } from "../../store/selectors/cart/cart";
+import Quantity from "../../components/quantity/quantity";
+import Comments from "../comments/comments";
+import MetaData from "./components/metaData/metaData";
 import AddToCartBtn from "../../components/addToCartBtn/addToCartBtn";
+import "./product.css";
 
 const Product = ({
   product,
@@ -59,15 +59,24 @@ const Product = ({
           <MetaData product={product} />
         </div>
         <div className="product-text-details">
-          <Typography textSize="h1"> {product.name} </Typography>
+          <div>
+            <Typography className="product-name" textSize="h1">
+              {product.name}
+            </Typography>
 
-          <Typography textSize="h6">
-            {chosenSize >= 0
-              ? product.color[chosenColor].quantity[chosenSize]
-              : 0}
-          </Typography>
-
-          <Divider variant="fullWidth" />
+            <Typography className="product-quantity" textSize="h6">
+              {`מלאי: 
+              ${
+                chosenSize >= 0
+                  ? product.color[chosenColor].quantity[chosenSize]
+                  : 0
+              }`}
+            </Typography>
+            <Typography
+              textSize="h6"
+              style={{ textAlign: "right", paddingTop: "5%" }}
+            >{`מחיר: ${product.price}$`}</Typography>
+          </div>
 
           <div
             style={{
@@ -75,10 +84,10 @@ const Product = ({
               display: "flex",
               flexWrap: "wrap",
               flexDirection: "row-reverse",
-              justifyContent: "space-between",
             }}
           >
             <Quantity
+              style={{ margin: "8px 0px 8px 8px", width: "120px" }}
               quantity={quantity}
               setQuantity={setQuantity}
               max={
@@ -88,6 +97,7 @@ const Product = ({
               }
             />
             <FilterField
+              style={{ with: "100px" }}
               array={product.color[chosenColor].size}
               handleFilterBy={(event) =>
                 setChosenSize(
@@ -97,7 +107,6 @@ const Product = ({
               inputLabel="Choose Size"
               selectValue={product.color[chosenColor].size[chosenSize]}
             />
-            <Typography textSize="h6">{`${product.price}$`}</Typography>
           </div>
           <AddToCartBtn handleClick={handleAddToCart} />
         </div>
