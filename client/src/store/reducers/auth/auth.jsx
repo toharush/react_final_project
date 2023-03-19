@@ -70,12 +70,15 @@ export const tokenSlice = createSlice({
       state.user = null;
       state.loading = false;
     });
-    builder.addCase(
-      signIn.pending || signUp.pending || isAdmin.pending || signout.pending,
-      (state, action) => {
-        state.loading = true;
-      }
-    );
+    builder.addCase(signout.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(isAdmin.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(signIn.pending, (state, action) => {
+      state.loading = true;
+    });
     builder.addCase(signout.fulfilled, (state, action) => {
       state.user = null;
       state.admin = {
@@ -84,7 +87,7 @@ export const tokenSlice = createSlice({
       };
       state.loading = false;
     });
-    builder.addCase(signIn.rejected || signUp.rejected, (state, action) => {
+    builder.addCase(signIn.rejected, (state, action) => {
       state.user = null;
       state.admin = {
         isAdmin: null,
@@ -92,7 +95,7 @@ export const tokenSlice = createSlice({
       };
       state.loading = false;
     });
-    builder.addCase(signIn.fulfilled || signUp.fulfilled, (state, action) => {
+    builder.addCase(signIn.fulfilled, (state, action) => {
       state.user = {
         ...action.payload,
         reloadUser: new Date().toLocaleTimeString(),
